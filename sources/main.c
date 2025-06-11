@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
 /*   Updated: 2025/06/11 10:58:01 by jpuerto          ###   ########.fr       */
@@ -65,3 +65,4 @@ int main()
     mlx_loop(game.mlx);
     return (0);
 }
+

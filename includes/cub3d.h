@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
 /*   Updated: 2025/06/11 10:57:32 by jpuerto          ###   ########.fr       */
@@ -45,7 +45,7 @@ typedef struct s_player
     
 }   t_player;
 
-typedef struct s_game
+typedef struct	s_game
 {
     void    *mlx;
     void    *win;
