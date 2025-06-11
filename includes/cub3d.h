@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/11 09:42:44 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/06/11 10:49:27 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
 
-typedef struct s_game
+typedef struct	s_game
 {
-    void    *mlx;
-    void    *win;
-    void    *img;
-}           t_game;
+	void	*mlx;
+	void	*win;
+	void	*img;
+}	t_game;
 
 #endif
