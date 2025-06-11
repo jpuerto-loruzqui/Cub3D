@@ -1,14 +1,14 @@
 NAME		= cub3D
 
 CC			= cc
-CFLAGS		=  -g
+CFLAGS		= -Wall -Wextra -Werror -g
 
 SRC_DIR		= sources
 OBJ_DIR		= objects
 INC_DIR		= includes
 
-SRCS		= $(wildcard $(SRC_DIR)/*.c)
-OBJS		= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+SRCS		= sources/main.c sources/player.c
+OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR	= libft
 LIBFT_A		= $(LIBFT_DIR)/libft.a
