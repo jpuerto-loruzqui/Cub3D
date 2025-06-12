@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/12 18:15:08 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:26:57 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,98 @@ float get_dist(float delta_x, float delta_y)
 
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
-    float cos_angle = cos(start_x);
-    float sin_angle = sin(start_x);
-    float ray_x = player->x;
-    float ray_y = player->y;
-
-    while(!touch(ray_x, ray_y, game)) // el rayo va avanzando hasta que encuentre una colisión con un 1
-    {
-        ray_x += cos_angle;
-        ray_y += sin_angle;
+    // Calcular los vectores de dirección del rayo
+    float rayDirX = cos(start_x);
+    float rayDirY = sin(start_x);
+    
+    // Posición actual en el mapa (en coordenadas de cuadrícula)
+    int mapX = (int)(player->x / BLOCK);
+    int mapY = (int)(player->y / BLOCK);
+    
+    // Calcular deltaDistX y deltaDistY
+    // Estos valores representan cuánto debe moverse el rayo para ir de una línea de cuadrícula a la siguiente
+    float deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+    float deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+    
+    // Variables para el algoritmo DDA
+    float sideDistX, sideDistY; // Distancia que el rayo debe recorrer desde su posición inicial hasta la primera intersección
+    int stepX, stepY;           // Dirección de paso (-1 o 1)
+    int hit = 0;                // ¿Hemos golpeado una pared?
+    int side;                   // ¿Qué lado de la pared golpeamos? (0=NS, 1=EW)
+    
+    // Calcular paso y distancia lateral inicial
+    if (rayDirX < 0) {
+        stepX = -1;  // Rayo va hacia la izquierda
+        sideDistX = (player->x / BLOCK - mapX) * deltaDistX;
+    } else {
+        stepX = 1;   // Rayo va hacia la derecha
+        sideDistX = (mapX + 1.0 - player->x / BLOCK) * deltaDistX;
     }
-    float dist = get_dist(ray_x - player->x, ray_y - player->y); // teniendo la pos del player y de la colision calculamos la distancia
-    float height = (BLOCK / dist) * (WIDTH / 2); // calculamos la altura de la linea de píxeles en base a la distancia
+    
+    if (rayDirY < 0) {
+        stepY = -1;  // Rayo va hacia arriba
+        sideDistY = (player->y / BLOCK - mapY) * deltaDistY;
+    } else {
+        stepY = 1;   // Rayo va hacia abajo
+        sideDistY = (mapY + 1.0 - player->y / BLOCK) * deltaDistY;
+    }
+    
+    // Realizar el algoritmo DDA
+    while (hit == 0) {
+        // Saltar a la siguiente celda del mapa en dirección X o Y
+        if (sideDistX < sideDistY) {
+            sideDistX += deltaDistX;
+            mapX += stepX;
+            side = 0;  // Golpeamos un lado vertical (este/oeste)
+        } else {
+            sideDistY += deltaDistY;
+            mapY += stepY;
+            side = 1;  // Golpeamos un lado horizontal (norte/sur)
+        }
+        
+        // Verificar si golpeamos una pared
+        // Asegúrate de que no estamos fuera de los límites del mapa
+        if (mapY >= 0 && mapX >= 0 && mapY < (int)ft_strlen(game->map[0]) && mapX < (int)ft_strlen(game->map[mapY])) {
+            if (game->map[mapY][mapX] == '1')
+                hit = 1;
+        }
+    }
+    
+    // Calcular distancia perpendicular a la pared (evita efecto ojo de pez)
+    float perpWallDist;
+    if (side == 0)
+        perpWallDist = (mapX - player->x / BLOCK + (1 - stepX) / 2) / rayDirX;
+    else
+        perpWallDist = (mapY - player->y / BLOCK + (1 - stepY) / 2) / rayDirY;
+    
+    perpWallDist *= BLOCK;  // Convertir a unidades de píxeles
+    
+    // Limitar la distancia para evitar alturas extremadamente grandes
+    if (perpWallDist < 50)
+        perpWallDist = 50;
+        
+    // Calcular altura de la línea
+    float height = (BLOCK / perpWallDist) * (WIDTH / 2);
+    
+    // Calcular los píxeles más altos y más bajos para llenar
     int start_y = (HEIGHT - height) / 2;
+    if (start_y < 0)
+        start_y = 0;
+        
     int end = start_y + height;
-
-    while (start_y < end) // pintamos la linea
-    {
-        put_pixel(i, start_y, 255, game);
+    if (end > HEIGHT)
+        end = HEIGHT;
+        
+    // Determinar color según el lado (opcional: para distinguir lados NS y EW)
+    int color = 255;  // Color base (blanco)
+    
+    // Sombrea ligeramente los lados norte/sur para dar profundidad visual
+    if (side == 1) 
+        color = 200;  // Un poco más oscuro para lados norte/sur
+        
+    // Dibujar la línea vertical
+    while (start_y < end) {
+        put_pixel(i, start_y, color, game);
         start_y++;
     }
 }

@@ -6,15 +6,15 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/12 17:58:32 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:23:42 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 720
+# define HEIGHT 380
 # define BLOCK 64
 
 # define W 119
@@ -24,8 +24,8 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-# define PLAYER_SPEED 2
-# define ANGLE_SPEED 0.03
+# define PLAYER_SPEED 0.8
+# define ANGLE_SPEED 0.01
 #define PI 3.14159265359
 
 #include <stdio.h>

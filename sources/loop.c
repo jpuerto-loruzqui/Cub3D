@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:38:52 by tu_usuario_       #+#    #+#             */
-/*   Updated: 2025/06/12 18:01:06 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:35:54 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int draw_loop(t_game *game)
     move_player(game);
     clear_image(game);
 
-    float fraction = PI / 3 / WIDTH; // explicar
-    float start_x = player->angle - PI / 6; //explicar
+    float fraction = PI / 4 / WIDTH; // explicar
+    float start_x = player->angle - PI / 8; //explicar
     int i = 0; // explicar
     while (i < WIDTH)
     {

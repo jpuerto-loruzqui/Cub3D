@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/12 17:58:40 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:17:21 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void init_player(t_player *player)
 {
     player->x = WIDTH / 2;
     player->y = HEIGHT / 2;
-    player->angle = PI / 2;
+    player->angle = PI / 3;
     
     player->key_up = false;
     player->key_down = false;
