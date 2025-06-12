@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:18 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/12 18:06:05 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:53:30 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void move_player(t_game *game)
         new_y += cos_angle * PLAYER_SPEED;
     }
 
-    if (!check_wall(new_x, new_y, game))
-    {
+    // Esto sirve para que te deslices en el eje que te permita al chocar con una pared y no quede totalmente pillado
+    if (!check_wall(new_x, player->y, game))
         player->x = new_x;
+    if (!check_wall(player->x, new_y, game))
         player->y = new_y;
-    }
 }

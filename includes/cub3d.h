@@ -6,16 +6,16 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/12 21:23:42 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:46:15 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 720
-# define HEIGHT 380
-# define BLOCK 64
+# define WIDTH 600
+# define HEIGHT 400
+# define BLOCK 32
 
 # define W 119
 # define A 97
