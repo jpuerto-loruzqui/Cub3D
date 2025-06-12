@@ -7,7 +7,8 @@ SRC_DIR		= sources
 OBJ_DIR		= objects
 INC_DIR		= includes
 
-SRCS		= sources/main.c sources/player.c
+SRCS		= sources/main.c sources/player.c sources/parse_cub_file.c sources/validate_map.c\
+				gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR	= libft

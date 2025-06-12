@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:53 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/12 17:24:06 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/12 18:40:39 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "cub3d.h"
 # include <fcntl.h>
 # include <stdlib.h>
-# include "gnl/get_next_line.h"
+# include "../gnl/get_next_line.h"
 
 typedef struct s_config
 {

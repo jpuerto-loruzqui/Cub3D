@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/12 17:39:02 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/12 18:45:00 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	**read_file_lines(const char *filename)
 	return (ft_split(all, '\n'));
 }
 
-static void	free_config(t_config *conf)
+/*static void	free_config(t_config *conf)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ static void	free_config(t_config *conf)
 		i++;
 	}
 	free(conf->map);
-}
+}*/
 
 static bool	parse_color(char *line, int color[3])
 {
