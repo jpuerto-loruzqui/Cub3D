@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/12 15:03:23 by nacho            ###   ########.fr       */
+/*   Updated: 2025/06/12 17:58:32 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-# define PLAYER_SPEED 3
-# define ANGLE_SPEED 0.04
+# define PLAYER_SPEED 2
+# define ANGLE_SPEED 0.03
 #define PI 3.14159265359
 
 #include <stdio.h>
@@ -33,6 +33,7 @@
 #include "../libft/libft.h"
 #include <stdbool.h>
 #include <math.h>
+#include <time.h>
 
 typedef struct s_player
 {
@@ -56,9 +57,6 @@ typedef struct	s_game
     void    *win;
     void    *img;
 
-    int mapw;
-    int maph;
-
     char **map;
     char *data;
     int     bpp;
@@ -67,9 +65,23 @@ typedef struct	s_game
     t_player player;
 }           t_game;
 
-void init_player(t_player *player);
+// INIT
+void init_game(t_game *game);
+char **get_map(void);
+
+// LOOP
+int draw_loop(t_game *game);
+
+// EVENTS
 int key_press(int keycode, t_player *player);
 int key_release(int keycode, t_player *player);
 void move_player(t_game *game);
+
+// DRAW
+void clear_image(t_game *game);
+void put_pixel(int x, int y, int color, t_game *game );
+
+//RT
+void draw_line(t_player *player, t_game *game, float start_x, int i);
 
 #endif
