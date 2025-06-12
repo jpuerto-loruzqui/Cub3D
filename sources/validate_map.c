@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/12 19:03:39 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:35:29 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ static bool	valid_char(char c)
 
 bool	validate_map(t_config *conf)
 {
-	int	player_count;
-	int	y;
-	int	x;
-	int	len;
+	int		player_count;
+	int		y;
+	int		x;
+	int		len;
+	char	c;
+	int		first;
+	int		last;
 
 	player_count = 0;
 	y = 0;
@@ -37,34 +40,27 @@ bool	validate_map(t_config *conf)
 		x = 0;
 		while (x < len)
 		{
-			char c = conf->map[y][x];
+			c = conf->map[y][x];
 			if (!valid_char(c))
 				return (printf("Error\nInvalid character in map: %c\n", c), false);
-
 			if (is_player(c))
 				player_count++;
-
 			if ((y == 0 || y == conf->map_height - 1) && c != '1' && c != ' ')
 				return (printf("Error\nMap border not enclosed at y=%d\n", y), false);
-
 			// Solo para líneas intermedias
 			if (y > 0 && y < conf->map_height - 1)
 			{
-				int first = 0;
-				int last = ft_strlen(conf->map[y]) - 1;
-
+				first = 0;
+				last = ft_strlen(conf->map[y]) - 1;
 				// Avanzar desde la izquierda hasta encontrar algo distinto de ' '
 				while (conf->map[y][first] == ' ' && first < last)
 					first++;
 				// Avanzar desde la derecha hasta encontrar algo distinto de ' '
 				while (conf->map[y][last] == ' ' && last > first)
 					last--;
-
 				if (conf->map[y][first] != '1' || conf->map[y][last] != '1')
 					return (printf("Error\nMap side not enclosed at line %d\n", y), false);
 			}
-
-
 			if (c == ' ')
 			{
 				// Validación de adyacencia

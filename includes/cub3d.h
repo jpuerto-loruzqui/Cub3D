@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/12 17:38:43 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:14:18 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include <stdbool.h>
 # include <math.h>
 
-typedef struct	s_player
+typedef struct s_player
 {
 	float	x;
 	float	y;
@@ -47,19 +47,19 @@ typedef struct	s_player
 	bool	right_rotate;
 }	t_player;
 
-typedef struct	s_game
+typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		mapw;
-	int		maph;
-	char	**map;
-	char	*data;
-	int		bpp;
-	int		size_line;
-	int		endian;
-	t_player player;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	int			mapw;
+	int			maph;
+	char		**map;
+	char		*data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	t_player	player;
 }	t_game;
 
 void	init_player(t_player *player);
