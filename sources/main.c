@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/12 14:49:20 by nacho            ###   ########.fr       */
+/*   Updated: 2025/06/12 17:45:56 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void put_pixel(int x, int y, int color, t_game *game )
 {
     if (x>= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return ;
-    
+
     int index = y * game->size_line + x * game->bpp / 8;
     game->data[index] = color & 0xFF;
     game->data[index + 1] = (color >> 8) & 0xFF;
@@ -107,7 +107,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 
 int draw_loop(t_game *game)
 {
-    
+
     t_player *player = &game->player;
     move_player(game);
     // clear_image(game);
@@ -124,7 +124,7 @@ int draw_loop(t_game *game)
         start_x += fraction;
         i++;
     }
-    
+
     return 0;
 }
 
@@ -148,13 +148,13 @@ char **get_map(void)
 
 void init_game(t_game *game)
 {
-    init_player(&game->player); 
+    init_player(&game->player);
     game->mlx = mlx_init();
     game->map = get_map();
 
     game->mapw = 15;
     game->maph = 10;
-    
+
     game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game" );
     game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
     game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
@@ -173,4 +173,3 @@ int main()
     mlx_loop(game.mlx);
     return (0);
 }
-
