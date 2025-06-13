@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/12 19:39:24 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/13 10:35:35 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_parser.h"
+#include "../includes/cub3d.h"
 
 static char	**read_file_lines(const char *filename)
 {
@@ -26,7 +26,10 @@ static char	**read_file_lines(const char *filename)
 	while ((line = get_next_line(fd)))
 	{
 		tmp = all;
-		all = ft_strjoin(tmp ? tmp : "", line);
+		if (tmp)
+			all = ft_strjoin(tmp, line);
+		else
+			all = ft_strjoin("", line);
 		if (tmp)
 			free(tmp);
 		free(line);
@@ -89,7 +92,7 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 	while (lines[i] && ft_strlen(lines[i]) == 0) // Saltar líneas vacías iniciales
 		i++;
 	while (lines[i] && (ft_strncmp(lines[i], "NO ", 3) == 0 || ft_strncmp(lines[i], "SO ", 3) == 0
-		|| ft_strncmp(lines[i], "WE ", 3) == 0 || ft_strncmp(lines[i], "EA ", 3) == 0
+			|| ft_strncmp(lines[i], "WE ", 3) == 0 || ft_strncmp(lines[i], "EA ", 3) == 0
 			|| ft_strncmp(lines[i], "F ", 2) == 0 || ft_strncmp(lines[i], "C ", 2) == 0)) // Parsear líneas de configuración
 	{
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)

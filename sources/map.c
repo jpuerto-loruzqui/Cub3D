@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_parser.h                                     :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 17:05:53 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/12 18:40:39 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/06/12 17:46:35 by jpuerto-          #+#    #+#             */
+/*   Updated: 2025/06/13 10:33:30 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_PARSER_H
-# define CUB3D_PARSER_H
+#include "../includes/cub3d.h"
 
-# include "cub3d.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include "../gnl/get_next_line.h"
-
-typedef struct s_config
+char	**get_map(void)
 {
-	char	*no_texture;
-	char	*so_texture;
-	char	*we_texture;
-	char	*ea_texture;
-	int		floor_color[3];
-	int		ceiling_color[3];
 	char	**map;
-	int		map_height;
-}	t_config;
 
-bool	parse_cub_file(const char *filename, t_config *conf);
-bool	validate_map(t_config *conf);
-
-#endif
+	map = malloc(sizeof(char *) * 11);
+	map[0] = "111111111111111";
+	map[1] = "101000000000001";
+	map[2] = "100100010000001";
+	map[3] = "100011010000001";
+	map[4] = "100001010000001";
+	map[5] = "100001011100001";
+	map[6] = "100001000000001";
+	map[7] = "100001111100001";
+	map[8] = "100000000000001";
+	map[9] = "111111111111111";
+	map[10] = NULL;
+	return (map);
+}

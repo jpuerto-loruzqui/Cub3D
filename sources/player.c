@@ -5,70 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/11 10:33:31 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/12 19:38:10 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/06/12 17:40:18 by jpuerto-          #+#    #+#             */
+/*   Updated: 2025/06/13 10:37:12 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	init_player(t_player *player)
-{
-	player->x = WIDTH / 2;
-	player->y = HEIGHT / 2;
-	player->angle = PI / 2;
-
-	player->key_up = false;
-	player->key_down = false;
-	player->key_right = false;
-	player->key_left = false;
-
-	player->left_rotate = false;
-	player->right_rotate = false;
-}
-
-int	key_press(int keycode, t_player *player)
-{
-	if (keycode == W)
-		player->key_up = true;
-	if (keycode == A)
-		player->key_left = true;
-	if (keycode == S)
-		player->key_down = true;
-	if (keycode == D)
-		player->key_right = true;
-	if (keycode == LEFT)
-		player->left_rotate = true;
-	if (keycode == RIGHT)
-		player->right_rotate = true;
-	return (0);
-}
-
-int	key_release(int keycode, t_player *player)
-{
-	if (keycode == W)
-		player->key_up = false;
-	if (keycode == A)
-		player->key_left = false;
-	if (keycode == S)
-		player->key_down = false;
-	if (keycode == D)
-		player->key_right = false;
-	if (keycode == LEFT)
-		player->left_rotate = false;
-	if (keycode == RIGHT)
-		player->right_rotate = false;
-	return (0);
-}
 
 int	check_wall(float x, float y, t_game *game)
 {
 	int	mapgridx;
 	int	mapgridy;
 
-	printf("<%f>", x);
-	mapgridx = (int)x / BLOCK;
-	mapgridy = (int)y / BLOCK;
+	mapgridx = x / BLOCK; // el valor de x es en píxeles (ej: 13289)
+	mapgridy = y / BLOCK; // al dividirlo entre el tamaño del bloque y pasarlo a int tenemos el indice que ocupe en el mapa
 	if (game->map[mapgridy][mapgridx] == '1')
 		return (1);
 	return (0);
@@ -77,15 +27,14 @@ int	check_wall(float x, float y, t_game *game)
 void	move_player(t_game *game)
 {
 	t_player	*player;
-	float	cos_angle;
-	float	sin_angle;
-	float	new_x;
-	float	new_y;
+	float		cos_angle;
+	float		sin_angle;
+	float		new_x;
+	float		new_y;
 
 	player = &game->player;
-	cos_angle = cos(player->angle);
+	cos_angle = cos(player->angle); //explicar
 	sin_angle = sin(player->angle);
-	// Manejo de la rotación
 	if (player->left_rotate)
 		player->angle -= ANGLE_SPEED;
 	if (player->right_rotate)
@@ -94,11 +43,8 @@ void	move_player(t_game *game)
 		player->angle = 0;
 	if (player->angle < 0)
 		player->angle = 2 * PI;
-
-	// Posición futura (con desplazamiento suave)
 	new_x = player->x;
 	new_y = player->y;
-	// Movimiento hacia arriba o abajo
 	if (player->key_up)
 	{
 		new_x += cos_angle * PLAYER_SPEED;
@@ -109,7 +55,6 @@ void	move_player(t_game *game)
 		new_x -= cos_angle * PLAYER_SPEED;
 		new_y -= sin_angle * PLAYER_SPEED;
 	}
-	// Movimiento lateral (izquierda/derecha)
 	if (player->key_left)
 	{
 		new_x += sin_angle * PLAYER_SPEED;
@@ -120,10 +65,43 @@ void	move_player(t_game *game)
 		new_x -= sin_angle * PLAYER_SPEED;
 		new_y += cos_angle * PLAYER_SPEED;
 	}
-	if (!check_wall(new_x, new_y, game))
-	{
+	// Esto sirve para que te deslices en el eje que te permita al chocar con una pared y no quede totalmente pillado
+	if (!check_wall(new_x, player->y, game))
 		player->x = new_x;
+	if (!check_wall(player->x, new_y, game))
 		player->y = new_y;
+}
+
+void	set_player_from_map(t_game *game, t_config *conf)
+{
+	int		y;
+	int		x;
+	char	dir;
+
+	y = 0;
+	while (conf->map[y])
+	{
+		x = 0;
+		while (conf->map[y][x])
+		{
+			dir = conf->map[y][x];
+			if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W')
+			{
+				game->player.x = x * BLOCK + BLOCK / 2;
+				game->player.y = y * BLOCK + BLOCK / 2;
+				if (dir == 'N')
+					game->player.angle = 3 * PI / 2;
+				else if (dir == 'S')
+					game->player.angle = PI / 2;
+				else if (dir == 'E')
+					game->player.angle = 0;
+				else if (dir == 'W')
+					game->player.angle = PI;
+				conf->map[y][x] = '0';
+				return ;
+			}
+			x++;
+		}
+		y++;
 	}
-	// printf("%c", game->map[map_y][map_x]);
 }
