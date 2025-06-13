@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:18 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 11:47:47 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:20:10 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,19 @@ void	move_player(t_game *game)
 		new_x -= sin_angle * PLAYER_SPEED;
 		new_y += cos_angle * PLAYER_SPEED;
 	}
-	// Esto sirve para que te deslices en el eje que te permita al chocar con una pared y no quede totalmente pillado
-	if (!check_wall(new_x, player->y, game))
-		player->x = new_x;
-	if (!check_wall(player->x, new_y, game))
-		player->y = new_y;
+	
+ 	int collision_x = check_wall(new_x, player->y, game);
+    int collision_y = check_wall(player->x, new_y, game);
+    
+    if (collision_x && !collision_y)
+        player->y += (new_y - player->y) * WALL_FRICTION;
+    else if (!collision_x && collision_y)
+        player->x += (new_x - player->x) * WALL_FRICTION;
+    else if (!collision_x && !collision_y)
+    {
+        player->x = new_x;
+        player->y = new_y;
+    }
 }
 
 void	set_player_from_map(t_game *game, t_config *conf)

@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 12:37:51 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:21:35 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-# define PLAYER_SPEED 0.8
+# define PLAYER_SPEED 0.3
 # define ANGLE_SPEED 0.01
 # define PI 3.14159265359
+# define WALL_FRICTION 0.2
 
 # include <stdio.h>
 # include "../minilibx-linux/mlx.h"
@@ -47,11 +48,13 @@ typedef struct s_line
 	int mapY;
 	float deltaDistX;
     float deltaDistY;
+	
 	int stepY;
     float sideDistY;
 	int stepX;
     float sideDistX;
 	
+	int side;	
 }	t_line;
 
 typedef struct s_player

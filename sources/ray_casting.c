@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 12:43:40 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:46:09 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,41 @@ bool	touch(float px, float py, t_game *game)
 	return (false);
 }
 
-float	get_dist(float delta_x, float delta_y)
+float	get_dist(t_player *player, t_line l, int start_x)
 {
-	return (sqrt(delta_x * delta_x + delta_y * delta_y));
+	float exactWallX;
+	float exactWallY;
+	float perpWallDist;
+	float dist;
+	
+    if (l.side == 0)
+	{
+        perpWallDist = (l.mapX - player->x / BLOCK + (1 - l.stepX) / 2) / l.rayDirX;
+        exactWallY = player->y + perpWallDist * l.rayDirY * BLOCK;
+        exactWallX = l.mapX * BLOCK + (l.stepX < 0 ? BLOCK : 0);
+    }
+	else
+	{
+        perpWallDist = (l.mapY - player->y / BLOCK + (1 - l.stepY) / 2) / l.rayDirY;
+        exactWallX = player->x + perpWallDist * l.rayDirX * BLOCK;
+        exactWallY = l.mapY * BLOCK + (l.stepY < 0 ? BLOCK : 0);
+    }
+	
+	dist = sqrt(pow((exactWallX - player->x), 2) + pow((exactWallY - player->y), 2));
+	dist = dist * cos(start_x - player->angle);
+    return(dist);
 }
 
-void calculate_step(t_line *l, t_player *player)
+void calculate_steps(t_line *l, t_player *player)
 {
-	if (l->rayDirX < 0) {
+    if (l->rayDirX < 0) {
         l->stepX = -1;
         l->sideDistX = (player->x / BLOCK - l->mapX) * l->deltaDistX;
     } else {
         l->stepX = 1;
         l->sideDistX = (l->mapX + 1.0 - player->x / BLOCK) * l->deltaDistX;
     }
+    
     if (l->rayDirY < 0) {
         l->stepY = -1;
         l->sideDistY = (player->y / BLOCK - l->mapY) * l->deltaDistY;
@@ -45,7 +66,6 @@ void calculate_step(t_line *l, t_player *player)
         l->stepY = 1;
         l->sideDistY = (l->mapY + 1.0 - player->y / BLOCK) * l->deltaDistY;
     }
-	return ;
 }
 
 float get_delta_dist(float rayDir)
@@ -68,86 +88,64 @@ t_line init_line(t_player *player, float start_x)
 	l.mapY = (int)(player->y / BLOCK);
 	l.deltaDistX = get_delta_dist(l.rayDirX); // Distancia que el rayo debe recorrer para moverse de una línea de cuadrícula a la siguiente.
     l.deltaDistY = get_delta_dist(l.rayDirY);
-	calculate_step(&l, player);
 	return l;
+}
+
+int get_wall_color(int side, int stepX, int stepY)
+{
+    if (side == 0)
+        if (stepX < 0)
+            return 0xFF0000;
+        else
+            return 0x00FF00;
+	else
+        if (stepY < 0)
+            return 0x0000FF;
+        else
+            return 0xFFFF00;
+}
+
+void dda(t_game *game, t_line *l)
+{
+	int hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+        if (l->sideDistX < l->sideDistY)
+		{
+            l->sideDistX += l->deltaDistX;
+            l->mapX += l->stepX;
+            l->side = 0;
+        }
+		else
+		{
+            l->sideDistY += l->deltaDistY;
+            l->mapY += l->stepY;
+            l->side = 1;
+        }
+        if (game->map[l->mapY][l->mapX] == '1')
+            hit = 1;
+    }
 }
 
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
-
 	t_line l;
+	float dist;
 	l = init_line(player, start_x);
-
-    // Variables DDA
-    float sideDistX;
-	float sideDistY;
-    int hit = 0;
-    int side;
-
-	
+	calculate_steps(&l, player);    
+    dda(game, &l);
+    dist = get_dist(player, l, start_x);
+    
     
 
 	
-    
-    // Algoritmo DDA
-    float exactWallX, exactWallY; // Para calcular el punto exacto de impacto
-    
-    while (hit == 0) {
-        // Saltar a la siguiente celda del mapa
-        if (sideDistX < sideDistY)
-		{
-            sideDistX += l.deltaDistX;
-            l.mapX += l.stepX;
-            side = 0; // Golpeamos un lado vertical (este/oeste)
-        } else {
-            sideDistY += l.deltaDistY;
-            l.mapY += l.stepY;
-            side = 1; // Golpeamos un lado horizontal (norte/sur)
-        }
-                
-        if (game->map[l.mapY][l.mapX] == '1')
-            hit = 1;
-    }
-    
-    // Calcular el punto exacto donde el rayo golpea la pared
-    float perpWallDist;
-    
-    if (side == 0) { // Golpeó un lado vertical
-        perpWallDist = (l.mapX - player->x / BLOCK + (1 - l.stepX) / 2) / l.rayDirX;
-        exactWallY = player->y + perpWallDist * l.rayDirY * BLOCK;
-        exactWallX = l.mapX * BLOCK + (l.stepX < 0 ? BLOCK : 0);
-    } else { // Golpeó un lado horizontal
-        perpWallDist = (l.mapY - player->y / BLOCK + (1 - l.stepY) / 2) / l.rayDirY;
-        exactWallX = player->x + perpWallDist * l.rayDirX * BLOCK;
-        exactWallY = l.mapY * BLOCK + (l.stepY < 0 ? BLOCK : 0);
-    }
-    
-    // Convertir a distancia real en píxeles
-    perpWallDist *= BLOCK;
-    
-    // Distancia euclidiana (como tu algoritmo original)
-    float dist = get_dist(exactWallX - player->x, exactWallY - player->y);
-    
-    // Corrección del efecto "fishbowl" (como en tu algoritmo)
-    dist = dist * cos(start_x - player->angle);
-    
-    // Factor de escala para ajustar el grosor de los muros (como en tu algoritmo)
-    // Puedes ajustar este valor (0.5 lo hace más delgado, 2.0 más ancho)
     float height = (BLOCK * HEIGHT * SCALE_BLOCK) / dist;
-    
     int start_y = (HEIGHT - height) / 2;
     int end = start_y + height;
-    
-    // Limitar para evitar desbordamiento
     if (start_y < 0) start_y = 0;
     if (end > HEIGHT) end = HEIGHT;
-    
-    // Color diferente según el lado golpeado (opcional)
-        
-    while (start_y < end)
-    {
-        
+    while (start_y++ < end)
         put_pixel(i, start_y, 255, game);
-        start_y++;
-    }
 }
