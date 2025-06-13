@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "mlx.h": "c",
-        "EVENTS.C": "cpp",
-        "stdio.h": "c"
-    }
-}
