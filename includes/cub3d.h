@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 10:49:56 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/13 12:37:51 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define WIDTH 600
 # define HEIGHT 400
 # define BLOCK 32
+# define SCALE_BLOCK 1.5
 
 # define W 119
 # define A 97
@@ -37,6 +38,21 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "../gnl/get_next_line.h"
+
+typedef struct s_line
+{
+	float rayDirX;
+    float rayDirY;
+	int mapX;
+	int mapY;
+	float deltaDistX;
+    float deltaDistY;
+	int stepY;
+    float sideDistY;
+	int stepX;
+    float sideDistX;
+	
+}	t_line;
 
 typedef struct s_player
 {
