@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 16:44:32 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:36:22 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,25 @@ bool	touch(float px, float py, t_game *game)
 
 float	get_dist(t_player *player, t_line l, float start_x)
 {
+	float exactWallX;
+	float exactWallY;
+	float perpWallDist;
 	float dist;
 	
     if (l.side == 0)
 	{
-        l.perpWallDist = (l.mapX - player->x / BLOCK + (1 - l.stepX) / 2) / l.rayDirX;
-        l.exactWallY = player->y + l.perpWallDist * l.rayDirY * BLOCK;
-        l.exactWallX = l.mapX * BLOCK + (l.stepX < 0 ? BLOCK : 0);
+        perpWallDist = (l.mapX - player->x / BLOCK + (1 - l.stepX) / 2) / l.rayDirX;
+        exactWallY = player->y + perpWallDist * l.rayDirY * BLOCK;
+        exactWallX = l.mapX * BLOCK + (l.stepX < 0 ? BLOCK : 0);
     }
 	else
 	{
-        l.perpWallDist = (l.mapY - player->y / BLOCK + (1 - l.stepY) / 2) / l.rayDirY;
-        l.exactWallX = player->x + l.perpWallDist * l.rayDirX * BLOCK;
-        l.exactWallY = l.mapY * BLOCK + (l.stepY < 0 ? BLOCK : 0);
+        perpWallDist = (l.mapY - player->y / BLOCK + (1 - l.stepY) / 2) / l.rayDirY;
+        exactWallX = player->x + perpWallDist * l.rayDirX * BLOCK;
+        exactWallY = l.mapY * BLOCK + (l.stepY < 0 ? BLOCK : 0);
     }
 	
-	dist = sqrt(pow((l.exactWallX - player->x), 2) + pow((l.exactWallY - player->y), 2));
+	dist = sqrt(pow((exactWallX - player->x), 2) + pow((exactWallY - player->y), 2));
 	dist = dist * cos(start_x - player->angle);
     return(dist);
 }
@@ -88,7 +91,7 @@ t_line init_line(t_player *player, float start_x)
 	return l;
 }
 
-int get_wall_tex(int side, int stepX, int stepY)
+int get_wall_c(int side, int stepX, int stepY)
 {
     if (side == 0)
         if (stepX < 0)
@@ -126,6 +129,17 @@ void dda(t_game *game, t_line *l)
     }
 }
 
+void put_pixel_t(int x, int y, unsigned int color, t_game *game)
+{
+    char *dst;
+    
+    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+        return;
+        
+    dst = game->data + (y * game->size_line + x * (game->bpp / 8));
+    *(unsigned int*)dst = color;
+}
+
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	t_line l;
@@ -145,6 +159,35 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
     if (end > HEIGHT)
 		end = HEIGHT;
 
-		
+	float wallX;
+if (l.side == 0)
+    wallX = fmod(l.exactWallY, BLOCK) / BLOCK;
+else
+    wallX = fmod(l.exactWallX, BLOCK) / BLOCK;
 
+// Calcular coordenada X de la textura
+int texX = (int)(wallX * game->textures[0].width);
+if ((l.side == 0 && l.rayDirX > 0) || (l.side == 1 && l.rayDirY < 0)) 
+    texX = game->textures[0].width - texX - 1;
+
+// Calcular paso y posición de textura
+float step = 1.0 * game->textures[0].height / height;
+float texPos = (start_y - HEIGHT / 2 + height / 2) * step;
+
+// Dibujar la línea con textura
+for (int y = start_y; y < end; y++)
+{
+    // Calcular coordenada Y de la textura
+    int texY = (int)texPos & (game->textures[0].height - 1);
+    texPos += step;
+
+    char *pixel_addr = game->textures[0].addr + 
+                      (texY * game->textures[0].size_line + 
+                       texX * (game->textures[0].bpp / 8));
+    unsigned int color = *(unsigned int*)pixel_addr;
+    
+        
+    // Dibujar pixel
+    put_pixel_t(i, y, color, game);
+}
 }

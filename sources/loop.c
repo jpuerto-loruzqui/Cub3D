@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:38:52 by tu_usuario_       #+#    #+#             */
-/*   Updated: 2025/06/13 10:47:46 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:33:39 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	draw_loop(t_game *game)
 	player = &game->player;
 	move_player(game);
 	clear_image(game);
-	fraction = PI / 3 / WIDTH; // FOV de 45 grados en lugar de 60
-	start_x = player->angle - PI / 6;
+	fraction = PI / 4 / WIDTH; // FOV de 45 grados en lugar de 60
+	start_x = player->angle - PI / 8;
 	i = 0; // explicar
 	while (i < WIDTH)
 	{
