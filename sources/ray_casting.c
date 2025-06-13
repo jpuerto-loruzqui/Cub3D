@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 13:46:09 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:44:32 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,24 @@ bool	touch(float px, float py, t_game *game)
 	return (false);
 }
 
-float	get_dist(t_player *player, t_line l, int start_x)
+float	get_dist(t_player *player, t_line l, float start_x)
 {
-	float exactWallX;
-	float exactWallY;
-	float perpWallDist;
 	float dist;
 	
     if (l.side == 0)
 	{
-        perpWallDist = (l.mapX - player->x / BLOCK + (1 - l.stepX) / 2) / l.rayDirX;
-        exactWallY = player->y + perpWallDist * l.rayDirY * BLOCK;
-        exactWallX = l.mapX * BLOCK + (l.stepX < 0 ? BLOCK : 0);
+        l.perpWallDist = (l.mapX - player->x / BLOCK + (1 - l.stepX) / 2) / l.rayDirX;
+        l.exactWallY = player->y + l.perpWallDist * l.rayDirY * BLOCK;
+        l.exactWallX = l.mapX * BLOCK + (l.stepX < 0 ? BLOCK : 0);
     }
 	else
 	{
-        perpWallDist = (l.mapY - player->y / BLOCK + (1 - l.stepY) / 2) / l.rayDirY;
-        exactWallX = player->x + perpWallDist * l.rayDirX * BLOCK;
-        exactWallY = l.mapY * BLOCK + (l.stepY < 0 ? BLOCK : 0);
+        l.perpWallDist = (l.mapY - player->y / BLOCK + (1 - l.stepY) / 2) / l.rayDirY;
+        l.exactWallX = player->x + l.perpWallDist * l.rayDirX * BLOCK;
+        l.exactWallY = l.mapY * BLOCK + (l.stepY < 0 ? BLOCK : 0);
     }
 	
-	dist = sqrt(pow((exactWallX - player->x), 2) + pow((exactWallY - player->y), 2));
+	dist = sqrt(pow((l.exactWallX - player->x), 2) + pow((l.exactWallY - player->y), 2));
 	dist = dist * cos(start_x - player->angle);
     return(dist);
 }
@@ -91,7 +88,7 @@ t_line init_line(t_player *player, float start_x)
 	return l;
 }
 
-int get_wall_color(int side, int stepX, int stepY)
+int get_wall_tex(int side, int stepX, int stepY)
 {
     if (side == 0)
         if (stepX < 0)
@@ -132,20 +129,22 @@ void dda(t_game *game, t_line *l)
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	t_line l;
-	float dist;
+	float height;
+	int start_y;
+	int end;
+	
 	l = init_line(player, start_x);
 	calculate_steps(&l, player);    
     dda(game, &l);
-    dist = get_dist(player, l, start_x);
-    
-    
+    l.dist = get_dist(player, l, start_x);
+    height = (BLOCK * HEIGHT * SCALE_BLOCK) / l.dist;
+    start_y = (HEIGHT - height) / 2;
+    end = start_y + height;
+    if (start_y < 0)
+		start_y = 0;
+    if (end > HEIGHT)
+		end = HEIGHT;
 
-	
-    float height = (BLOCK * HEIGHT * SCALE_BLOCK) / dist;
-    int start_y = (HEIGHT - height) / 2;
-    int end = start_y + height;
-    if (start_y < 0) start_y = 0;
-    if (end > HEIGHT) end = HEIGHT;
-    while (start_y++ < end)
-        put_pixel(i, start_y, 255, game);
+		
+
 }

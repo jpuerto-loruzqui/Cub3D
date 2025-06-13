@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 13:21:35 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:37:44 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define WIDTH 600
 # define HEIGHT 400
-# define BLOCK 32
+# define BLOCK 64
 # define SCALE_BLOCK 1.5
 
 # define W 119
@@ -42,6 +42,12 @@
 
 typedef struct s_line
 {
+	float dist;
+
+	float exactWallX;
+	float exactWallY;
+	float perpWallDist;
+
 	float rayDirX;
     float rayDirY;
 	int mapX;
@@ -70,6 +76,18 @@ typedef struct s_player
 	bool	right_rotate;
 }	t_player;
 
+typedef struct s_tex
+{
+	int			width;
+	int			height;
+	void		*img;
+	char		**map;
+	char		*addr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+} t_tex;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -81,6 +99,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
+	t_tex 		*textures[1];
 }	t_game;
 
 typedef struct s_config
