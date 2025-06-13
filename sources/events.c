@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 10:47:16 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:21:43 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	key_press(int keycode, t_player *player)
 		player->left_rotate = true;
 	if (keycode == RIGHT)
 		player->right_rotate = true;
+	if (keycode == ENTER)
+		player->key_enter = true;
 	return (0);
 }
 
@@ -43,5 +45,7 @@ int	key_release(int keycode, t_player *player)
 		player->left_rotate = false;
 	if (keycode == RIGHT)
 		player->right_rotate = false;
+	if (keycode == ENTER)
+		player->key_enter = false;
 	return (0);
 }

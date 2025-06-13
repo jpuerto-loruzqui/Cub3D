@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 19:15:03 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:20:26 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
+# define ENTER 65293
 
 # define PLAYER_SPEED 0.3
 # define ANGLE_SPEED 0.01
@@ -74,6 +75,7 @@ typedef struct s_player
 	bool	key_right;
 	bool	left_rotate;
 	bool	right_rotate;
+	bool 	key_enter;
 }	t_player;
 
 typedef struct s_tex
