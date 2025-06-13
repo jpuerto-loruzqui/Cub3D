@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 20:20:26 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:57:15 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "../gnl/get_next_line.h"
+
+typedef struct s_welcome
+{
+	void *img1;
+	void *img2;
+	bool start;
+}	t_welcome;
 
 typedef struct s_line
 {
@@ -104,6 +111,7 @@ typedef struct s_config
 
 typedef struct s_game
 {
+	t_welcome  *welcome;
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -124,6 +132,7 @@ char	**get_map(void);
 void	set_player_from_map(t_game *game, t_config *conf);
 
 // ------------------------ LOOP
+int welcome_loop(t_game *game);
 int		draw_loop(t_game *game);
 
 // ------------------------ EVENTS

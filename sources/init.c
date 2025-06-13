@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 19:00:47 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:20:03 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_player(t_player *player)
 	player->key_left = false;
 	player->left_rotate = false;
 	player->right_rotate = false;
+	player->key_enter = false;
 }
 
 t_tex load_tex(t_game *game, char *path)
@@ -36,8 +37,11 @@ t_tex load_tex(t_game *game, char *path)
 
 void	init_game(t_game *game, t_config *conf)
 {
+	t_welcome welcome;
 	init_player(&game->player);
 	set_player_from_map(game, conf);
+	game->welcome = &welcome;
+	game->welcome->start = false;
 	game->map = conf->map;
 	game->conf = conf;
 	game->mlx = mlx_init();

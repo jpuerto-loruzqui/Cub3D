@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 20:08:56 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:13:33 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 	if (!validate_map(&conf))
 		return (fprintf(stderr, "Error: invalid map\n"), 1);
 	init_game(&game, &conf);
+	
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game.player);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game.player);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
