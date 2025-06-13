@@ -1,10 +1,9 @@
 NO ./textures/SUPPORT_4A.xpm
-NO ./textures/TECH_1E.xpm
 SO ./textures/TECH_2F.xpm
 WE ./textures/TECH_1E.xpm
 EA ./textures/TECH_4F.xpm
-F 220,100,0
-C 225,30,0
+F 42,52,57
+C 33,33,33
 
 111111111111111111111
 101000001000000000001

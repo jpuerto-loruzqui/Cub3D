@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 18:37:30 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:00:47 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ void	init_game(t_game *game, t_config *conf)
 	init_player(&game->player);
 	set_player_from_map(game, conf);
 	game->map = conf->map;
-
+	game->conf = conf;
 	game->mlx = mlx_init();
 	
-	game->textures[0][0] = load_tex(game, conf->we_texture);
-	game->textures[1][0] = load_tex(game, conf->ea_texture);
-	game->textures[2][0] = load_tex(game, conf->no_texture[0]);
-	game->textures[2][1] = load_tex(game, conf->no_texture[1]);
-	game->textures[3][0] = load_tex(game, conf->so_texture);
+	game->textures[0] = load_tex(game, conf->we_texture);
+	game->textures[1] = load_tex(game, conf->ea_texture);
+	game->textures[2] = load_tex(game, conf->no_texture);
+	game->textures[3] = load_tex(game, conf->so_texture);
 	
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);

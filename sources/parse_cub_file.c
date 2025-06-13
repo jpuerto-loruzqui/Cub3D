@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/13 18:43:55 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:16:14 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,39 @@ static char	**read_file_lines(const char *filename)
 	free(conf->map);
 }*/
 
-static bool	parse_color(char *line, int color[3])
+static bool parse_color(char *line, unsigned long *color)
 {
 	char	**split;
 	int		i;
+	int		rgb[3];
 
-	i = 0;
 	split = ft_split(line, ',');
 	if (!split || !split[0] || !split[1] || !split[2] || split[3])
+	{
+		ft_free_split(split);
 		return (false);
+	}
+	i = 0;
 	while (i < 3)
 	{
 		if (!ft_isdigit_str(split[i]))
+		{
+			ft_free_split(split);
 			return (false);
-		color[i] = ft_atoi(split[i]);
-		if (color[i] < 0 || color[i] > 255)
+		}
+		rgb[i] = ft_atoi(split[i]);
+		if (rgb[i] < 0 || rgb[i] > 255)
+		{
+			ft_free_split(split);
 			return (false);
+		}
 		i++;
 	}
+	*color = ((unsigned long)rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 	ft_free_split(split);
 	return (true);
 }
+
 
 bool	parse_cub_file(const char *filename, t_config *conf)
 {
@@ -84,10 +96,6 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 	int		j;
 	int		map_start;
 
-
-	int y = 0;
-
-	
 	lines = read_file_lines(filename);
 	if (!lines)
 		return (false);
@@ -99,15 +107,9 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 			|| ft_strncmp(lines[i], "WE ", 3) == 0 || ft_strncmp(lines[i], "EA ", 3) == 0
 			|| ft_strncmp(lines[i], "F ", 2) == 0 || ft_strncmp(lines[i], "C ", 2) == 0)) // Parsear líneas de configuración
 	{
-
-		
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
-		{
-			conf->no_texture[y++] = ft_strdup(lines[i] + 3);
-			i++;
-			continue ;
-		}
-		if (ft_strncmp(lines[i], "SO ", 3) == 0)
+			conf->no_texture = ft_strdup(lines[i] + 3);
+		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
 			conf->so_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
 			conf->we_texture = ft_strdup(lines[i] + 3);
@@ -115,12 +117,12 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 			conf->ea_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "F ", 2) == 0)
 		{
-			if (!parse_color(lines[i] + 2, conf->floor_color))
+			if (!parse_color(lines[i] + 2, &conf->floor_color))
 				return (ft_free_split(lines), false);
 		}
 		else if (ft_strncmp(lines[i], "C ", 2) == 0)
 		{
-			if (!parse_color(lines[i] + 2, conf->ceiling_color))
+			if (!parse_color(lines[i] + 2, &conf->ceiling_color))
 				return (ft_free_split(lines), false);
 		}
 		i++;

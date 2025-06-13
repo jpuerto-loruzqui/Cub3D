@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 18:44:22 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:15:03 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,18 @@ typedef struct s_tex
 	int			endian;
 } t_tex;
 
+typedef struct s_config
+{
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	unsigned long	floor_color;
+	unsigned long	ceiling_color;
+	char	**map;
+	int		map_height;
+}	t_config;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -99,20 +111,10 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
-	t_tex 		*textures[4];
+	t_tex 		textures[4];
+	t_config 	*conf;
 }	t_game;
 
-typedef struct s_config
-{
-	char	**no_texture;
-	char	*so_texture;
-	char	*we_texture;
-	char	*ea_texture;
-	int		floor_color[3];
-	int		ceiling_color[3];
-	char	**map;
-	int		map_height;
-}	t_config;
 
 // ------------------------ INIT
 void	init_game(t_game *game, t_config *conf);

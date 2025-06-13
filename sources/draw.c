@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:32 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 17:20:28 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:02:02 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	clear_image(t_game *game)
 		while (x < WIDTH)
 		{
 			if (y < half_height)
-				put_pixel(x, y, 0, game);
+				put_pixel(x, y, game->conf->ceiling_color, game);
 			else
-				put_pixel(x, y, 0x644142, game);
+				put_pixel(x, y, game->conf->floor_color, game);
 			x++;
 		}
 		y++;

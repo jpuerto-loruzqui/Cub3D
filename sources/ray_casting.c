@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 18:39:46 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:49:18 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,24 +173,24 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
     
     // 4. Convertir a índice de pixel en la textura
 	int tex_index = get_wall_c(l.side, l.stepX, l.stepY);
-    int texX = (int)(texX_normalized * game->textures[tex_index][0].width);
+    int texX = (int)(texX_normalized * game->textures[tex_index].width);
     
     // 5. Calcular paso y posición de textura para el mapeo vertical
-    double step = 1.0 * game->textures[tex_index][0].height / height;
+    double step = 1.0 * game->textures[tex_index].height / height;
     double texPos = (start_y - HEIGHT / 2 + height / 2) * step;
     
     // 6. Dibujar la línea
 
     for (int y = start_y; y < end; y++)
     {
-        int texY = (int)texPos % game->textures[tex_index][0].height;
-        if (texY < 0) texY += game->textures[tex_index][0].height;
+        int texY = (int)texPos % game->textures[tex_index].height;
+        if (texY < 0) texY += game->textures[tex_index].height;
         texPos += step;
         
         // Obtener color
-        char *pixel_addr = game->textures[tex_index][0].addr + 
-                          (texY * game->textures[tex_index][0].size_line + 
-                          texX * (game->textures[tex_index][0].bpp / 8));
+        char *pixel_addr = game->textures[tex_index].addr + 
+                          (texY * game->textures[tex_index].size_line + 
+                          texX * (game->textures[tex_index].bpp / 8));
         unsigned int color = *(unsigned int*)pixel_addr;
         
         // Opcional: oscurecer paredes horizontales
