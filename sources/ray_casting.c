@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 17:36:22 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:39:46 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ int get_wall_c(int side, int stepX, int stepY)
 {
     if (side == 0)
         if (stepX < 0)
-            return 0xFF0000;
+            return 0;
         else
-            return 0x00FF00;
+            return 1;
 	else
         if (stepY < 0)
-            return 0x0000FF;
+            return 2;
         else
-            return 0xFFFF00;
+            return 3;
 }
 
 void dda(t_game *game, t_line *l)
@@ -139,55 +139,64 @@ void put_pixel_t(int x, int y, unsigned int color, t_game *game)
     dst = game->data + (y * game->size_line + x * (game->bpp / 8));
     *(unsigned int*)dst = color;
 }
-
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
-	t_line l;
-	float height;
-	int start_y;
-	int end;
-	
-	l = init_line(player, start_x);
-	calculate_steps(&l, player);    
+    t_line l;
+    float height;
+    int start_y;
+    int end;
+    
+    l = init_line(player, start_x);
+    calculate_steps(&l, player);    
     dda(game, &l);
     l.dist = get_dist(player, l, start_x);
     height = (BLOCK * HEIGHT * SCALE_BLOCK) / l.dist;
     start_y = (HEIGHT - height) / 2;
     end = start_y + height;
     if (start_y < 0)
-		start_y = 0;
+        start_y = 0;
     if (end > HEIGHT)
-		end = HEIGHT;
-
-	float wallX;
-if (l.side == 0)
-    wallX = fmod(l.exactWallY, BLOCK) / BLOCK;
-else
-    wallX = fmod(l.exactWallX, BLOCK) / BLOCK;
-
-// Calcular coordenada X de la textura
-int texX = (int)(wallX * game->textures[0].width);
-if ((l.side == 0 && l.rayDirX > 0) || (l.side == 1 && l.rayDirY < 0)) 
-    texX = game->textures[0].width - texX - 1;
-
-// Calcular paso y posición de textura
-float step = 1.0 * game->textures[0].height / height;
-float texPos = (start_y - HEIGHT / 2 + height / 2) * step;
-
-// Dibujar la línea con textura
-for (int y = start_y; y < end; y++)
-{
-    // Calcular coordenada Y de la textura
-    int texY = (int)texPos & (game->textures[0].height - 1);
-    texPos += step;
-
-    char *pixel_addr = game->textures[0].addr + 
-                      (texY * game->textures[0].size_line + 
-                       texX * (game->textures[0].bpp / 8));
-    unsigned int color = *(unsigned int*)pixel_addr;
+        end = HEIGHT;
     
+    // 1. Calcular coordenada de textura en X basado en la posición real del jugador
+    double wallX;
+    if (l.side == 0)
+        wallX = player->y + l.dist * l.rayDirY;
+    else
+        wallX = player->x + l.dist * l.rayDirX;
+    
+    // 2. Convertir a coordenada dentro del bloque (0-BLOCK)
+    wallX = wallX - floor(wallX / BLOCK) * BLOCK;
+    
+    // 3. Normalizar a coordenada de textura (0-1)
+    double texX_normalized = wallX / BLOCK;
+    
+    // 4. Convertir a índice de pixel en la textura
+	int tex_index = get_wall_c(l.side, l.stepX, l.stepY);
+    int texX = (int)(texX_normalized * game->textures[tex_index][0].width);
+    
+    // 5. Calcular paso y posición de textura para el mapeo vertical
+    double step = 1.0 * game->textures[tex_index][0].height / height;
+    double texPos = (start_y - HEIGHT / 2 + height / 2) * step;
+    
+    // 6. Dibujar la línea
+
+    for (int y = start_y; y < end; y++)
+    {
+        int texY = (int)texPos % game->textures[tex_index][0].height;
+        if (texY < 0) texY += game->textures[tex_index][0].height;
+        texPos += step;
         
-    // Dibujar pixel
-    put_pixel_t(i, y, color, game);
-}
+        // Obtener color
+        char *pixel_addr = game->textures[tex_index][0].addr + 
+                          (texY * game->textures[tex_index][0].size_line + 
+                          texX * (game->textures[tex_index][0].bpp / 8));
+        unsigned int color = *(unsigned int*)pixel_addr;
+        
+        // Opcional: oscurecer paredes horizontales
+        if (l.side == 1) 
+            color = (color >> 1) & 8355711;
+            
+        put_pixel_t(i, y, color, game);
+    }
 }

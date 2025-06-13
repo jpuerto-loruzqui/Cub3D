@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 17:31:07 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:44:22 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define WIDTH 600
 # define HEIGHT 400
 # define BLOCK 64
-# define SCALE_BLOCK 1
+# define SCALE_BLOCK 1.5
 
 # define W 119
 # define A 97
@@ -99,12 +99,12 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
-	t_tex 		textures[1];
+	t_tex 		*textures[4];
 }	t_game;
 
 typedef struct s_config
 {
-	char	*no_texture;
+	char	**no_texture;
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/13 10:35:35 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:43:55 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 	int		j;
 	int		map_start;
 
+
+	int y = 0;
+
+	
 	lines = read_file_lines(filename);
 	if (!lines)
 		return (false);
@@ -95,9 +99,15 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 			|| ft_strncmp(lines[i], "WE ", 3) == 0 || ft_strncmp(lines[i], "EA ", 3) == 0
 			|| ft_strncmp(lines[i], "F ", 2) == 0 || ft_strncmp(lines[i], "C ", 2) == 0)) // Parsear líneas de configuración
 	{
+
+		
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
-			conf->no_texture = ft_strdup(lines[i] + 3);
-		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
+		{
+			conf->no_texture[y++] = ft_strdup(lines[i] + 3);
+			i++;
+			continue ;
+		}
+		if (ft_strncmp(lines[i], "SO ", 3) == 0)
 			conf->so_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
 			conf->we_texture = ft_strdup(lines[i] + 3);
