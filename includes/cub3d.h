@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 20:57:15 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 22:52:29 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define RIGHT 65363
 # define ENTER 65293
 
-# define PLAYER_SPEED 0.3
+# define PLAYER_SPEED 0.8
 # define ANGLE_SPEED 0.01
 # define PI 3.14159265359
 # define WALL_FRICTION 0.2
@@ -46,6 +46,7 @@ typedef struct s_welcome
 	void *img1;
 	void *img2;
 	bool start;
+	bool selected;
 }	t_welcome;
 
 typedef struct s_line
@@ -136,8 +137,8 @@ int welcome_loop(t_game *game);
 int		draw_loop(t_game *game);
 
 // ------------------------ EVENTS
-int		key_press(int keycode, t_player *player);
-int		key_release(int keycode, t_player *player);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
 void	move_player(t_game *game);
 
 // ------------------------ DRAW

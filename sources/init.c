@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 21:20:03 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/13 22:52:53 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,51 @@ t_tex load_tex(t_game *game, char *path)
 	return (texture);
 }
 
-void	init_game(t_game *game, t_config *conf)
+void load_welcome(t_welcome *welcome, t_game *game)
 {
-	t_welcome welcome;
-	init_player(&game->player);
-	set_player_from_map(game, conf);
-	game->welcome = &welcome;
-	game->welcome->start = false;
-	game->map = conf->map;
-	game->conf = conf;
-	game->mlx = mlx_init();
-	
-	game->textures[0] = load_tex(game, conf->we_texture);
-	game->textures[1] = load_tex(game, conf->ea_texture);
-	game->textures[2] = load_tex(game, conf->no_texture);
-	game->textures[3] = load_tex(game, conf->so_texture);
-	
-	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
-	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->data = mlx_get_data_addr(
-			game->img, &game->bpp, &game->size_line, &game->endian);
+    int width;
+    int height;
+    
+    welcome->img1 = mlx_xpm_file_to_image(game->mlx, "assets/welcome.xpm", &width, &height);
+    if (!welcome->img1)
+    {
+        perror("Failed to load welcome image");
+        exit(1);
+    }
+	 welcome->img2 = mlx_xpm_file_to_image(game->mlx, "assets/welcome1.xpm", &width, &height);
+    if (!welcome->img2)
+    {
+        perror("Failed to load welcome image");
+        exit(1);
+    }
+    
+
+}
+
+void init_game(t_game *game, t_config *conf)
+{
+    // Primero, asignar memoria para welcome
+    game->welcome = malloc(sizeof(t_welcome));
+    if (!game->welcome)
+    {
+        perror("Failed to allocate welcome");
+        exit(1);
+    }
+    game->mlx = mlx_init();
+    init_player(&game->player);
+    set_player_from_map(game, conf);
+    game->welcome->start = false;
+	game->welcome->selected = false;
+    game->map = conf->map;
+    game->conf = conf;
+    game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
+    load_welcome(game->welcome, game);
+    game->textures[0] = load_tex(game, conf->we_texture);
+    game->textures[1] = load_tex(game, conf->ea_texture);
+    game->textures[2] = load_tex(game, conf->no_texture);
+    game->textures[3] = load_tex(game, conf->so_texture);
+
+    game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+    game->data = mlx_get_data_addr(
+            game->img, &game->bpp, &game->size_line, &game->endian);
 }
