@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 22:52:53 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/14 08:51:30 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,24 @@ void load_welcome(t_welcome *welcome, t_game *game)
     }
 	 welcome->img2 = mlx_xpm_file_to_image(game->mlx, "assets/welcome1.xpm", &width, &height);
     if (!welcome->img2)
+    {
+        perror("Failed to load welcome image");
+        exit(1);
+    }
+	welcome->select = mlx_xpm_file_to_image(game->mlx, "assets/select.xpm", &width, &height);
+    if (!welcome->select)
+    {
+        perror("Failed to load welcome image");
+        exit(1);
+    }
+	welcome->nacho = mlx_xpm_file_to_image(game->mlx, "assets/nacho.xpm", &width, &height);
+    if (!welcome->nacho)
+    {
+        perror("Failed to load welcome image");
+        exit(1);
+    }
+	welcome->lore = mlx_xpm_file_to_image(game->mlx, "assets/lore.xpm", &width, &height);
+    if (!welcome->lore)
     {
         perror("Failed to load welcome image");
         exit(1);

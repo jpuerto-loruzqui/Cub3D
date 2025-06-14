@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/13 22:52:29 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/14 09:08:47 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ typedef struct s_welcome
 {
 	void *img1;
 	void *img2;
+	void *nacho;
+	void *lore;
+	void *select;
 	bool start;
 	bool selected;
 }	t_welcome;
@@ -74,6 +77,7 @@ typedef struct s_line
 
 typedef struct s_player
 {
+	void *img;
 	float	x;
 	float	y;
 	float	angle;
@@ -113,6 +117,7 @@ typedef struct s_config
 typedef struct s_game
 {
 	t_welcome  *welcome;
+	int		character;
 	void		*mlx;
 	void		*win;
 	void		*img;
