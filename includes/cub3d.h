@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/14 09:08:47 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/14 11:52:45 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define RIGHT 65363
 # define ENTER 65293
 
-# define PLAYER_SPEED 0.8
-# define ANGLE_SPEED 0.01
+# define PLAYER_SPEED 1
+# define ANGLE_SPEED 0.02
 # define PI 3.14159265359
 # define WALL_FRICTION 0.2
 
@@ -40,17 +40,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "../gnl/get_next_line.h"
-
-typedef struct s_welcome
-{
-	void *img1;
-	void *img2;
-	void *nacho;
-	void *lore;
-	void *select;
-	bool start;
-	bool selected;
-}	t_welcome;
 
 typedef struct s_line
 {
@@ -75,9 +64,24 @@ typedef struct s_line
 	int side;	
 }	t_line;
 
+typedef struct s_tex
+{
+	int			width;
+	int			height;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	int x;
+	int y;
+} t_tex;
+
 typedef struct s_player
 {
-	void *img;
+	t_tex *tex;
+	t_tex weapon;
+	int		hp;
 	float	x;
 	float	y;
 	float	angle;
@@ -88,19 +92,21 @@ typedef struct s_player
 	bool	left_rotate;
 	bool	right_rotate;
 	bool 	key_enter;
+
+	bool running;
 }	t_player;
 
-typedef struct s_tex
+
+
+typedef struct s_welcome
 {
-	int			width;
-	int			height;
-	void		*img;
-	char		**map;
-	char		*addr;
-	int			bpp;
-	int			size_line;
-	int			endian;
-} t_tex;
+	void *img1;
+	void *img2;
+	t_tex character[2];
+	void *select;
+	bool start;
+	bool selected;
+}	t_welcome;
 
 typedef struct s_config
 {
@@ -156,5 +162,11 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i);
 // ------------------------ PARSER
 bool	parse_cub_file(const char *filename, t_config *conf);
 bool	validate_map(t_config *conf);
+
+// ------------------------ ERROR
+void ft_exit_error(char *error);
+
+// ------------------------- FREE
+void free_tex(t_game *game, t_tex *tex);
 
 #endif

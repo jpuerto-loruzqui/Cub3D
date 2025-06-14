@@ -1,7 +1,7 @@
 NAME		= cub3D
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC_DIR		= sources
 OBJ_DIR		= objects
@@ -10,7 +10,7 @@ INC_DIR		= includes
 SRCS		= sources/main.c sources/player.c sources/draw.c sources/events.c\
 				sources/init.c sources/loop.c sources/ray_casting.c sources/map.c\
 				sources/parse_cub_file.c sources/validate_map.c\
-				gnl/get_next_line.c gnl/get_next_line_utils.c
+				gnl/get_next_line.c gnl/get_next_line_utils.c sources/error.c
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR	= libft

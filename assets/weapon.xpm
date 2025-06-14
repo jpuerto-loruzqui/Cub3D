@@ -1,0 +1,29 @@
+/* XPM */
+static char *weapon[] = {
+/* columns rows colors chars-per-pixel */
+"26 16 7 1",
+"  c #010101",
+". c #222034",
+"X c #4B692F",
+"o c #6ABE30",
+"O c #99E550",
+"+ c #CBDBFC",
+"@ c gray100",
+/* pixels */
+"     .......              ",
+"    ......... ...         ",
+"    ..@+..@.......        ",
+" ......O+.+....@........  ",
+"........OOO++@@.......... ",
+"..o....Oooooooo@@@@@@@@...",
+"...o...OoOOOOo@OOOOOOOO@..",
+" ..oOOoOoO@@Oo@OOooOOoo@..",
+" ..XooXoXo++oXOooXXooXXO..",
+"...X...oXooooXOXXXXXXXXO..",
+"..X....oXXXXXXXOOOOOOOO...",
+"........oooOOOO.......... ",
+" ......oO.O....O........  ",
+"    ..OO..O.......        ",
+"    ......... ...         ",
+"     .......              "
+};

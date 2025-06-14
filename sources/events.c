@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 22:05:09 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/14 11:56:36 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	key_press(int keycode, t_game *game)
 		game->player.left_rotate = true;
 	if (keycode == RIGHT)
 		game->player.right_rotate = true;
+	if (game->player.key_right || game->player.key_up || game->player.key_left)
+		game->player.running = true;
 	return (0);
 }
 
