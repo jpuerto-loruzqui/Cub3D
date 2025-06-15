@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 18:49:18 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 13:33:24 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,22 @@ void put_pixel_t(int x, int y, unsigned int color, t_game *game)
     dst = game->data + (y * game->size_line + x * (game->bpp / 8));
     *(unsigned int*)dst = color;
 }
+
+unsigned int get_darkness(unsigned int color, float height)
+{
+	float darkness = ((float)height * 3.2) / ((float)HEIGHT * 1.9f);
+	unsigned int r;
+    unsigned int g;
+    unsigned int b;
+	
+	if (darkness > 1.0f) darkness = 1.0f;
+	if (darkness < 0.01f) darkness = 0.01f;
+		
+	r = ((color >> 16) & 0xFF) * darkness;
+	g = ((color >> 8) & 0xFF) * darkness;
+	b = (color & 0xFF) * darkness;
+    return (r << 16) | (g << 8) | b;
+}
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
     t_line l;
@@ -193,10 +209,9 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
                           texX * (game->textures[tex_index].bpp / 8));
         unsigned int color = *(unsigned int*)pixel_addr;
         
-        // Opcional: oscurecer paredes horizontales
-        if (l.side == 1) 
+        if (l.side == 0) 
             color = (color >> 1) & 8355711;
-            
+		color = get_darkness(color, height);
         put_pixel_t(i, y, color, game);
     }
 }

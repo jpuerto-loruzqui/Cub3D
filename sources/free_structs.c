@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 17:46:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/13 14:37:46 by jpuerto-         ###   ########.fr       */
+/*   Created: 2025/06/14 22:46:01 by jpuerto-          #+#    #+#             */
+/*   Updated: 2025/06/15 08:30:50 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-char	**get_map(void)
+void	free_tex(t_game *game, t_tex *tex)
 {
-	char	**map;
+	mlx_destroy_image(game->mlx, tex->img);
+}
 
-	map = malloc(sizeof(char *) * 11);
-	map[0] = "111111111111111";
-	map[1] = "101000000000001";
-	map[2] = "100100010000001";
-	map[3] = "100011010000001";
-	map[4] = "100001010000001";
-	map[5] = "100001011100001";
-	map[6] = "100001000000001";
-	map[7] = "100001111100001";
-	map[8] = "100000000000001";
-	map[9] = "111111111111111";
-	map[10] = NULL;
-	return (map);
+int	close_window(t_game *game)
+{
+	(void)game;
+	exit(0);
+	return (0);
 }

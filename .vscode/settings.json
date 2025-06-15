@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "cmath": "c"
+        "cmath": "c",
+        "mlx.h": "c"
     }
 }

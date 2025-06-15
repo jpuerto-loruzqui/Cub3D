@@ -6,14 +6,14 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 09:39:18 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/14 09:40:17 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/14 23:43:52 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void ft_exit_error(char *error)
+void	ft_exit_error(char *error)
 {
-    ft_putendl_fd(error, 2);
-    exit(1);
+	ft_putendl_fd(error, 2);
+	exit(1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/14 11:56:36 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 08:34:02 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	key_press(int keycode, t_game *game)
 		game->player.right_rotate = true;
 	if (game->player.key_right || game->player.key_up || game->player.key_left)
 		game->player.running = true;
+	if (keycode == 65307)
+		close_window(game);
 	return (0);
 }
 
@@ -49,5 +51,7 @@ int	key_release(int keycode, t_game *game)
 		game->player.right_rotate = false;
 	if (keycode == ENTER)
 		game->player.key_enter = false;
+	if (!game->player.key_right && !game->player.key_up && !game->player.key_left)
+		game->player.running = false;
 	return (0);
 }

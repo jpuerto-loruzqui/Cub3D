@@ -7,10 +7,12 @@ SRC_DIR		= sources
 OBJ_DIR		= objects
 INC_DIR		= includes
 
-SRCS		= sources/main.c sources/player.c sources/draw.c sources/events.c\
-				sources/init.c sources/loop.c sources/ray_casting.c sources/map.c\
+SRCS		= sources/main.c sources/init_player.c sources/draw_utils.c sources/key_events.c\
+				sources/init_game.c sources/render_loop.c sources/ray_casting.c\
 				sources/parse_cub_file.c sources/validate_map.c\
-				gnl/get_next_line.c gnl/get_next_line_utils.c sources/error.c
+				gnl/get_next_line.c gnl/get_next_line_utils.c sources/error.c\
+				sources/handlers_walk.c sources/load.c sources/render_minimap.c\
+				sources/render_hud.c sources/render_welcome.c sources/free_structs.c
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR	= libft
