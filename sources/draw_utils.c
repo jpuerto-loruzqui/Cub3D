@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:32 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 19:01:53 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 20:26:53 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,18 @@ void	draw_gray_square(int x, int y, int size, t_game *game)
 	}
 }
 
-void	draw_screen(t_game *game)
+void draw_screen(t_game *game)
 {
-	float		start_x;
-	int			i;
+    float start_x = game->player.angle - PI / 8;
+    int i = 0;
 
-	start_x = game->player.angle - PI / 8;
-	i = 0;
-	while (i < WIDTH)
-	{
-		draw_floor(game, start_x);
-		draw_line(&game->player, game, start_x, i);
-		start_x += FRACTION;
-		i++;
-	}
+    draw_floor(game, start_x);
+    while (i < WIDTH)
+    {
+        draw_line(&game->player, game, start_x, i);
+        start_x += FRACTION;
+        i++;
+    }
 }
 
 void	put_pixel(int x, int y, int color, t_game *game)

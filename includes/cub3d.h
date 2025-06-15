@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/15 19:01:10 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 19:36:35 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,8 @@ void	draw_background(t_game *game, unsigned int color);
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
 void 	draw_floor(t_game *game, float start_x);
 float	get_delta_dist(float rayDir);
-
+unsigned int	get_darkness(unsigned int color, float height);
+void	put_pixel_t(int x, int y, unsigned int color, t_game *game);
 // ------------------------ PARSER
 bool	parse_cub_file(const char *filename, t_config *conf);
 bool	validate_map(t_config *conf);
