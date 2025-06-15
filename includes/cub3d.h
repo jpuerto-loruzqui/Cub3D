@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/15 13:32:17 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 16:22:43 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#define FPS 60
-#define FRAME_TIME_MS (1000 / FPS)
+# define FPS 60
+# define FRAME_TIME_MS (1000 / FPS)
 
 # define WIDTH 600
 # define HEIGHT 400
@@ -22,21 +22,21 @@
 # define SCALE_BLOCK 1.5
 # define FRACTION (PI / 4 / WIDTH)
 
-#define MINIMAP_SCALE 0.2
-#define MINIMAP_SIZE 100
-#define MINIMAP_X 15
-#define MINIMAP_Y (HEIGHT - MINIMAP_SIZE - 10)
-#define MINI_CELLS 10
-#define BLOCK_PX (MINIMAP_SIZE / MINI_CELLS)
-#define MAP_PLAYER_PX (MINIMAP_X + (MINI_CELLS / 2) * BLOCK_PX + BLOCK_PX / 2)
-#define MAP_PLAYER_PY (MINIMAP_Y + (MINI_CELLS / 2) * BLOCK_PX + BLOCK_PX / 2)
-#define MAP_PLAYER_RADIUS 3
+# define MINIMAP_SCALE 0.2
+# define MINIMAP_SIZE 100
+# define MINIMAP_X 15
+# define MINIMAP_Y (HEIGHT - MINIMAP_SIZE - 10)
+# define MINI_CELLS 10
+# define BLOCK_PX (MINIMAP_SIZE / MINI_CELLS)
+# define MAP_PLAYER_PX (MINIMAP_X + (MINI_CELLS / 2) * BLOCK_PX + BLOCK_PX / 2)
+# define MAP_PLAYER_PY (MINIMAP_Y + (MINI_CELLS / 2) * BLOCK_PX + BLOCK_PX / 2)
+# define MAP_PLAYER_RADIUS 3
 
-#define WELCOME_POSX ((WIDTH / 2) - (600 / 2))
-#define WELCOME_POSY ((HEIGHT / 2) - (400 / 2))
-#define CHAR1_X ((WIDTH / 2) - 90 - 10)
-#define CHAR2_X ((WIDTH / 2) + 10)
-#define CHARS_Y (HEIGHT / 4)
+# define WELCOME_POSX ((WIDTH / 2) - (600 / 2))
+# define WELCOME_POSY ((HEIGHT / 2) - (400 / 2))
+# define CHAR1_X ((WIDTH / 2) - 90 - 10)
+# define CHAR2_X ((WIDTH / 2) + 10)
+# define CHARS_Y (HEIGHT / 4)
 
 # define W 119
 # define A 97
@@ -52,7 +52,7 @@
 # define WALL_FRICTION 0.1
 
 // COLORS
-#define MAIN_BG 0x283B99
+# define MAIN_BG 0x283B99
 
 # include <stdio.h>
 # include "../minilibx-linux/mlx.h"
@@ -63,48 +63,44 @@
 # include <stdlib.h>
 # include "../gnl/get_next_line.h"
 
-#include <sys/time.h>
+# include <sys/time.h>
 
 typedef struct s_line
 {
-	float dist;
-
-	float exactWallX;
-	float exactWallY;
-	float perpWallDist;
-
-	float rayDirX;
-    float rayDirY;
-	int mapX;
-	int mapY;
-	float deltaDistX;
-    float deltaDistY;
-	
-	int stepY;
-    float sideDistY;
-	int stepX;
-    float sideDistX;
-	
-	int side;	
+	float	dist;
+	float	exact_wall_x;
+	float	exact_wall_y;
+	float	perp_wall_dist;
+	float	ray_dir_x;
+	float	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	int		step_y;
+	float	side_dist_y;
+	int		step_x;
+	float	side_dist_x;
+	int		side;
 }	t_line;
 
 typedef struct s_tex
 {
-	int			width;
-	int			height;
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			size_line;
-	int			endian;
-	int x;
-	int y;
-} t_tex;
+	int		width;
+	int		height;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		x;
+	int		y;
+}	t_tex;
 
 typedef struct s_player
 {
-	t_tex *tex;
-	t_tex weapon;
+	t_tex	*tex;
+	t_tex	weapon;
 	int		hp;
 	float	x;
 	float	y;
@@ -115,39 +111,36 @@ typedef struct s_player
 	bool	key_right;
 	bool	left_rotate;
 	bool	right_rotate;
-	bool 	key_enter;
-
-	bool running;
+	bool	key_enter;
+	bool	running;
 }	t_player;
-
-
 
 typedef struct s_welcome
 {
-	void *img1;
-	void *img2;
-	t_tex character[2];
-	void *select;
-	bool start;
-	bool selected;
+	void	*img1;
+	void	*img2;
+	t_tex	character[2];
+	void	*select;
+	bool	start;
+	bool	selected;
 }	t_welcome;
 
 typedef struct s_config
 {
-	char	*no_texture;
-	char	*so_texture;
-	char	*we_texture;
-	char	*ea_texture;
+	char			*no_texture;
+	char			*so_texture;
+	char			*we_texture;
+	char			*ea_texture;
 	unsigned long	floor_color;
 	unsigned long	ceiling_color;
-	char	**map;
-	int		map_height;
+	char			**map;
+	int				map_height;
 }	t_config;
 
 typedef struct s_game
 {
-	t_welcome  *welcome;
-	int		character;
+	t_welcome	*welcome;
+	int			character;
 	float		delta_time;
 	void		*mlx;
 	void		*win;
@@ -158,10 +151,9 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
-	t_tex 		textures[4];
-	t_config 	*conf;
+	t_tex		textures[4];
+	t_config	*conf;
 }	t_game;
-
 
 // ------------------------ INIT
 void	init_game(t_game *game, t_config *conf);
@@ -170,20 +162,20 @@ char	**get_map(void);
 void	set_player_from_map(t_game *game, t_config *conf);
 
 // ------------------------- LOADERS
-void load_welcome(t_welcome *welcome, t_game *game);
-void load_game_textures(t_game *game, t_config *conf);
+void	load_welcome(t_welcome *welcome, t_game *game);
+void	load_game_textures(t_game *game, t_config *conf);
 void	handle_move_player(t_game *game);
 
 // ------------------------ LOOP
-int		 welcome_loop(t_game *game);
+int		welcome_loop(t_game *game);
 int		render_loop(t_game *game);
 
 // ------------------------- RENDERS
-void 	render_minimap(t_game *game, t_player *player);
-void render_minimap(t_game *game, t_player *player);
-void render_hud(t_game *game);
-int render_select(t_game *game);
-int render_welcome(t_game *game);
+void	render_minimap(t_game *game, t_player *player);
+void	render_minimap(t_game *game, t_player *player);
+void	render_hud(t_game *game);
+int		render_select(t_game *game);
+int		render_welcome(t_game *game);
 
 // ------------------------ EVENTS
 int		key_press(int keycode, t_game *game);
@@ -194,12 +186,12 @@ void	move_player(t_game *game);
 void	draw_screen(t_game *game);
 void	clear_image(t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game );
-void 	draw_gray_square(int x, int y, int size, t_game *game);
-void draw_circle(int x, int y, int radius, t_game *game);
-void draw_outline_box(t_game *game, int x, int y, int size);
-void draw_white_square(int x, int y, int size, t_game *game);
-void draw_dark_square(int x, int y, int size, t_game *game);
-void draw_background(t_game *game, unsigned int color);
+void	draw_gray_square(int x, int y, int size, t_game *game);
+void	draw_circle(int x, int y, int radius, t_game *game);
+void	draw_outline_box(t_game *game, int x, int y, int size);
+void	draw_white_square(int x, int y, int size, t_game *game);
+void	draw_dark_square(int x, int y, int size, t_game *game);
+void	draw_background(t_game *game, unsigned int color);
 
 // ------------------------ RT
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
@@ -209,13 +201,13 @@ bool	parse_cub_file(const char *filename, t_config *conf);
 bool	validate_map(t_config *conf);
 
 // ------------------------ ERROR
-void ft_exit_error(char *error);
+void	ft_exit_error(char *error);
 
 // ------------------------- FREE
-void free_tex(t_game *game, t_tex *tex);
-int close_window(t_game *game);
+void	free_tex(t_game *game, t_tex *tex);
+int		close_window(t_game *game);
 
 // -------------------------- MAP
-void draw_map(t_game *game, t_player *player);
+void	draw_map(t_game *game, t_player *player);
 
 #endif

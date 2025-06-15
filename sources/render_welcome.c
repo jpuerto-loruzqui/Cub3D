@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_welcome.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:35:54 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 12:51:14 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:28:44 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	render_select(t_game *game)
 	if (WIDTH > 600 || HEIGHT > 400)
 		draw_background(game, MAIN_BG);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->welcome->select, WELCOME_POSX, WELCOME_POSY);
+	mlx_put_image_to_window(game->mlx, game->win, game->welcome->select,
+		WELCOME_POSX, WELCOME_POSY);
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->welcome->character[0].img, CHAR1_X, CHARS_Y);
 	mlx_put_image_to_window(game->mlx, game->win,
@@ -47,12 +48,12 @@ int	render_select(t_game *game)
 	return (0);
 }
 
-
 int	render_welcome(t_game *game)
 {
-	static int	frame = 0; 
-	int enter_realased = true;
-	
+	static int	frame = 0;
+	int			enter_realased;
+
+	enter_realased = true;
 	if (WIDTH > 600 || HEIGHT > 400)
 		draw_background(game, MAIN_BG);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);

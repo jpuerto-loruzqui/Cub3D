@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 08:34:02 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 16:31:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	key_release(int keycode, t_game *game)
 		game->player.right_rotate = false;
 	if (keycode == ENTER)
 		game->player.key_enter = false;
-	if (!game->player.key_right && !game->player.key_up && !game->player.key_left)
+	if (!game->player.key_right && !game->player.key_up
+		&& !game->player.key_left)
 		game->player.running = false;
 	return (0);
 }

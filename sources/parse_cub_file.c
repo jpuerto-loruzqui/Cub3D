@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/13 19:16:14 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 16:34:23 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,7 @@ static char	**read_file_lines(const char *filename)
 	return (ft_split(all, '\n'));
 }
 
-/*static void	free_config(t_config *conf)
-{
-	int	i;
-
-	i = 0;
-	free(conf->no_texture);
-	free(conf->so_texture);
-	free(conf->we_texture);
-	free(conf->ea_texture);
-	while (i < conf->map_height)
-	{
-		free(conf->map[i]);
-		i++;
-	}
-	free(conf->map);
-}*/
-
-static bool parse_color(char *line, unsigned long *color)
+static bool	parse_color(char *line, unsigned long *color)
 {
 	char	**split;
 	int		i;
@@ -88,7 +71,6 @@ static bool parse_color(char *line, unsigned long *color)
 	return (true);
 }
 
-
 bool	parse_cub_file(const char *filename, t_config *conf)
 {
 	char	**lines;
@@ -101,11 +83,14 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 		return (false);
 	i = 0;
 	ft_bzero(conf, sizeof(t_config));
-	while (lines[i] && ft_strlen(lines[i]) == 0) // Saltar líneas vacías iniciales
+	while (lines[i] && ft_strlen(lines[i]) == 0)
 		i++;
-	while (lines[i] && (ft_strncmp(lines[i], "NO ", 3) == 0 || ft_strncmp(lines[i], "SO ", 3) == 0
-			|| ft_strncmp(lines[i], "WE ", 3) == 0 || ft_strncmp(lines[i], "EA ", 3) == 0
-			|| ft_strncmp(lines[i], "F ", 2) == 0 || ft_strncmp(lines[i], "C ", 2) == 0)) // Parsear líneas de configuración
+	while (lines[i] && (ft_strncmp(lines[i], "NO ", 3) == 0
+			|| ft_strncmp(lines[i], "SO ", 3) == 0
+			|| ft_strncmp(lines[i], "WE ", 3) == 0
+			|| ft_strncmp(lines[i], "EA ", 3) == 0
+			|| ft_strncmp(lines[i], "F ", 2) == 0
+			|| ft_strncmp(lines[i], "C ", 2) == 0))
 	{
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
 			conf->no_texture = ft_strdup(lines[i] + 3);
@@ -127,7 +112,7 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 		}
 		i++;
 	}
-	while (lines[i] && ft_strlen(lines[i]) == 0) // Saltar líneas vacías entre config y mapa
+	while (lines[i] && ft_strlen(lines[i]) == 0)
 		i++;
 	map_start = i;
 	while (lines[i])

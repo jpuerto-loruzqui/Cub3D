@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/15 08:25:15 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 16:32:33 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int	main(int argc, char **argv)
 	if (!validate_map(&conf))
 		return (fprintf(stderr, "Error: invalid map\n"), 1);
 	init_game(&game, &conf);
-
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
-
 	mlx_loop_hook(game.mlx, render_loop, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
 	mlx_loop(game.mlx);

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/13 10:19:20 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/15 16:50:05 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,13 @@ bool	validate_map(t_config *conf)
 			if (c == ' ')
 			{
 				// Validación de adyacencia
-				if ((x > 0 && conf->map[y][x - 1] != '1' && conf->map[y][x - 1] != ' ') ||
-					(x + 1 < len && conf->map[y][x + 1] != '1' && conf->map[y][x + 1] != ' ') ||
-					(y > 0 && x < (int)ft_strlen(conf->map[y - 1]) && conf->map[y - 1][x] != '1' && conf->map[y - 1][x] != ' ') ||
-					(y + 1 < conf->map_height && x < (int)ft_strlen(conf->map[y + 1]) && conf->map[y + 1][x] != '1' && conf->map[y + 1][x] != ' '))
+				if ((x > 0 && conf->map[y][x - 1] != '1'
+					&& conf->map[y][x - 1] != ' ')
+					|| (x + 1 < len && conf->map[y][x + 1] != '1' && conf->map[y][x + 1] != ' ')
+					|| (y > 0 && x < (int)ft_strlen(conf->map[y - 1]) && conf->map[y - 1][x] != '1'
+					&& conf->map[y - 1][x] != ' ') ||
+					(y + 1 < conf->map_height && x < (int)ft_strlen(conf->map[y + 1])
+					&& conf->map[y + 1][x] != '1' && conf->map[y + 1][x] != ' '))
 					return (printf("Error\nSpace adjacent to invalid character at %d,%d\n", y, x), false);
 			}
 			x++;
