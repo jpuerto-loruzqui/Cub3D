@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:32 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 20:26:53 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 22:30:09 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void draw_screen(t_game *game)
     float start_x = game->player.angle - PI / 8;
     int i = 0;
 
-    draw_floor(game, start_x);
+    draw_floor(game);
     while (i < WIDTH)
     {
         draw_line(&game->player, game, start_x, i);

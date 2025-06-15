@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/15 19:36:35 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 22:30:15 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void	draw_background(t_game *game, unsigned int color);
 
 // ------------------------ RC
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
-void 	draw_floor(t_game *game, float start_x);
+void 	draw_floor(t_game *game);
 float	get_delta_dist(float rayDir);
 unsigned int	get_darkness(unsigned int color, float height);
 void	put_pixel_t(int x, int y, unsigned int color, t_game *game);
