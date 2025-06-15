@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 13:33:24 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 15:31:35 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void put_pixel_t(int x, int y, unsigned int color, t_game *game)
 
 unsigned int get_darkness(unsigned int color, float height)
 {
-	float darkness = ((float)height * 3.2) / ((float)HEIGHT * 1.9f);
+	float darkness = ((float)height * 3.2) / ((float)HEIGHT * 2);
 	unsigned int r;
     unsigned int g;
     unsigned int b;
