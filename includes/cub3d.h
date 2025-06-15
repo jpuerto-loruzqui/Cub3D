@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/15 22:30:15 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 23:52:19 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define WIDTH 600
 # define HEIGHT 400
 # define BLOCK 64
-# define SCALE_BLOCK 1.5
+# define SCALE_BLOCK 1.3
 # define FRACTION (PI / 4 / WIDTH)
 
 # define MINIMAP_SCALE 0.2
@@ -151,7 +151,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
-	t_tex		textures[4];
+	t_tex		textures[6];
 	t_config	*conf;
 }	t_game;
 
@@ -196,7 +196,7 @@ void	draw_background(t_game *game, unsigned int color);
 
 // ------------------------ RC
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
-void 	draw_floor(t_game *game);
+void 	draw_floor(t_game *game, int y);
 float	get_delta_dist(float rayDir);
 unsigned int	get_darkness(unsigned int color, float height);
 void	put_pixel_t(int x, int y, unsigned int color, t_game *game);

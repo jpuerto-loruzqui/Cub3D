@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 16:32:21 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/15 23:15:48 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	load_game_textures(t_game *game, t_config *conf)
 	game->textures[1] = open_tex(game, conf->ea_texture, 0, 0);
 	game->textures[2] = open_tex(game, conf->no_texture, 0, 0);
 	game->textures[3] = open_tex(game, conf->so_texture, 0, 0);
+	game->textures[4] = open_tex(game, "textures/PIPES_1A.xpm", 0, 0);
+	game->textures[5] = open_tex(game, "textures/STEEL_1A_1.xpm", 0, 0);
 	game->player.weapon = open_tex(game, "assets/weapon.xpm", 100, 180);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->data = mlx_get_data_addr(

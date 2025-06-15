@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:38:52 by tu_usuario_       #+#    #+#             */
-/*   Updated: 2025/06/15 17:23:45 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/15 23:16:02 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	render_loop(t_game *game)
 		return (render_welcome(game));
 	if (!game->welcome->selected)
 		return (render_select(game));
-	clear_image(game);
 	handle_move_player(game);
 	draw_screen(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);

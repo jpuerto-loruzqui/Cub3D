@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 22:16:29 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 23:56:42 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,41 +129,26 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 		start_y = 0;
 	if (end > HEIGHT)
 		end = HEIGHT;
-
-	// 1. Calcular coordenada de textura en X basado en la posición real del jugador
 	double wallX;
 	if (l.side == 0)
 		wallX = player->y + l.dist * l.ray_dir_y;
 	else
 		wallX = player->x + l.dist * l.ray_dir_x;
-
-	// 2. Convertir a coordenada dentro del bloque (0-BLOCK)
 	wallX = wallX - floor(wallX / BLOCK) * BLOCK;
-
-	// 3. Normalizar a coordenada de textura (0-1)
 	double texX_normalized = wallX / BLOCK;
-
-	// 4. Convertir a índice de pixel en la textura
-	int tex_index = get_wall_c(l.side, l.step_x, l.step_y);
-	int texX = (int)(texX_normalized * game->textures[tex_index].width);
-
-	// 5. Calcular paso y posición de textura para el mapeo vertical
+	int tex_index = get_wall_c(l.side, l.step_x, l.step_y); //
+	int texX = (int)(texX_normalized * game->textures[tex_index].width); //
 	double step = 1.0 * game->textures[tex_index].height / height;
 	double texPos = (start_y - HEIGHT / 2 + height / 2) * step;
-
-	// 6. Dibujar la línea
-
 	for (int y = start_y; y < end; y++)
 	{
-		int texY = (int)texPos % game->textures[tex_index].height;
+		int texY = (int)texPos % game->textures[tex_index].height; //
 		if (texY < 0) texY += game->textures[tex_index].height;
 		texPos += step;
-
-		// Obtener color
-		char *pixel_addr = game->textures[tex_index].addr +
-						(texY * game->textures[tex_index].size_line +
-						texX * (game->textures[tex_index].bpp / 8));
-		unsigned int color = *(unsigned int*)pixel_addr;
+		char *pixel_addr = game->textures[tex_index].addr + //
+						(texY * game->textures[tex_index].size_line + //
+						texX * (game->textures[tex_index].bpp / 8)); //
+		unsigned int color = *(unsigned int*)pixel_addr; //
 
 		if (l.side == 0)
 			color = (color >> 1) & 8355711;
