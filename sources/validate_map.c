@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/15 16:50:05 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/15 18:10:38 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_player(char c)
 
 static bool	valid_char(char c)
 {
-	return (c == '0' || c == '1' || c == ' ' || is_player(c));
+	return ( c == '0' || c == '1' || c == ' ' || is_player(c));
 }
 
 bool	validate_map(t_config *conf)

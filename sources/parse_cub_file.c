@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/15 16:34:23 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/15 18:30:45 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ static char	**read_file_lines(const char *filename)
 			free(tmp);
 		free(line);
 	}
-	close(fd);
-	return (ft_split(all, '\n'));
+	char **result = ft_split(all, '\n');
+	free(all);
+	return (result);
 }
 
 static bool	parse_color(char *line, unsigned long *color)

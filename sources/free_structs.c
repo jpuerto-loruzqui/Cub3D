@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:46:01 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 08:30:50 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:57:31 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	free_tex(t_game *game, t_tex *tex)
 {
 	mlx_destroy_image(game->mlx, tex->img);
+	ft_free_split(game->map);
 }
 
 int	close_window(t_game *game)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/15 16:22:43 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/15 19:01:10 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void	init_game(t_game *game, t_config *conf);
 void	init_player(t_player *player);
 char	**get_map(void);
 void	set_player_from_map(t_game *game, t_config *conf);
+t_line	init_line(t_player *player, float start_x);
 
 // ------------------------- LOADERS
 void	load_welcome(t_welcome *welcome, t_game *game);
@@ -193,8 +194,10 @@ void	draw_white_square(int x, int y, int size, t_game *game);
 void	draw_dark_square(int x, int y, int size, t_game *game);
 void	draw_background(t_game *game, unsigned int color);
 
-// ------------------------ RT
+// ------------------------ RC
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
+void 	draw_floor(t_game *game, float start_x);
+float	get_delta_dist(float rayDir);
 
 // ------------------------ PARSER
 bool	parse_cub_file(const char *filename, t_config *conf);

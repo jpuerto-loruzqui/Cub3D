@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:32 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 11:22:49 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/15 19:01:53 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	draw_screen(t_game *game)
 	i = 0;
 	while (i < WIDTH)
 	{
+		draw_floor(game, start_x);
 		draw_line(&game->player, game, start_x, i);
 		start_x += FRACTION;
 		i++;
