@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   handlers_walk.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:15:39 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 10:01:40 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:26:52 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-char is_collider(char c)
+char	is_collider(char c)
 {
 	if (c == '1' || c == 'C' || c == 'D')
-		return c;
-	return '\0';
+		return (c);
+	return ('\0');
 }
 
 int	check_wall(float x, float y, t_game *game)
 {
-	int	mapgridx;
-	int	mapgridy;
-	char collider;
-	
+	int		mapgridx;
+	int		mapgridy;
+	char	collider;
+
 	mapgridx = x / BLOCK;
 	mapgridy = y / BLOCK;
 	collider = is_collider(game->map[mapgridy][mapgridx]);
@@ -35,8 +35,8 @@ int	check_wall(float x, float y, t_game *game)
 
 void	get_new_pos(float *x, float *y, float dx, float dy)
 {
-	float factor;
-	
+	float	factor;
+
 	factor = (float)WIDTH / 640.0f;
 	*x += dx * PLAYER_SPEED * factor;
 	*y += dy * PLAYER_SPEED * factor;
@@ -44,10 +44,10 @@ void	get_new_pos(float *x, float *y, float dx, float dy)
 
 void	set_player_movement(t_game *game, float new_x, float new_y)
 {
-	int	collision_x;
-	int	collision_y;
-	float factor;
-	
+	int		collision_x;
+	int		collision_y;
+	float	factor;
+
 	factor = (float)WIDTH / 640.0f;
 	collision_x = check_wall(new_x, game->player.y, game);
 	collision_y = check_wall(game->player.x, new_y, game);
@@ -64,8 +64,8 @@ void	set_player_movement(t_game *game, float new_x, float new_y)
 
 void	handle_walk(t_game *game, float cos_angle, float sin_angle)
 {
-	float		new_x;
-	float		new_y;
+	float	new_x;
+	float	new_y;
 
 	new_x = game->player.x;
 	new_y = game->player.y;
@@ -85,8 +85,8 @@ void	handle_move_player(t_game *game)
 	t_player	*player;
 	float		cos_angle;
 	float		sin_angle;
-	float 		factor;
-	
+	float		factor;
+
 	factor = (float)WIDTH / 640.0f;
 	player = &game->player;
 	cos_angle = cos(player->angle);

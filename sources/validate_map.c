@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/16 09:05:29 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:35:40 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	is_player(char c)
 
 static bool	valid_char(char c)
 {
-	return ( c == 'D' || c == 'C' || c == '0' || c == '1' || c == ' ' || is_player(c));
+	return (c == 'D' || c == 'C' || c == '0' || c == '1' || c == ' '
+		|| is_player(c));
 }
 
 bool	validate_map(t_config *conf)
@@ -66,10 +67,12 @@ bool	validate_map(t_config *conf)
 				// Validación de adyacencia
 				if ((x > 0 && conf->map[y][x - 1] != '1'
 					&& conf->map[y][x - 1] != ' ')
-					|| (x + 1 < len && conf->map[y][x + 1] != '1' && conf->map[y][x + 1] != ' ')
-					|| (y > 0 && x < (int)ft_strlen(conf->map[y - 1]) && conf->map[y - 1][x] != '1'
-					&& conf->map[y - 1][x] != ' ') ||
-					(y + 1 < conf->map_height && x < (int)ft_strlen(conf->map[y + 1])
+					|| (x + 1 < len && conf->map[y][x + 1] != '1'
+					&& conf->map[y][x + 1] != ' ')
+					|| (y > 0 && x < (int)ft_strlen(conf->map[y - 1])
+					&& conf->map[y - 1][x] != '1'
+					&& conf->map[y - 1][x] != ' ')
+					|| (y + 1 < conf->map_height && x < (int)ft_strlen(conf->map[y + 1])
 					&& conf->map[y + 1][x] != '1' && conf->map[y + 1][x] != ' '))
 					return (printf("Error\nSpace adjacent to invalid character at %d,%d\n", y, x), false);
 			}

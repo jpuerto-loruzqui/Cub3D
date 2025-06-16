@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:04:05 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 18:22:21 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:14:26 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void render_minimap(t_game *game, t_player *player)
+void	render_minimap(t_game *game, t_player *player)
 {
 	int player_cx = player->x / BLOCK;
 	int player_cy = player->y / BLOCK;
 	int start_x = player_cx - MINI_CELLS / 2;
 	int start_y = player_cy - MINI_CELLS / 2;
-
 
 	draw_white_square(MINIMAP_X - 1, MINIMAP_Y - 1, MINIMAP_SIZE + 2, game);
 	draw_dark_square(MINIMAP_X, MINIMAP_Y, MINIMAP_SIZE, game);

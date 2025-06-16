@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:17:44 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 10:22:11 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:59:19 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 // set_doors_from_map(t_game *game)
 // {
 // 	int y = 0;
-	
+
 // 	while (game->map[y])
 // 	{
 // 		int x = 0;
 // 		while (game->map[y][x])
 // 		{
-			
+
 // 		}
 // 	}
 // }

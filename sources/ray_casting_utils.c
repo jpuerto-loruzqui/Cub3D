@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:10:21 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 09:45:39 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:19:20 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ void	put_pixel_t(int x, int y, unsigned int color, t_game *game)
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
 	dst = game->data + (y * game->size_line + x * (game->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *) dst = color;
 }
 
 unsigned int	get_darkness(unsigned int color, float height)
 {
-	float darkness = ((float)height * 0.9) / ((float)HEIGHT * 0.7f);
-	unsigned int r;
-	unsigned int g;
-	unsigned int b;
-	
+	float			darkness;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+
+	darkness = ((float)height * 0.9) / ((float)HEIGHT * 0.7f);
 	if (darkness > 1.0f)
 		darkness = 1.0f;
 	if (darkness < 0.01f)
@@ -56,11 +57,11 @@ unsigned int	get_darkness(unsigned int color, float height)
 
 float	get_delta_dist(float rayDir)
 {
-	float	deltaDist;
+	float	delta_dist;
 
 	if (fabs(rayDir) < 1e-8)
-		deltaDist = 1e30;
+		delta_dist = 1e30;
 	else
-		deltaDist = fabs(1 / rayDir);
-	return (deltaDist);
+		delta_dist = fabs(1 / rayDir);
+	return (delta_dist);
 }

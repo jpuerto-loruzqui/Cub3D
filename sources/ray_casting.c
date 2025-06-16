@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 09:46:25 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:28:57 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,26 @@ float	get_dist(t_player *player, t_line l, float start_x)
 
 	if (l.side == 0)
 	{
-		perp_wall_dist = (l.map_x - player->x / BLOCK + (1 - l.step_x) / 2) / l.ray_dir_x;
+		perp_wall_dist = (l.map_x - player->x / BLOCK + (1 - l.step_x) / 2)
+			/ l.ray_dir_x;
 		exact_wall_y = player->y + perp_wall_dist * l.ray_dir_y * BLOCK;
-		exact_wall_x = l.map_x * BLOCK + (l.step_x < 0 ? BLOCK : 0);
+		if (l.step_x < 0)
+			exact_wall_x = l.map_x * BLOCK + BLOCK;
+		else
+			exact_wall_x = l.map_x * BLOCK + 0;
 	}
 	else
 	{
 		perp_wall_dist = (l.map_y - player->y / BLOCK + (1 - l.step_y) / 2) / l.ray_dir_y;
 		exact_wall_x = player->x + perp_wall_dist * l.ray_dir_x * BLOCK;
-		exact_wall_y = l.map_y * BLOCK + (l.step_y < 0 ? BLOCK : 0);
+		if (l.step_x < 0)
+			exact_wall_y = l.map_y * BLOCK + BLOCK;
+		else
+			exact_wall_y = l.map_y * BLOCK + 0;
 	}
 	dist = sqrt(pow((exact_wall_x - player->x), 2) + pow((exact_wall_y - player->y), 2));
 	dist = dist * cos(start_x - player->angle);
-	return(dist);
+	return (dist);
 }
 
 void	calculate_steps(t_line *l, t_player *player)
@@ -75,15 +82,19 @@ void	calculate_steps(t_line *l, t_player *player)
 int	get_wall_c(int side, int step_x, int step_y)
 {
 	if (side == 0)
+	{
 		if (step_x < 0)
 			return (0);
 		else
 			return (1);
+	}
 	else
+	{
 		if (step_y < 0)
 			return (2);
 		else
 			return (3);
+	}
 }
 
 void	dda(t_game *game, t_line *l)
@@ -110,20 +121,29 @@ void	dda(t_game *game, t_line *l)
 	}
 }
 
-bool is_light(unsigned int color)
+bool	is_light(unsigned int color)
 {
-		if (color == LIGHT_COLOR_1 || color == LIGHT_COLOR_2 || color == 0x00FF00)
-			return (true);
-		return (false);
+	if (color == LIGHT_COLOR_1 || color == LIGHT_COLOR_2 || color == 0x00FF00)
+		return (true);
+	return (false);
 }
-
 
 void	draw_line(t_player *player, t_game *game, float start_x, int i)
 {
-	t_line	l;
-	float	height;
-	int		start_y;
-	int		end;
+	t_line			l;
+	float			height;
+	int				start_y;
+	int				end;
+	double			wall_x;
+	double			tex_x_normalized;
+	int				tex_index;
+	int				tex_x;
+	int				tex_y;
+	double			step;
+	double			tex_pos;
+	char			*pixel_addr;
+	unsigned int	color;
+	int				y;
 
 	l = init_line(player, start_x);
 	calculate_steps(&l, player);
@@ -136,37 +156,35 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 		start_y = 0;
 	if (end > HEIGHT)
 		end = HEIGHT;
-
-	double wallX;
 	if (l.side == 0)
-		wallX = player->y + l.dist * l.ray_dir_y;
+		wall_x = player->y + l.dist * l.ray_dir_y;
 	else
-		wallX = player->x + l.dist * l.ray_dir_x;
-	wallX = wallX - floor(wallX / BLOCK) * BLOCK;
-	double texX_normalized = wallX / BLOCK;
-	int tex_index = get_wall_c(l.side, l.step_x, l.step_y); //
+		wall_x = player->x + l.dist * l.ray_dir_x;
+	wall_x = wall_x - floor(wall_x / BLOCK) * BLOCK;
+	tex_x_normalized = wall_x / BLOCK;
+	tex_index = get_wall_c(l.side, l.step_x, l.step_y); //
 	if (game->map[l.map_y][l.map_x] == 'C')
 		tex_index = CONSOLE_TEX;
-	else if ( game->map[l.map_y][l.map_x] == 'D')
+	else if (game->map[l.map_y][l.map_x] == 'D')
 		tex_index = DOOR_TEX;
-
-	int texX = (int)(texX_normalized * game->textures[tex_index].width); //
-	double step = 1.0 * game->textures[tex_index].height / height;
-	double texPos = (start_y - HEIGHT / 2 + height / 2) * step;
-	for (int y = start_y; y < end; y++)
+	tex_x = (int)(tex_x_normalized * game->textures[tex_index].width); //
+	step = 1.0 * game->textures[tex_index].height / height;
+	tex_pos = (start_y - HEIGHT / 2 + height / 2) * step;
+	y = start_y;
+	while (y < end)
 	{
-		int texY = (int)texPos % game->textures[tex_index].height; //
-		if (texY < 0) texY += game->textures[tex_index].height;
-		texPos += step;
-
-		char *pixel_addr = game->textures[tex_index].addr + //
-						(texY * game->textures[tex_index].size_line + //
-						texX * (game->textures[tex_index].bpp / 8)); //
-		unsigned int color = *(unsigned int*)pixel_addr; //
-
+		tex_y = (int)tex_pos % game->textures[tex_index].height; //
+		if (tex_y < 0)
+			tex_y += game->textures[tex_index].height;
+		tex_pos += step;
+		pixel_addr = game->textures[tex_index].addr + //
+			(tex_y * game->textures[tex_index].size_line + //
+				tex_x * (game->textures[tex_index].bpp / 8)); //
+		color = *(unsigned int *) pixel_addr; //
 		if (l.side == 0 && !is_light(color))
 			color = (color >> 1) & 8355711;
 		color = get_darkness(color, height);
 		put_pixel_t(i, y, color, game);
+		y++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 09:09:28 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:37:53 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	load_game_textures(t_game *game, t_config *conf)
 	game->textures[3] = open_tex(game, conf->so_texture, 0, 0);
 	game->textures[4] = open_tex(game, "textures/PIPES_1A.xpm", 0, 0);
 	game->textures[5] = open_tex(game, "textures/STEEL_1A_1.xpm", 0, 0);
-	game->textures[CONSOLE_TEX] = open_tex(game, "textures/CONSOLE_1B.xpm", 0, 0);
+	game->textures[CONSOLE_TEX] = open_tex(game,
+			"textures/CONSOLE_1B.xpm", 0, 0);
 	game->textures[DOOR_TEX] = open_tex(game, "textures/DOOR_4A.xpm", 0, 0);
 	game->player.weapon = open_tex(game, "assets/weapon.xpm", 100, 180);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);

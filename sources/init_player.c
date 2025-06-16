@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:18 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 10:14:14 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:30:03 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ void	init_player(t_player *player)
 	player->has_hey = true;
 }
 
+static float	set_angle_player(char dir)
+{
+	float	angle;
+
+	if (dir == 'N')
+		angle = 3 * PI / 2;
+	else if (dir == 'S')
+		angle = PI / 2;
+	else if (dir == 'E')
+		angle = 0;
+	else if (dir == 'W')
+		angle = PI;
+	return (angle);
+}
+
 void	set_player_from_map(t_game *game, t_config *conf)
 {
 	int		y;
@@ -46,14 +61,7 @@ void	set_player_from_map(t_game *game, t_config *conf)
 			{
 				game->player.x = x * BLOCK + BLOCK / 2;
 				game->player.y = y * BLOCK + BLOCK / 2;
-				if (dir == 'N')
-					game->player.angle = 3 * PI / 2;
-				else if (dir == 'S')
-					game->player.angle = PI / 2;
-				else if (dir == 'E')
-					game->player.angle = 0;
-				else if (dir == 'W')
-					game->player.angle = PI;
+				game->player.angle = set_angle_player(dir);
 				conf->map[y][x] = '0';
 				return ;
 			}

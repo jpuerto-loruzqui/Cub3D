@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/16 10:18:25 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:02:47 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define FPS 60
 # define FRAME_TIME_MS (1000 / FPS)
-	
+
 # define WIDTH 600
 # define HEIGHT 400
 # define BLOCK 64
@@ -67,9 +67,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "../gnl/get_next_line.h"
-
 # include <sys/time.h>
-
 
 typedef struct s_line
 {
@@ -164,66 +162,66 @@ typedef struct s_game
 }	t_game;
 
 // ------------------------ INIT
-void	init_game(t_game *game, t_config *conf);
-void	init_player(t_player *player);
-char	**get_map(void);
-void	set_player_from_map(t_game *game, t_config *conf);
-t_line	init_line(t_player *player, float start_x);
+void			init_game(t_game *game, t_config *conf);
+void			init_player(t_player *player);
+char			**get_map(void);
+void			set_player_from_map(t_game *game, t_config *conf);
+t_line			init_line(t_player *player, float start_x);
 
 // ------------------------- LOADERS
-void	load_welcome(t_welcome *welcome, t_game *game);
-void	load_game_textures(t_game *game, t_config *conf);
-void	handle_move_player(t_game *game);
+void			load_welcome(t_welcome *welcome, t_game *game);
+void			load_game_textures(t_game *game, t_config *conf);
+void			handle_move_player(t_game *game);
 
 // ------------------------ LOOP
-int		welcome_loop(t_game *game);
-int		render_loop(t_game *game);
+int				welcome_loop(t_game *game);
+int				render_loop(t_game *game);
 
 // ------------------------- RENDERS
-void	render_minimap(t_game *game, t_player *player);
-void	render_minimap(t_game *game, t_player *player);
-void	render_hud(t_game *game);
-int		render_select(t_game *game);
-int		render_welcome(t_game *game);
+void			render_minimap(t_game *game, t_player *player);
+void			render_minimap(t_game *game, t_player *player);
+void			render_hud(t_game *game);
+int				render_select(t_game *game);
+int				render_welcome(t_game *game);
 
 // ------------------------ EVENTS
-int		key_press(int keycode, t_game *game);
-int		key_release(int keycode, t_game *game);
-void	move_player(t_game *game);
+int				key_press(int keycode, t_game *game);
+int				key_release(int keycode, t_game *game);
+void			move_player(t_game *game);
 
 // ------------------------ DRAW
-void	draw_screen(t_game *game);
-void	clear_image(t_game *game);
-void	put_pixel(int x, int y, int color, t_game *game );
-void	draw_gray_square(int x, int y, int size, t_game *game);
-void	draw_circle(int x, int y, int radius, t_game *game);
-void	draw_outline_box(t_game *game, int x, int y, int size);
-void	draw_white_square(int x, int y, int size, t_game *game);
-void	draw_dark_square(int x, int y, int size, t_game *game);
-void	draw_background(t_game *game, unsigned int color);
-bool is_light(unsigned int color);
+void			draw_screen(t_game *game);
+void			clear_image(t_game *game);
+void			put_pixel(int x, int y, int color, t_game *game );
+void			draw_gray_square(int x, int y, int size, t_game *game);
+void			draw_circle(int x, int y, int radius, t_game *game);
+void			draw_outline_box(t_game *game, int x, int y, int size);
+void			draw_white_square(int x, int y, int size, t_game *game);
+void			draw_dark_square(int x, int y, int size, t_game *game);
+void			draw_background(t_game *game, unsigned int color);
+bool			is_light(unsigned int color);
 
 // ------------------------ RC
-void	draw_line(t_player *player, t_game *game, float start_x, int i);
-void 	draw_floor(t_game *game, int y);
-float	get_delta_dist(float rayDir);
+void			draw_line(t_player *player, t_game *game, float start_x, int i);
+void			draw_floor(t_game *game, int y);
+float			get_delta_dist(float rayDir);
 unsigned int	get_darkness(unsigned int color, float height);
-void	put_pixel_t(int x, int y, unsigned int color, t_game *game);
+void			put_pixel_t(int x, int y, unsigned int color, t_game *game);
 // ------------------------ PARSER
-bool	parse_cub_file(const char *filename, t_config *conf);
-bool	validate_map(t_config *conf);
+bool			parse_cub_file(const char *filename, t_config *conf);
+bool			validate_map(t_config *conf);
 
 // ------------------------ ERROR
-void	ft_exit_error(char *error);
+void			ft_exit_error(char *error);
 
 // ------------------------- FREE
-void	free_tex(t_game *game, t_tex *tex);
-int		close_window(t_game *game);
+void			free_tex(t_game *game, t_tex *tex);
+int				close_window(t_game *game);
 
 // -------------------------- MAP
-void	draw_map(t_game *game, t_player *player);
+void			draw_map(t_game *game, t_player *player);
 
 // ------------------------- DOORS
-void	set_doors_from_map(t_game *game);
+void			set_doors_from_map(t_game *game);
 
 #endif

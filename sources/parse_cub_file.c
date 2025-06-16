@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/15 18:30:45 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:38:26 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	**read_file_lines(const char *filename)
 	char	*tmp;
 	char	*all;
 	char	*line;
+	char	**result;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -34,7 +35,7 @@ static char	**read_file_lines(const char *filename)
 			free(tmp);
 		free(line);
 	}
-	char **result = ft_split(all, '\n');
+	result = ft_split(all, '\n');
 	free(all);
 	return (result);
 }

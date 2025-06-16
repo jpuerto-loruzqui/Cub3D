@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 10:17:31 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:59:24 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_game(t_game *game, t_config *conf)
 	game->conf = conf;
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
 	init_player(&game->player);
-	set_doors_from_map(game);
+	//set_doors_from_map(game);
 	set_player_from_map(game, conf);
 	load_welcome(game->welcome, game);
 	load_game_textures(game, conf);
