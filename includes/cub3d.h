@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/15 23:52:19 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 10:18:25 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define FPS 60
 # define FRAME_TIME_MS (1000 / FPS)
-
+	
 # define WIDTH 600
 # define HEIGHT 400
 # define BLOCK 64
@@ -46,13 +46,18 @@
 # define RIGHT 65363
 # define ENTER 65293
 
-# define PLAYER_SPEED 2
-# define ANGLE_SPEED 0.02
+# define PLAYER_SPEED 3
+# define ANGLE_SPEED 0.03
 # define PI 3.14159265359
 # define WALL_FRICTION 0.1
 
 // COLORS
 # define MAIN_BG 0x283B99
+# define LIGHT_COLOR_1 0x0BECFC
+# define LIGHT_COLOR_2 0xF8FAF2
+
+# define CONSOLE_TEX 6
+# define DOOR_TEX 7
 
 # include <stdio.h>
 # include "../minilibx-linux/mlx.h"
@@ -64,6 +69,7 @@
 # include "../gnl/get_next_line.h"
 
 # include <sys/time.h>
+
 
 typedef struct s_line
 {
@@ -113,6 +119,7 @@ typedef struct s_player
 	bool	right_rotate;
 	bool	key_enter;
 	bool	running;
+	bool	has_hey;
 }	t_player;
 
 typedef struct s_welcome
@@ -139,6 +146,7 @@ typedef struct s_config
 
 typedef struct s_game
 {
+	float		oscilation;
 	t_welcome	*welcome;
 	int			character;
 	float		delta_time;
@@ -151,7 +159,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
-	t_tex		textures[6];
+	t_tex		textures[10];
 	t_config	*conf;
 }	t_game;
 
@@ -193,6 +201,7 @@ void	draw_outline_box(t_game *game, int x, int y, int size);
 void	draw_white_square(int x, int y, int size, t_game *game);
 void	draw_dark_square(int x, int y, int size, t_game *game);
 void	draw_background(t_game *game, unsigned int color);
+bool is_light(unsigned int color);
 
 // ------------------------ RC
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
@@ -213,5 +222,8 @@ int		close_window(t_game *game);
 
 // -------------------------- MAP
 void	draw_map(t_game *game, t_player *player);
+
+// ------------------------- DOORS
+void	set_doors_from_map(t_game *game);
 
 #endif

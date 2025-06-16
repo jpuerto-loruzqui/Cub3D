@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 23:56:42 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 09:46:25 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,16 @@ void	dda(t_game *game, t_line *l)
 			l->map_y += l->step_y;
 			l->side = 1;
 		}
-		if (game->map[l->map_y][l->map_x] == '1')
+		if (game->map[l->map_y][l->map_x] == '1' || game->map[l->map_y][l->map_x] == 'C' || game->map[l->map_y][l->map_x] == 'D')
 			hit = 1;
 	}
+}
+
+bool is_light(unsigned int color)
+{
+		if (color == LIGHT_COLOR_1 || color == LIGHT_COLOR_2 || color == 0x00FF00)
+			return (true);
+		return (false);
 }
 
 
@@ -129,6 +136,7 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 		start_y = 0;
 	if (end > HEIGHT)
 		end = HEIGHT;
+
 	double wallX;
 	if (l.side == 0)
 		wallX = player->y + l.dist * l.ray_dir_y;
@@ -137,6 +145,11 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 	wallX = wallX - floor(wallX / BLOCK) * BLOCK;
 	double texX_normalized = wallX / BLOCK;
 	int tex_index = get_wall_c(l.side, l.step_x, l.step_y); //
+	if (game->map[l.map_y][l.map_x] == 'C')
+		tex_index = CONSOLE_TEX;
+	else if ( game->map[l.map_y][l.map_x] == 'D')
+		tex_index = DOOR_TEX;
+
 	int texX = (int)(texX_normalized * game->textures[tex_index].width); //
 	double step = 1.0 * game->textures[tex_index].height / height;
 	double texPos = (start_y - HEIGHT / 2 + height / 2) * step;
@@ -145,12 +158,13 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 		int texY = (int)texPos % game->textures[tex_index].height; //
 		if (texY < 0) texY += game->textures[tex_index].height;
 		texPos += step;
+
 		char *pixel_addr = game->textures[tex_index].addr + //
 						(texY * game->textures[tex_index].size_line + //
 						texX * (game->textures[tex_index].bpp / 8)); //
 		unsigned int color = *(unsigned int*)pixel_addr; //
 
-		if (l.side == 0)
+		if (l.side == 0 && !is_light(color))
 			color = (color >> 1) & 8355711;
 		color = get_darkness(color, height);
 		put_pixel_t(i, y, color, game);

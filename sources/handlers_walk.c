@@ -6,20 +6,29 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:15:39 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 13:21:05 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 10:01:40 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+char is_collider(char c)
+{
+	if (c == '1' || c == 'C' || c == 'D')
+		return c;
+	return '\0';
+}
+
 int	check_wall(float x, float y, t_game *game)
 {
 	int	mapgridx;
 	int	mapgridy;
-
+	char collider;
+	
 	mapgridx = x / BLOCK;
 	mapgridy = y / BLOCK;
-	if (game->map[mapgridy][mapgridx] == '1')
+	collider = is_collider(game->map[mapgridy][mapgridx]);
+	if (collider && game->map[mapgridy][mapgridx] == collider)
 		return (1);
 	return (0);
 }

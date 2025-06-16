@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:18 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/14 22:44:27 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/16 10:14:14 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_player(t_player *player)
 	player->right_rotate = false;
 	player->key_enter = false;
 	player->running = false;
+	player->has_hey = true;
 }
 
 void	set_player_from_map(t_game *game, t_config *conf)
