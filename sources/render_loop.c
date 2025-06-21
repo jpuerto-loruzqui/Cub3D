@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:38:52 by tu_usuario_       #+#    #+#             */
-/*   Updated: 2025/06/15 23:16:02 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:30:56 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	render_loop(t_game *game)
 
 	now = current_time_ms();
 	game->delta_time = (now - last_frame) / 1000.0f;
-	if (now - last_frame < FRAME_TIME_MS)
+	if (now - last_frame < game->consts.frame_time_ms)
 		return (0);
 	last_frame = now;
 	if (!game->welcome->start)

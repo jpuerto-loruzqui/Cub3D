@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:10:21 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 19:19:20 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:49:36 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_line	init_line(t_player *player, float start_x)
 	l.ray_dir_y = sin(start_x);
 	l.map_x = (int)(player->x / BLOCK);
 	l.map_y = (int)(player->y / BLOCK);
-	l.delta_dist_x = get_delta_dist(l.ray_dir_x); // Distancia que el rayo debe recorrer para moverse de una línea de cuadrícula a la siguiente.
+	l.delta_dist_x = get_delta_dist(l.ray_dir_x);
+	// Distancia que el rayo debe recorrer para moverse de una línea
+	//de cuadrícula a la siguiente.
 	l.delta_dist_y = get_delta_dist(l.ray_dir_y);
 	return (l);
 }

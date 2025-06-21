@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/16 15:02:47 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:22:32 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,17 @@
 # define CUB3D_H
 
 # define FPS 60
-# define FRAME_TIME_MS (1000 / FPS)
 
 # define WIDTH 600
 # define HEIGHT 400
 # define BLOCK 64
 # define SCALE_BLOCK 1.3
-# define FRACTION (PI / 4 / WIDTH)
 
 # define MINIMAP_SCALE 0.2
 # define MINIMAP_SIZE 100
 # define MINIMAP_X 15
-# define MINIMAP_Y (HEIGHT - MINIMAP_SIZE - 10)
 # define MINI_CELLS 10
-# define BLOCK_PX (MINIMAP_SIZE / MINI_CELLS)
-# define MAP_PLAYER_PX (MINIMAP_X + (MINI_CELLS / 2) * BLOCK_PX + BLOCK_PX / 2)
-# define MAP_PLAYER_PY (MINIMAP_Y + (MINI_CELLS / 2) * BLOCK_PX + BLOCK_PX / 2)
 # define MAP_PLAYER_RADIUS 3
-
-# define WELCOME_POSX ((WIDTH / 2) - (600 / 2))
-# define WELCOME_POSY ((HEIGHT / 2) - (400 / 2))
-# define CHAR1_X ((WIDTH / 2) - 90 - 10)
-# define CHAR2_X ((WIDTH / 2) + 10)
-# define CHARS_Y (HEIGHT / 4)
 
 # define W 119
 # define A 97
@@ -68,6 +56,21 @@
 # include <stdlib.h>
 # include "../gnl/get_next_line.h"
 # include <sys/time.h>
+
+typedef struct s_consts
+{
+	unsigned long	frame_time_ms;
+	float			fraction;
+	int				minimap_y;
+	int				block_px;
+	int				map_player_px;
+	int				map_player_py;
+	int				welcome_posx;
+	int				welcome_posy;
+	int				char1_x;
+	int				char2_x;
+	int				chars_y;
+}	t_consts;
 
 typedef struct s_line
 {
@@ -159,7 +162,31 @@ typedef struct s_game
 	t_player	player;
 	t_tex		textures[10];
 	t_config	*conf;
+	t_consts	consts;
 }	t_game;
+
+typedef struct s_floorcast
+{
+	bool			is_ceiling;
+	int				p;
+	float			ray_dir_x0;
+	float			ray_dir_y0;
+	float			ray_dir_x1;
+	float			ray_dir_y1;
+	float			pos_z;
+	float			row_distance;
+	float			floor_step_x;
+	float			floor_step_y;
+	float			floor_x;
+	float			floor_y;
+	int				texture_index;
+	int				cell_x;
+	int				cell_y;
+	int				tex_x;
+	int				tex_y;
+	unsigned int	color;
+	char			*pixel;
+}	t_floorcast;
 
 // ------------------------ INIT
 void			init_game(t_game *game, t_config *conf);
@@ -207,9 +234,14 @@ void			draw_floor(t_game *game, int y);
 float			get_delta_dist(float rayDir);
 unsigned int	get_darkness(unsigned int color, float height);
 void			put_pixel_t(int x, int y, unsigned int color, t_game *game);
+
 // ------------------------ PARSER
 bool			parse_cub_file(const char *filename, t_config *conf);
 bool			validate_map(t_config *conf);
+bool			is_header(char **lines, int i);
+bool			parse_header_line(char *line, t_config *conf);
+bool			copy_map(char **lines, t_config *conf, int map_start,
+					int map_height);
 
 // ------------------------ ERROR
 void			ft_exit_error(char *error);
@@ -223,5 +255,10 @@ void			draw_map(t_game *game, t_player *player);
 
 // ------------------------- DOORS
 void			set_doors_from_map(t_game *game);
+
+// ------------------------- UTILS WALK
+char			is_collider(char c);
+int				check_wall(float x, float y, t_game *game);
+void			get_new_pos(float *x, float *y, float dx, float dy);
 
 #endif

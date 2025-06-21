@@ -6,18 +6,18 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/16 19:35:40 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:24:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	is_player(char c)
+int	is_player(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-static bool	valid_char(char c)
+bool	valid_char(char c)
 {
 	return (c == 'D' || c == 'C' || c == '0' || c == '1' || c == ' '
 		|| is_player(c));

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/16 15:38:26 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:06:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static char	**read_file_lines(const char *filename)
 	if (fd < 0)
 		return (NULL);
 	all = NULL;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		tmp = all;
 		if (tmp)
@@ -34,42 +35,45 @@ static char	**read_file_lines(const char *filename)
 		if (tmp)
 			free(tmp);
 		free(line);
+		line = get_next_line(fd);
 	}
 	result = ft_split(all, '\n');
-	free(all);
-	return (result);
+	return (free(all), result);
 }
 
-static bool	parse_color(char *line, unsigned long *color)
+static bool	normalize_map(char **map, int map_height)
 {
-	char	**split;
-	int		i;
-	int		rgb[3];
+	int		max_len;
+	int		curr_len;
+	int		y;
+	char	*new_line;
 
-	split = ft_split(line, ',');
-	if (!split || !split[0] || !split[1] || !split[2] || split[3])
+	max_len = 0;
+	y = 0;
+	while (y < map_height)
 	{
-		ft_free_split(split);
-		return (false);
+		curr_len = ft_strlen(map[y]);
+		if (curr_len > max_len)
+			max_len = curr_len;
+		y++;
 	}
-	i = 0;
-	while (i < 3)
+	y = 0;
+	while (y < map_height)
 	{
-		if (!ft_isdigit_str(split[i]))
+		curr_len = ft_strlen(map[y]);
+		if (curr_len < max_len)
 		{
-			ft_free_split(split);
-			return (false);
+			new_line = malloc(max_len + 1);
+			if (!new_line)
+				return (false);
+			ft_memcpy(new_line, map[y], curr_len);
+			ft_memset(new_line + curr_len, ' ', max_len - curr_len);
+			new_line[max_len] = '\0';
+			free(map[y]);
+			map[y] = new_line;
 		}
-		rgb[i] = ft_atoi(split[i]);
-		if (rgb[i] < 0 || rgb[i] > 255)
-		{
-			ft_free_split(split);
-			return (false);
-		}
-		i++;
+		y++;
 	}
-	*color = ((unsigned long)rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
-	ft_free_split(split);
 	return (true);
 }
 
@@ -77,59 +81,26 @@ bool	parse_cub_file(const char *filename, t_config *conf)
 {
 	char	**lines;
 	int		i;
-	int		j;
 	int		map_start;
 
 	lines = read_file_lines(filename);
 	if (!lines)
 		return (false);
-	i = 0;
 	ft_bzero(conf, sizeof(t_config));
+	i = 0;
 	while (lines[i] && ft_strlen(lines[i]) == 0)
 		i++;
-	while (lines[i] && (ft_strncmp(lines[i], "NO ", 3) == 0
-			|| ft_strncmp(lines[i], "SO ", 3) == 0
-			|| ft_strncmp(lines[i], "WE ", 3) == 0
-			|| ft_strncmp(lines[i], "EA ", 3) == 0
-			|| ft_strncmp(lines[i], "F ", 2) == 0
-			|| ft_strncmp(lines[i], "C ", 2) == 0))
-	{
-		if (ft_strncmp(lines[i], "NO ", 3) == 0)
-			conf->no_texture = ft_strdup(lines[i] + 3);
-		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
-			conf->so_texture = ft_strdup(lines[i] + 3);
-		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
-			conf->we_texture = ft_strdup(lines[i] + 3);
-		else if (ft_strncmp(lines[i], "EA ", 3) == 0)
-			conf->ea_texture = ft_strdup(lines[i] + 3);
-		else if (ft_strncmp(lines[i], "F ", 2) == 0)
-		{
-			if (!parse_color(lines[i] + 2, &conf->floor_color))
-				return (ft_free_split(lines), false);
-		}
-		else if (ft_strncmp(lines[i], "C ", 2) == 0)
-		{
-			if (!parse_color(lines[i] + 2, &conf->ceiling_color))
-				return (ft_free_split(lines), false);
-		}
-		i++;
-	}
+	while (lines[i] && is_header(lines, i))
+		if (!parse_header_line(lines[i++], conf))
+			return (ft_free_split(lines), false);
 	while (lines[i] && ft_strlen(lines[i]) == 0)
 		i++;
 	map_start = i;
 	while (lines[i])
 		i++;
-	conf->map_height = i - map_start;
-	conf->map = malloc(sizeof(char *) * (conf->map_height + 1));
-	if (!conf->map)
+	if (!copy_map(lines, conf, map_start, i - map_start))
 		return (ft_free_split(lines), false);
-	j = 0;
-	while (j < conf->map_height)
-	{
-		conf->map[j] = ft_strdup(lines[map_start + j]);
-		j++;
-	}
-	conf->map[conf->map_height] = NULL;
-	ft_free_split(lines);
-	return (true);
+	if (!normalize_map(conf->map, conf->map_height))
+		return (ft_free_split(conf->map), ft_free_split(lines), false);
+	return (ft_free_split(lines), true);
 }

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:24:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/16 15:24:48 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/21 14:58:38 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_screen(t_game *game)
 	while (i < WIDTH)
 	{
 		draw_line(&game->player, game, start_x, i);
-		start_x += FRACTION;
+		start_x += game->consts.fraction;
 		i++;
 	}
 }

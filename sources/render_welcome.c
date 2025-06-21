@@ -6,11 +6,32 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:35:54 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 17:28:44 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:20:50 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	handle_selection(t_game *game, int *current_selection)
+{
+	if (game->player.key_left && *current_selection == 1)
+		*current_selection = 0;
+	if (game->player.key_right && *current_selection == 0)
+		*current_selection = 1;
+	if (game->player.key_enter)
+	{
+		game->welcome->selected = true;
+		game->character = *current_selection;
+		game->player.tex = &game->welcome->character[*current_selection];
+		mlx_destroy_image(game->mlx, game->welcome->select);
+		if (*current_selection == 0)
+			mlx_destroy_image(game->mlx,
+				game->welcome->character[1].img);
+		else
+			mlx_destroy_image(game->mlx,
+				game->welcome->character[0].img);
+	}
+}
 
 int	render_select(t_game *game)
 {
@@ -20,60 +41,45 @@ int	render_select(t_game *game)
 		draw_background(game, MAIN_BG);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	mlx_put_image_to_window(game->mlx, game->win, game->welcome->select,
-		WELCOME_POSX, WELCOME_POSY);
+		game->consts.welcome_posx, game->consts.welcome_posy);
 	mlx_put_image_to_window(game->mlx, game->win,
-		game->welcome->character[0].img, CHAR1_X, CHARS_Y);
+		game->welcome->character[0].img, game->consts.char1_x,
+		game->consts.chars_y);
 	mlx_put_image_to_window(game->mlx, game->win,
-		game->welcome->character[1].img, CHAR2_X, CHARS_Y);
-	if (game->player.key_left && current_selection == 1)
-		current_selection = 0;
-	if (game->player.key_right && current_selection == 0)
-		current_selection = 1;
+		game->welcome->character[1].img, game->consts.char2_x,
+		game->consts.chars_y);
+	handle_selection(game, &current_selection);
 	if (current_selection == 0)
-		draw_outline_box(game, CHAR1_X, CHARS_Y, 90);
+		draw_outline_box(game, game->consts.char1_x, game->consts.chars_y, 90);
 	else
-		draw_outline_box(game, CHAR2_X, CHARS_Y, 90);
-	if (game->player.key_enter == true)
-	{
-		game->welcome->selected = true;
-		game->character = current_selection;
-		game->player.tex = &game->welcome->character[current_selection];
-		mlx_destroy_image(game->mlx, game->welcome->select);
-		if (current_selection == 0)
-			mlx_destroy_image(game->mlx, game->welcome->character[1].img);
-		else
-			mlx_destroy_image(game->mlx, game->welcome->character[0].img);
+		draw_outline_box(game, game->consts.char2_x, game->consts.chars_y, 90);
+	if (game->welcome->selected)
 		return (0);
-	}
 	return (0);
 }
 
 int	render_welcome(t_game *game)
 {
 	static int	frame = 0;
-	int			enter_realased;
+	void		*img;
 
-	enter_realased = true;
 	if (WIDTH > 600 || HEIGHT > 400)
 		draw_background(game, MAIN_BG);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	if (game->player.key_enter)
 	{
-		if (enter_realased)
-		{
-			game->welcome->start = true;
-			mlx_destroy_image(game->mlx, game->welcome->img1);
-			mlx_destroy_image(game->mlx, game->welcome->img2);
-			game->player.key_enter = false;
-			return (0);
-		}
+		game->welcome->start = true;
+		mlx_destroy_image(game->mlx, game->welcome->img1);
+		mlx_destroy_image(game->mlx, game->welcome->img2);
+		game->player.key_enter = false;
+		return (0);
 	}
 	if (frame % 60 < 30)
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->welcome->img1, WELCOME_POSX, WELCOME_POSY);
+		img = game->welcome->img1;
 	else
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->welcome->img2, WELCOME_POSX, WELCOME_POSY);
+		img = game->welcome->img2;
+	mlx_put_image_to_window(game->mlx, game->win, img,
+		game->consts.welcome_posx, game->consts.welcome_posy);
 	frame++;
 	return (0);
 }

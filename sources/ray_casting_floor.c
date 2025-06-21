@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 18:36:28 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 19:42:19 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:14:25 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,46 +37,62 @@ unsigned int	get_darkness_distance(unsigned int color, float distance)
 	return ((r << 16) | (g << 8) | b);
 }
 
+void	init_floorcast(t_floorcast *f, t_game *game, int y)
+{
+	f->is_ceiling = (y < HEIGHT / 2);
+	if (f->is_ceiling)
+		f->p = (HEIGHT / 2) - y;
+	else
+		f->p = y - (HEIGHT / 2);
+	f->ray_dir_x0 = cos(game->player.angle - PI / 8);
+	f->ray_dir_y0 = sin(game->player.angle - PI / 8);
+	f->ray_dir_x1 = cos(game->player.angle + PI / 8);
+	f->ray_dir_y1 = sin(game->player.angle + PI / 8);
+	f->pos_z = 0.5 * HEIGHT;
+	f->row_distance = f->pos_z / f->p;
+	f->floor_step_x = f->row_distance * (f->ray_dir_x1 - f->ray_dir_x0) / WIDTH;
+	f->floor_step_y = f->row_distance * (f->ray_dir_y1 - f->ray_dir_y0) / WIDTH;
+	f->floor_x = game->player.x / (BLOCK * SCALE_BLOCK) + f->row_distance
+		* f->ray_dir_x0;
+	f->floor_y = game->player.y / (BLOCK * SCALE_BLOCK) + f->row_distance
+		* f->ray_dir_y0;
+	if (f->is_ceiling)
+		f->texture_index = 4;
+	else
+		f->texture_index = 5;
+}
+
+void	draw_floor_pixel(t_floorcast *f, t_game *game, int x, int y)
+{
+	f->cell_x = (int)(f->floor_x * BLOCK);
+	f->cell_y = (int)(f->floor_y * BLOCK);
+	f->tex_x = (int)(game->textures[f->texture_index].width
+			* (f->floor_x - f->cell_x))
+		& (game->textures[f->texture_index].width - 1);
+	f->tex_y = (int)(game->textures[f->texture_index].height
+			* (f->floor_y - f->cell_y))
+		& (game->textures[f->texture_index].height - 1);
+	f->floor_x += f->floor_step_x;
+	f->floor_y += f->floor_step_y;
+	f->pixel = game->textures[f->texture_index].addr
+		+ (f->tex_y * game->textures[f->texture_index].size_line
+			+ f->tex_x * (game->textures[f->texture_index].bpp / 8));
+	f->color = *(unsigned int *)f->pixel;
+	f->color = get_darkness_distance(f->color, f->row_distance);
+	f->color = ((f->color >> 1) & 8355711);
+	put_pixel_t(x, y, f->color, game);
+}
+
 void	draw_floor(t_game *game, int y)
 {
-	int				x;
-	bool			is_ceiling = (y < HEIGHT / 2);
-	int				p = is_ceiling ? (HEIGHT / 2 - y) : (y - HEIGHT / 2);
-	float			ray_dir_x0 = cos(game->player.angle - PI / 8);
-	float			ray_dir_y0 = sin(game->player.angle - PI / 8);
-	float			ray_dir_x1 = cos(game->player.angle + PI / 8);
-	float			ray_dir_y1 = sin(game->player.angle + PI / 8);
-	float			pos_z = 0.5 * HEIGHT;
-	float			row_distance = pos_z / p;
-	float			floor_step_x = row_distance * (ray_dir_x1 - ray_dir_x0) / WIDTH;
-	float			floor_step_y = row_distance * (ray_dir_y1 - ray_dir_y0) / WIDTH;
-	float			floor_x = game->player.x / (BLOCK * SCALE_BLOCK) + row_distance * ray_dir_x0;
-	float			floor_y = game->player.y / (BLOCK * SCALE_BLOCK) + row_distance * ray_dir_y0;
-	int				texture_index = is_ceiling ? 4 : 5;
-	int				cell_x;
-	int				cell_y;
-	int				tex_x;
-	int				tex_y;
-	unsigned int	color;
-	char			*pixel;
+	int			x;
+	t_floorcast	f;
 
+	init_floorcast(&f, game, y);
 	x = 0;
 	while (x < WIDTH)
 	{
-		cell_x = (int)(floor_x * BLOCK);
-		cell_y = (int)(floor_y * BLOCK);
-		tex_x = (int)(game->textures[texture_index].width * (floor_x - cell_x))
-			& (game->textures[texture_index].width - 1);
-		tex_y = (int)(game->textures[texture_index].height * (floor_y - cell_y))
-			& (game->textures[texture_index].height - 1);
-		floor_x += floor_step_x;
-		floor_y += floor_step_y;
-		pixel = game->textures[texture_index].addr
-			+ (tex_y * game->textures[texture_index].size_line + tex_x * (game->textures[texture_index].bpp / 8));
-		color = *(unsigned int *)pixel;
-		color = get_darkness_distance(color, row_distance);
-		color = ((color >> 1) & 8355711);
-		put_pixel_t(x, y, color, game);
+		draw_floor_pixel(&f, game, x, y);
 		x++;
 	}
 }
