@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/21 19:06:55 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:35:51 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ static char	**read_file_lines(const char *filename)
 	return (free(all), result);
 }
 
-static bool	normalize_map(char **map, int map_height)
+int	get_max_line_len(int map_height, char **map)
 {
-	int		max_len;
-	int		curr_len;
-	int		y;
-	char	*new_line;
+	int	y;
+	int	max_len;
+	int	curr_len;
 
-	max_len = 0;
 	y = 0;
 	while (y < map_height)
 	{
@@ -57,6 +55,17 @@ static bool	normalize_map(char **map, int map_height)
 			max_len = curr_len;
 		y++;
 	}
+	return (max_len);
+}
+
+static bool	normalize_map(char **map, int map_height)
+{
+	int		max_len;
+	int		curr_len;
+	int		y;
+	char	*new_line;
+
+	max_len = get_max_line_len(map_height, map);
 	y = 0;
 	while (y < map_height)
 	{

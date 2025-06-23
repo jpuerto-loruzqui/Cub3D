@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/21 19:22:32 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:24:06 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,24 @@ typedef struct s_floorcast
 	char			*pixel;
 }	t_floorcast;
 
+typedef struct s_draw_data
+{
+	t_line			l;
+	float			height;
+	int				start_y;
+	int				end;
+	double			wall_x;
+	double			tex_x_normalized;
+	int				tex_index;
+	int				tex_x;
+	int				tex_y;
+	double			step;
+	double			tex_pos;
+	int				y;
+	char			*pixel_addr;
+	unsigned int	color;
+}	t_draw_data;
+
 // ------------------------ INIT
 void			init_game(t_game *game, t_config *conf);
 void			init_player(t_player *player);
@@ -234,6 +252,16 @@ void			draw_floor(t_game *game, int y);
 float			get_delta_dist(float rayDir);
 unsigned int	get_darkness(unsigned int color, float height);
 void			put_pixel_t(int x, int y, unsigned int color, t_game *game);
+void			init_line_data(t_draw_data *d, t_player *player, t_game *game,
+					float start_x);
+void			calc_wall_position(t_draw_data *d, t_player *player, t_game *game);
+void			calc_texture_data(t_draw_data *d, t_game *game);
+void			draw_wall_column(t_draw_data *d, t_game *game, int i);
+void			draw_line(t_player *player, t_game *game, float start_x, int i);
+void			dda(t_game *game, t_line *l);
+void			calculate_steps(t_line *l, t_player *player);
+float			get_dist(t_player *player, t_line l, float start_x);
+int				get_wall_c(int side, int step_x, int step_y);
 
 // ------------------------ PARSER
 bool			parse_cub_file(const char *filename, t_config *conf);

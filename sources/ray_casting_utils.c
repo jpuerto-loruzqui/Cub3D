@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:10:21 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/21 18:49:36 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:18:52 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,30 @@ float	get_delta_dist(float rayDir)
 	else
 		delta_dist = fabs(1 / rayDir);
 	return (delta_dist);
+}
+
+void	dda(t_game *game, t_line *l)
+{
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (l->side_dist_x < l->side_dist_y)
+		{
+			l->side_dist_x += l->delta_dist_x;
+			l->map_x += l->step_x;
+			l->side = 0;
+		}
+		else
+		{
+			l->side_dist_y += l->delta_dist_y;
+			l->map_y += l->step_y;
+			l->side = 1;
+		}
+		if (game->map[l->map_y][l->map_x] == '1'
+			|| game->map[l->map_y][l->map_x] == 'C'
+			|| game->map[l->map_y][l->map_x] == 'D')
+			hit = 1;
+	}
 }
