@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/07/08 11:14:27 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:21:27 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,6 @@ int				ft_key_release(int keycode, t_game *game);
 
 // ------------------------ DRAW
 void			ft_draw_screen(t_game *game);
-void			ft_clear_image(t_game *game); //NO SE USA
 void			ft_put_pixel(int x, int y, int color, t_game *game );
 void			ft_draw_gray_square(int x, int y, int size, t_game *game);
 void			ft_draw_circle(int x, int y, int radius, t_game *game);
@@ -243,7 +242,8 @@ void			ft_draw_background(t_game *game, unsigned int color);
 bool			ft_is_light(unsigned int color);
 
 // ------------------------ RC
-void			ft_draw_line(t_player *player, t_game *game, float start_x, int i);
+void			ft_draw_line(t_player *player, t_game *game, float start_x,
+					int i);
 void			ft_draw_floor(t_game *game, int y);
 unsigned int	ft_get_darkness(unsigned int color, float height);
 void			ft_put_pixel_t(int x, int y, unsigned int color, t_game *game);
@@ -264,7 +264,6 @@ bool			ft_copy_map(char **lines, t_config *conf, int map_start,
 void			ft_exit_error(char *error);
 
 // ------------------------- FREE
-void			ft_free_tex(t_game *game, t_tex *tex); //NO SE USA
 int				ft_close_window(t_game *game);
 
 // ------------------------- DOORS

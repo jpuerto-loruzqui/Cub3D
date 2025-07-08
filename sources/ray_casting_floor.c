@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 18:36:28 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:03:44 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:22:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 	return (0);
 }*/
 
-static unsigned int	ft_ft_get_darkness_distance(unsigned int color, float distance)
+static unsigned int	ft_ft_get_darkness_distance(unsigned int color,
+	float distance)
 {
 	float			darkness ;
 	unsigned int	r;

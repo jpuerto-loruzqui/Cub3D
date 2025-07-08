@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:35:54 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:10:53 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:24:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ int	ft_render_select(t_game *game)
 		game->consts.chars_y);
 	ft_handle_selection(game, &current_selection);
 	if (current_selection == 0)
-		ft_draw_outline_box(game, game->consts.char1_x, game->consts.chars_y, 90);
+		ft_draw_outline_box(game, game->consts.char1_x, game->consts.chars_y,
+			90);
 	else
-		ft_draw_outline_box(game, game->consts.char2_x, game->consts.chars_y, 90);
+		ft_draw_outline_box(game, game->consts.char2_x, game->consts.chars_y,
+			90);
 	if (game->welcome->selected)
 		return (0);
 	return (0);

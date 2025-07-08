@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:04:05 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:10:09 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:23:32 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ft_render_minimap(t_game *game, t_player *player)
 				continue ;
 			}
 			if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
-				// SEG FAULT EN MAPAS NO CUADRADOS
 				ft_draw_gray_square(MINIMAP_X + dx * game->consts.block_px,
 					game->consts.minimap_y + dy * game->consts.block_px,
 					game->consts.block_px, game);
