@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/15 16:31:15 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:55:41 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	key_press(int keycode, t_game *game)
+int	ft_key_press(int keycode, t_game *game)
 {
 	if (keycode == ENTER)
 		game->player.key_enter = true;
@@ -31,11 +31,11 @@ int	key_press(int keycode, t_game *game)
 	if (game->player.key_right || game->player.key_up || game->player.key_left)
 		game->player.running = true;
 	if (keycode == 65307)
-		close_window(game);
+		ft_close_window(game);
 	return (0);
 }
 
-int	key_release(int keycode, t_game *game)
+int	ft_key_release(int keycode, t_game *game)
 {
 	if (keycode == W)
 		game->player.key_up = false;

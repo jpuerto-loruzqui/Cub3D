@@ -6,20 +6,22 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 18:36:28 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/21 19:14:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:03:44 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	get_texture_color(t_tex texture, int x, int y)
+//NO SE USA
+
+/*int	ft_get_texture_color(t_tex texture, int x, int y)
 {
 	if (x >= 0 && x < 64 && y >= 0 && y < 64)
 		return (texture.addr[y * 64 + x]);
 	return (0);
-}
+}*/
 
-unsigned int	get_darkness_distance(unsigned int color, float distance)
+static unsigned int	ft_ft_get_darkness_distance(unsigned int color, float distance)
 {
 	float			darkness ;
 	unsigned int	r;
@@ -37,7 +39,7 @@ unsigned int	get_darkness_distance(unsigned int color, float distance)
 	return ((r << 16) | (g << 8) | b);
 }
 
-void	init_floorcast(t_floorcast *f, t_game *game, int y)
+static void	ft_init_floorcast(t_floorcast *f, t_game *game, int y)
 {
 	f->is_ceiling = (y < HEIGHT / 2);
 	if (f->is_ceiling)
@@ -62,7 +64,7 @@ void	init_floorcast(t_floorcast *f, t_game *game, int y)
 		f->texture_index = 5;
 }
 
-void	draw_floor_pixel(t_floorcast *f, t_game *game, int x, int y)
+static void	ft_draw_floor_pixel(t_floorcast *f, t_game *game, int x, int y)
 {
 	f->cell_x = (int)(f->floor_x * BLOCK);
 	f->cell_y = (int)(f->floor_y * BLOCK);
@@ -78,21 +80,21 @@ void	draw_floor_pixel(t_floorcast *f, t_game *game, int x, int y)
 		+ (f->tex_y * game->textures[f->texture_index].size_line
 			+ f->tex_x * (game->textures[f->texture_index].bpp / 8));
 	f->color = *(unsigned int *)f->pixel;
-	f->color = get_darkness_distance(f->color, f->row_distance);
+	f->color = ft_ft_get_darkness_distance(f->color, f->row_distance);
 	f->color = ((f->color >> 1) & 8355711);
-	put_pixel_t(x, y, f->color, game);
+	ft_put_pixel_t(x, y, f->color, game);
 }
 
-void	draw_floor(t_game *game, int y)
+void	ft_draw_floor(t_game *game, int y)
 {
 	int			x;
 	t_floorcast	f;
 
-	init_floorcast(&f, game, y);
+	ft_init_floorcast(&f, game, y);
 	x = 0;
 	while (x < WIDTH)
 	{
-		draw_floor_pixel(&f, game, x, y);
+		ft_draw_floor_pixel(&f, game, x, y);
 		x++;
 	}
 }

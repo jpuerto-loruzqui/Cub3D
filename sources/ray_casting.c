@@ -6,13 +6,15 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:30 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/23 19:29:17 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:08:09 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-bool	touch(float px, float py, t_game *game)
+//NO SE USA
+
+/*bool	ft_touch(float px, float py, t_game *game)
 {
 	int	y;
 	int	x;
@@ -22,9 +24,9 @@ bool	touch(float px, float py, t_game *game)
 	if (game->map[y][x] == '1')
 		return (true);
 	return (false);
-}
+}*/
 
-float	get_dist(t_player *player, t_line l, float start_x)
+float	ft_get_dist(t_player *player, t_line l, float start_x)
 {
 	float	exact_wall_x;
 	float	exact_wall_y;
@@ -57,7 +59,7 @@ float	get_dist(t_player *player, t_line l, float start_x)
 	return (dist);
 }
 
-void	calculate_steps(t_line *l, t_player *player)
+void	ft_calculate_steps(t_line *l, t_player *player)
 {
 	if (l->ray_dir_x < 0)
 	{
@@ -81,7 +83,7 @@ void	calculate_steps(t_line *l, t_player *player)
 	}
 }
 
-int	get_wall_c(int side, int step_x, int step_y)
+int	ft_get_wall_c(int side, int step_x, int step_y)
 {
 	if (side == 0)
 	{
@@ -99,7 +101,7 @@ int	get_wall_c(int side, int step_x, int step_y)
 	}
 }
 
-bool	is_light(unsigned int color)
+bool	ft_is_light(unsigned int color)
 {
 	if (color == LIGHT_COLOR_1 || color == LIGHT_COLOR_2
 		|| color == 0x00FF00)

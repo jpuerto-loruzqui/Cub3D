@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 19:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/21 19:22:23 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:58:31 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static bool	parse_color(char *line, unsigned long *color)
+static bool	ft_parse_color(char *line, unsigned long *color)
 {
 	char	**split;
 	int		i;
@@ -36,7 +36,7 @@ static bool	parse_color(char *line, unsigned long *color)
 	return (true);
 }
 
-bool	is_header(char **lines, int i)
+bool	ft_is_header(char **lines, int i)
 {
 	if (ft_strncmp(lines[i], "NO ", 3) == 0
 		|| ft_strncmp(lines[i], "SO ", 3) == 0
@@ -48,7 +48,7 @@ bool	is_header(char **lines, int i)
 	return (false);
 }
 
-bool	parse_header_line(char *line, t_config *conf)
+bool	ft_parse_header_line(char *line, t_config *conf)
 {
 	if (!ft_strncmp(line, "NO ", 3))
 		conf->no_texture = ft_strdup(line + 3);
@@ -59,13 +59,13 @@ bool	parse_header_line(char *line, t_config *conf)
 	else if (!ft_strncmp(line, "EA ", 3))
 		conf->ea_texture = ft_strdup(line + 3);
 	else if (!ft_strncmp(line, "F ", 2))
-		return (parse_color(line + 2, &conf->floor_color));
+		return (ft_parse_color(line + 2, &conf->floor_color));
 	else if (!ft_strncmp(line, "C ", 2))
-		return (parse_color(line + 2, &conf->ceiling_color));
+		return (ft_parse_color(line + 2, &conf->ceiling_color));
 	return (true);
 }
 
-bool	copy_map(char **lines, t_config *conf, int map_start,
+bool	ft_copy_map(char **lines, t_config *conf, int map_start,
 	int map_height)
 {
 	int	j;

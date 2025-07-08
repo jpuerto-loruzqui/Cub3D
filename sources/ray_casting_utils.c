@@ -6,13 +6,24 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:10:21 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/23 18:18:52 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:08:08 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-t_line	init_line(t_player *player, float start_x)
+static float	ft_get_delta_dist(float rayDir)
+{
+	float	delta_dist;
+
+	if (fabs(rayDir) < 1e-8)
+		delta_dist = 1e30;
+	else
+		delta_dist = fabs(1 / rayDir);
+	return (delta_dist);
+}
+
+t_line	ft_init_line(t_player *player, float start_x)
 {
 	t_line	l;
 
@@ -20,14 +31,14 @@ t_line	init_line(t_player *player, float start_x)
 	l.ray_dir_y = sin(start_x);
 	l.map_x = (int)(player->x / BLOCK);
 	l.map_y = (int)(player->y / BLOCK);
-	l.delta_dist_x = get_delta_dist(l.ray_dir_x);
+	l.delta_dist_x = ft_get_delta_dist(l.ray_dir_x);
 	// Distancia que el rayo debe recorrer para moverse de una línea
 	//de cuadrícula a la siguiente.
-	l.delta_dist_y = get_delta_dist(l.ray_dir_y);
+	l.delta_dist_y = ft_get_delta_dist(l.ray_dir_y);
 	return (l);
 }
 
-void	put_pixel_t(int x, int y, unsigned int color, t_game *game)
+void	ft_put_pixel_t(int x, int y, unsigned int color, t_game *game)
 {
 	char	*dst;
 
@@ -37,7 +48,7 @@ void	put_pixel_t(int x, int y, unsigned int color, t_game *game)
 	*(unsigned int *) dst = color;
 }
 
-unsigned int	get_darkness(unsigned int color, float height)
+unsigned int	ft_get_darkness(unsigned int color, float height)
 {
 	float			darkness;
 	unsigned int	r;
@@ -49,7 +60,7 @@ unsigned int	get_darkness(unsigned int color, float height)
 		darkness = 1.0f;
 	if (darkness < 0.01f)
 		darkness = 0.00f;
-	if (is_light(color))
+	if (ft_is_light(color))
 		return (color);
 	r = ((color >> 16) & 0xFF) * darkness;
 	g = ((color >> 8) & 0xFF) * darkness;
@@ -57,18 +68,7 @@ unsigned int	get_darkness(unsigned int color, float height)
 	return ((r << 16) | (g << 8) | b);
 }
 
-float	get_delta_dist(float rayDir)
-{
-	float	delta_dist;
-
-	if (fabs(rayDir) < 1e-8)
-		delta_dist = 1e30;
-	else
-		delta_dist = fabs(1 / rayDir);
-	return (delta_dist);
-}
-
-void	dda(t_game *game, t_line *l)
+void	ft_dda(t_game *game, t_line *l)
 {
 	int	hit;
 

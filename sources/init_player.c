@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:40:18 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/21 14:07:00 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:59:48 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_player(t_player *player)
+void	ft_init_player(t_player *player)
 {
 	player->hp = 100;
 	player->x = WIDTH / 2;
@@ -29,7 +29,7 @@ void	init_player(t_player *player)
 	player->has_hey = true;
 }
 
-static float	set_angle_player(char dir)
+static float	ft_set_angle_player(char dir)
 {
 	float	angle;
 
@@ -44,7 +44,7 @@ static float	set_angle_player(char dir)
 	return (angle);
 }
 
-void	set_player_from_map(t_game *game, t_config *conf)
+void	ft_set_player_from_map(t_game *game, t_config *conf)
 {
 	int		y;
 	int		x;
@@ -61,7 +61,7 @@ void	set_player_from_map(t_game *game, t_config *conf)
 			{
 				game->player.x = x * BLOCK + BLOCK / 2;
 				game->player.y = y * BLOCK + BLOCK / 2;
-				game->player.angle = set_angle_player(dir);
+				game->player.angle = ft_set_angle_player(dir);
 				conf->map[y][x] = '0';
 				return ;
 			}

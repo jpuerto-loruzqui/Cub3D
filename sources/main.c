@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/07/07 13:41:33 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:12:25 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static bool	is_cub_file(const char *filename)
+static bool	ft_is_cub_file(const char *filename)
 {
 	size_t	len;
 
@@ -22,7 +22,7 @@ static bool	is_cub_file(const char *filename)
 	return (ft_strncmp(filename + len - 4, ".cub", 5) == 0);
 }
 
-void	ft_free_config(t_config *conf)
+static void	ft_ft_free_config(t_config *conf)
 {
 	if (!conf)
 		return ;
@@ -45,23 +45,23 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (fprintf(stderr, "Usage: %s <map.cub>\n", argv[0]), 1);
-	if (!is_cub_file(argv[1]))
+	if (!ft_is_cub_file(argv[1]))
 		return (fprintf(stderr, "Error: file must have .cub extension\n"), 1);
-	if (!parse_cub_file(argv[1], &conf))
+	if (!ft_parse_cub_file(argv[1], &conf))
 	{
-		ft_free_config(&conf);
+		ft_ft_free_config(&conf);
 		return (fprintf(stderr, "Error: could not parse .cub file\n"), 1);
 	}
-	if (!validate_map(&conf))
+	if (!ft_validate_map(&conf))
 	{
-		ft_free_config(&conf);
+		ft_ft_free_config(&conf);
 		return (fprintf(stderr, "Error: invalid map\n"), 1);
 	}
-	init_game(&game, &conf);
-	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
-	mlx_loop_hook(game.mlx, render_loop, &game);
-	mlx_hook(game.win, 17, 0, close_window, &game);
+	ft_init_game(&game, &conf);
+	mlx_hook(game.win, 2, 1L << 0, ft_key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, ft_key_release, &game);
+	mlx_loop_hook(game.mlx, ft_render_loop, &game);
+	mlx_hook(game.win, 17, 0, ft_close_window, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

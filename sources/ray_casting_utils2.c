@@ -6,19 +6,19 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 18:19:05 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/23 18:19:37 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:08:08 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_line_data(t_draw_data *d, t_player *player, t_game *game,
+void	ft_init_line_data(t_draw_data *d, t_player *player, t_game *game,
 	float start_x)
 {
-	d->l = init_line(player, start_x);
-	calculate_steps(&d->l, player);
-	dda(game, &d->l);
-	d->l.dist = get_dist(player, d->l, start_x);
+	d->l = ft_init_line(player, start_x);
+	ft_calculate_steps(&d->l, player);
+	ft_dda(game, &d->l);
+	d->l.dist = ft_get_dist(player, d->l, start_x);
 	d->height = (BLOCK * HEIGHT * SCALE_BLOCK) / d->l.dist;
 	d->start_y = (HEIGHT - d->height) / 2;
 	d->end = d->start_y + d->height;
@@ -28,7 +28,7 @@ void	init_line_data(t_draw_data *d, t_player *player, t_game *game,
 		d->end = HEIGHT;
 }
 
-void	calc_wall_position(t_draw_data *d, t_player *player, t_game *game)
+void	ft_calc_wall_position(t_draw_data *d, t_player *player, t_game *game)
 {
 	if (d->l.side == 0)
 		d->wall_x = player->y + d->l.dist * d->l.ray_dir_y;
@@ -36,14 +36,14 @@ void	calc_wall_position(t_draw_data *d, t_player *player, t_game *game)
 		d->wall_x = player->x + d->l.dist * d->l.ray_dir_x;
 	d->wall_x = d->wall_x - floor(d->wall_x / BLOCK) * BLOCK;
 	d->tex_x_normalized = d->wall_x / BLOCK;
-	d->tex_index = get_wall_c(d->l.side, d->l.step_x, d->l.step_y);
+	d->tex_index = ft_get_wall_c(d->l.side, d->l.step_x, d->l.step_y);
 	if (game->map[d->l.map_y][d->l.map_x] == 'C')
 		d->tex_index = CONSOLE_TEX;
 	else if (game->map[d->l.map_y][d->l.map_x] == 'D')
 		d->tex_index = DOOR_TEX;
 }
 
-void	calc_texture_data(t_draw_data *d, t_game *game)
+void	ft_calc_texture_data(t_draw_data *d, t_game *game)
 {
 	d->tex_x = (int)(d->tex_x_normalized * game->textures[d->tex_index].width);
 	d->step = 1.0 * game->textures[d->tex_index].height / d->height;
@@ -51,7 +51,7 @@ void	calc_texture_data(t_draw_data *d, t_game *game)
 	d->y = d->start_y;
 }
 
-void	draw_wall_column(t_draw_data *d, t_game *game, int i)
+void	ft_draw_wall_column(t_draw_data *d, t_game *game, int i)
 {
 	while (d->y < d->end)
 	{
@@ -63,20 +63,20 @@ void	draw_wall_column(t_draw_data *d, t_game *game, int i)
 			+ (d->tex_y * game->textures[d->tex_index].size_line
 				+ d->tex_x * (game->textures[d->tex_index].bpp / 8));
 		d->color = *(unsigned int *)d->pixel_addr;
-		if (d->l.side == 0 && !is_light(d->color))
+		if (d->l.side == 0 && !ft_is_light(d->color))
 			d->color = (d->color >> 1) & 8355711;
-		d->color = get_darkness(d->color, d->height);
-		put_pixel_t(i, d->y, d->color, game);
+		d->color = ft_get_darkness(d->color, d->height);
+		ft_put_pixel_t(i, d->y, d->color, game);
 		d->y++;
 	}
 }
 
-void	draw_line(t_player *player, t_game *game, float start_x, int i)
+void	ft_draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	t_draw_data	d;
 
-	init_line_data(&d, player, game, start_x);
-	calc_wall_position(&d, player, game);
-	calc_texture_data(&d, game);
-	draw_wall_column(&d, game, i);
+	ft_init_line_data(&d, player, game, start_x);
+	ft_calc_wall_position(&d, player, game);
+	ft_calc_texture_data(&d, game);
+	ft_draw_wall_column(&d, game, i);
 }

@@ -6,24 +6,24 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/06/23 17:38:32 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:12:30 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	is_player(char c)
+static int	ft_is_player(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-bool	valid_char(char c)
+static bool	ft_valid_char(char c)
 {
 	return (c == 'D' || c == 'C' || c == '0' || c == '1' || c == ' '
-		|| is_player(c));
+		|| ft_is_player(c));
 }
 
-bool	validate_map(t_config *conf)
+bool	ft_validate_map(t_config *conf)
 {
 	int		player_count;
 	int		y;
@@ -42,10 +42,10 @@ bool	validate_map(t_config *conf)
 		while (x < len)
 		{
 			c = conf->map[y][x];
-			if (!valid_char(c))
+			if (!ft_valid_char(c))
 				return (printf("Error\nInvalid character in map: %c\n", c),
 					false);
-			if (is_player(c))
+			if (ft_is_player(c))
 				player_count++;
 			if ((y == 0 || y == conf->map_height - 1) && c != '1' && c != ' ')
 				return (printf("Error\nMap border not enclosed at y=%d\n", y),

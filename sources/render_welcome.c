@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:35:54 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/21 19:20:50 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:10:53 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	handle_selection(t_game *game, int *current_selection)
+static void	ft_handle_selection(t_game *game, int *current_selection)
 {
 	if (game->player.key_left && *current_selection == 1)
 		*current_selection = 0;
@@ -33,12 +33,12 @@ static void	handle_selection(t_game *game, int *current_selection)
 	}
 }
 
-int	render_select(t_game *game)
+int	ft_render_select(t_game *game)
 {
 	static int	current_selection = 0;
 
 	if (WIDTH > 600 || HEIGHT > 400)
-		draw_background(game, MAIN_BG);
+		ft_draw_background(game, MAIN_BG);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	mlx_put_image_to_window(game->mlx, game->win, game->welcome->select,
 		game->consts.welcome_posx, game->consts.welcome_posy);
@@ -48,23 +48,23 @@ int	render_select(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->welcome->character[1].img, game->consts.char2_x,
 		game->consts.chars_y);
-	handle_selection(game, &current_selection);
+	ft_handle_selection(game, &current_selection);
 	if (current_selection == 0)
-		draw_outline_box(game, game->consts.char1_x, game->consts.chars_y, 90);
+		ft_draw_outline_box(game, game->consts.char1_x, game->consts.chars_y, 90);
 	else
-		draw_outline_box(game, game->consts.char2_x, game->consts.chars_y, 90);
+		ft_draw_outline_box(game, game->consts.char2_x, game->consts.chars_y, 90);
 	if (game->welcome->selected)
 		return (0);
 	return (0);
 }
 
-int	render_welcome(t_game *game)
+int	ft_render_welcome(t_game *game)
 {
 	static int	frame = 0;
 	void		*img;
 
 	if (WIDTH > 600 || HEIGHT > 400)
-		draw_background(game, MAIN_BG);
+		ft_draw_background(game, MAIN_BG);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	if (game->player.key_enter)
 	{

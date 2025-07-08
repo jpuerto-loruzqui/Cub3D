@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/06/23 18:24:06 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:14:27 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,86 +207,71 @@ typedef struct s_draw_data
 }	t_draw_data;
 
 // ------------------------ INIT
-void			init_game(t_game *game, t_config *conf);
-void			init_player(t_player *player);
-char			**get_map(void);
-void			set_player_from_map(t_game *game, t_config *conf);
-t_line			init_line(t_player *player, float start_x);
+void			ft_init_game(t_game *game, t_config *conf);
+void			ft_init_player(t_player *player);
+void			ft_set_player_from_map(t_game *game, t_config *conf);
+t_line			ft_init_line(t_player *player, float start_x);
 
 // ------------------------- LOADERS
-void			load_welcome(t_welcome *welcome, t_game *game);
-void			load_game_textures(t_game *game, t_config *conf);
-void			handle_move_player(t_game *game);
+void			ft_load_welcome(t_welcome *welcome, t_game *game);
+void			ft_load_game_textures(t_game *game, t_config *conf);
+void			ft_handle_move_player(t_game *game);
 
 // ------------------------ LOOP
-int				welcome_loop(t_game *game);
-int				render_loop(t_game *game);
+int				ft_render_loop(t_game *game);
 
 // ------------------------- RENDERS
-void			render_minimap(t_game *game, t_player *player);
-void			render_minimap(t_game *game, t_player *player);
-void			render_hud(t_game *game);
-int				render_select(t_game *game);
-int				render_welcome(t_game *game);
+void			ft_render_minimap(t_game *game, t_player *player);
+void			ft_render_hud(t_game *game);
+int				ft_render_select(t_game *game);
+int				ft_render_welcome(t_game *game);
 
 // ------------------------ EVENTS
-int				key_press(int keycode, t_game *game);
-int				key_release(int keycode, t_game *game);
-void			move_player(t_game *game);
+int				ft_key_press(int keycode, t_game *game);
+int				ft_key_release(int keycode, t_game *game);
 
 // ------------------------ DRAW
-void			draw_screen(t_game *game);
-void			clear_image(t_game *game);
-void			put_pixel(int x, int y, int color, t_game *game );
-void			draw_gray_square(int x, int y, int size, t_game *game);
-void			draw_circle(int x, int y, int radius, t_game *game);
-void			draw_outline_box(t_game *game, int x, int y, int size);
-void			draw_white_square(int x, int y, int size, t_game *game);
-void			draw_dark_square(int x, int y, int size, t_game *game);
-void			draw_background(t_game *game, unsigned int color);
-bool			is_light(unsigned int color);
+void			ft_draw_screen(t_game *game);
+void			ft_clear_image(t_game *game); //NO SE USA
+void			ft_put_pixel(int x, int y, int color, t_game *game );
+void			ft_draw_gray_square(int x, int y, int size, t_game *game);
+void			ft_draw_circle(int x, int y, int radius, t_game *game);
+void			ft_draw_outline_box(t_game *game, int x, int y, int size);
+void			ft_draw_white_square(int x, int y, int size, t_game *game);
+void			ft_draw_dark_square(int x, int y, int size, t_game *game);
+void			ft_draw_background(t_game *game, unsigned int color);
+bool			ft_is_light(unsigned int color);
 
 // ------------------------ RC
-void			draw_line(t_player *player, t_game *game, float start_x, int i);
-void			draw_floor(t_game *game, int y);
-float			get_delta_dist(float rayDir);
-unsigned int	get_darkness(unsigned int color, float height);
-void			put_pixel_t(int x, int y, unsigned int color, t_game *game);
-void			init_line_data(t_draw_data *d, t_player *player, t_game *game,
-					float start_x);
-void			calc_wall_position(t_draw_data *d, t_player *player, t_game *game);
-void			calc_texture_data(t_draw_data *d, t_game *game);
-void			draw_wall_column(t_draw_data *d, t_game *game, int i);
-void			draw_line(t_player *player, t_game *game, float start_x, int i);
-void			dda(t_game *game, t_line *l);
-void			calculate_steps(t_line *l, t_player *player);
-float			get_dist(t_player *player, t_line l, float start_x);
-int				get_wall_c(int side, int step_x, int step_y);
+void			ft_draw_line(t_player *player, t_game *game, float start_x, int i);
+void			ft_draw_floor(t_game *game, int y);
+unsigned int	ft_get_darkness(unsigned int color, float height);
+void			ft_put_pixel_t(int x, int y, unsigned int color, t_game *game);
+void			ft_dda(t_game *game, t_line *l);
+void			ft_calculate_steps(t_line *l, t_player *player);
+float			ft_get_dist(t_player *player, t_line l, float start_x);
+int				ft_get_wall_c(int side, int step_x, int step_y);
 
 // ------------------------ PARSER
-bool			parse_cub_file(const char *filename, t_config *conf);
-bool			validate_map(t_config *conf);
-bool			is_header(char **lines, int i);
-bool			parse_header_line(char *line, t_config *conf);
-bool			copy_map(char **lines, t_config *conf, int map_start,
+bool			ft_parse_cub_file(const char *filename, t_config *conf);
+bool			ft_validate_map(t_config *conf);
+bool			ft_is_header(char **lines, int i);
+bool			ft_parse_header_line(char *line, t_config *conf);
+bool			ft_copy_map(char **lines, t_config *conf, int map_start,
 					int map_height);
 
 // ------------------------ ERROR
 void			ft_exit_error(char *error);
 
 // ------------------------- FREE
-void			free_tex(t_game *game, t_tex *tex);
-int				close_window(t_game *game);
-
-// -------------------------- MAP
-void			draw_map(t_game *game, t_player *player);
+void			ft_free_tex(t_game *game, t_tex *tex); //NO SE USA
+int				ft_close_window(t_game *game);
 
 // ------------------------- DOORS
-void			set_doors_from_map(t_game *game);
+void			ft_set_doors_from_map(t_game *game);
 
 // ------------------------- UTILS WALK
-char			is_collider(char c);
-int				check_wall(float x, float y, t_game *game);
-void			get_new_pos(float *x, float *y, float dx, float dy);
+int				ft_check_wall(float x, float y, t_game *game);
+void			ft_get_new_pos(float *x, float *y, float dx, float dy);
 
 #endif

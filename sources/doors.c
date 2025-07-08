@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 10:17:44 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/16 14:59:19 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:14:24 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// set_doors_from_map(t_game *game)
+// ft_set_doors_from_map(t_game *game)
 // {
 // 	int y = 0;
 

@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:04:05 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/23 19:42:02 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:10:09 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	render_minimap(t_game *game, t_player *player)
+void	ft_render_minimap(t_game *game, t_player *player)
 {
 	int	player_cx;
 	int	player_cy;
@@ -27,9 +27,9 @@ void	render_minimap(t_game *game, t_player *player)
 	player_cy = player->y / BLOCK;
 	start_x = player_cx - MINI_CELLS / 2;
 	start_y = player_cy - MINI_CELLS / 2;
-	draw_white_square(MINIMAP_X - 1, game->consts.minimap_y - 1,
+	ft_draw_white_square(MINIMAP_X - 1, game->consts.minimap_y - 1,
 		MINIMAP_SIZE + 2, game);
-	draw_dark_square(MINIMAP_X, game->consts.minimap_y, MINIMAP_SIZE, game);
+	ft_draw_dark_square(MINIMAP_X, game->consts.minimap_y, MINIMAP_SIZE, game);
 	dy = 0;
 	while (dy < MINI_CELLS)
 	{
@@ -50,13 +50,13 @@ void	render_minimap(t_game *game, t_player *player)
 			}
 			if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
 				// SEG FAULT EN MAPAS NO CUADRADOS
-				draw_gray_square(MINIMAP_X + dx * game->consts.block_px,
+				ft_draw_gray_square(MINIMAP_X + dx * game->consts.block_px,
 					game->consts.minimap_y + dy * game->consts.block_px,
 					game->consts.block_px, game);
 			dx++;
 		}
 		dy++;
 	}
-	draw_circle(game->consts.map_player_px, game->consts.map_player_py,
+	ft_draw_circle(game->consts.map_player_px, game->consts.map_player_py,
 		MAP_PLAYER_RADIUS, game);
 }

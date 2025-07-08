@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 23:34:29 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/21 19:16:17 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:10:08 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	put_hp_bar(t_game *game)
+static void	ft_put_hp_bar(t_game *game)
 {
 	int	x_pos;
 	int	hp;
@@ -32,17 +32,17 @@ void	put_hp_bar(t_game *game)
 		j = 0;
 		while (j < 10)
 		{
-			put_pixel(x_pos + j, (HEIGHT - 90 - 10) + (90 - i), color, game);
+			ft_put_pixel(x_pos + j, (HEIGHT - 90 - 10) + (90 - i), color, game);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	render_hud(t_game *game)
+void	ft_render_hud(t_game *game)
 {
-	render_minimap(game, &game->player);
-	put_hp_bar(game);
+	ft_render_minimap(game, &game->player);
+	ft_put_hp_bar(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->player.tex->img,
 		WIDTH -90 - 10, HEIGHT - 90 - 10);
 	// NECESITO PONER LA IMAGEN SOBRE EL BUFFER, CREAR UNA FUNCION

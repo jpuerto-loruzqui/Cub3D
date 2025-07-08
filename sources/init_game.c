@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/06/21 18:48:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:14:24 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	init_consts(t_game *game)
+static void	ft_init_consts(t_game *game)
 {
 	game->consts.frame_time_ms = 1000 / FPS;
 	game->consts.fraction = PI / 4 / WIDTH;
@@ -29,9 +29,9 @@ static void	init_consts(t_game *game)
 	game->consts.chars_y = HEIGHT / 4;
 }
 
-void	init_game(t_game *game, t_config *conf)
+void	ft_init_game(t_game *game, t_config *conf)
 {
-	init_consts(game);
+	ft_init_consts(game);
 	game->welcome = malloc(sizeof(t_welcome));
 	if (!game->welcome)
 		ft_exit_error("Failed to allocate welcome");
@@ -40,10 +40,10 @@ void	init_game(t_game *game, t_config *conf)
 	game->welcome->selected = false;
 	game->map = conf->map;
 	game->conf = conf;
+	ft_init_player(&game->player);
+	//ft_set_doors_from_map(game);
+	ft_set_player_from_map(game, conf);
+	ft_load_welcome(game->welcome, game);
+	ft_load_game_textures(game, conf);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
-	init_player(&game->player);
-	//set_doors_from_map(game);
-	set_player_from_map(game, conf);
-	load_welcome(game->welcome, game);
-	load_game_textures(game, conf);
 }
