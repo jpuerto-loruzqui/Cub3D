@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 18:36:28 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:22:10 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/09 13:25:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	return (0);
 }*/
 
-static unsigned int	ft_ft_get_darkness_distance(unsigned int color,
+static unsigned int	ft_get_darkness_distance(unsigned int color,
 	float distance)
 {
 	float			darkness ;
@@ -81,7 +81,7 @@ static void	ft_draw_floor_pixel(t_floorcast *f, t_game *game, int x, int y)
 		+ (f->tex_y * game->textures[f->texture_index].size_line
 			+ f->tex_x * (game->textures[f->texture_index].bpp / 8));
 	f->color = *(unsigned int *)f->pixel;
-	f->color = ft_ft_get_darkness_distance(f->color, f->row_distance);
+	f->color = ft_get_darkness_distance(f->color, f->row_distance);
 	f->color = ((f->color >> 1) & 8355711);
 	ft_put_pixel_t(x, y, f->color, game);
 }
