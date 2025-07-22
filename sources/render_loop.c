@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:38:52 by tu_usuario_       #+#    #+#             */
-/*   Updated: 2025/07/08 11:10:52 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:47:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_render_loop(t_game *game)
 		return (ft_render_select(game));
 	ft_handle_move_player(game);
 	ft_draw_screen(game);
+	ft_render_sprites(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	ft_render_hud(game);
 	return (0);

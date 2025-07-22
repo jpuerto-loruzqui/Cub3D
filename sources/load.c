@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 10:56:20 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/14 16:47:38 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ void	ft_load_game_textures(t_game *game, t_config *conf)
 	game->textures[CONSOLE_TEX] = ft_open_tex(game,
 			"textures/CONSOLE_1B.xpm", 0, 0);
 	game->textures[DOOR_TEX] = ft_open_tex(game, "textures/DOOR_4A.xpm", 0, 0);
+	game->textures[KEY_TEX] = ft_open_tex(game, "textures/KEY.xpm", 0, 0);
 	game->player.weapon = ft_open_tex(game, "assets/weapon.xpm", 100, 180);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->zbuffer = malloc(sizeof(float) * WIDTH);
+	if (!game->zbuffer)
+		ft_exit_error("Failed to allocate zbuffer");
 	game->data = mlx_get_data_addr(
 			game->img, &game->bpp, &game->size_line, &game->endian);
 }

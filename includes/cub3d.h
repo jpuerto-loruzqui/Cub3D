@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/07/08 11:21:27 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:12:02 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@
 
 # define CONSOLE_TEX 6
 # define DOOR_TEX 7
+# define KEY_TEX 8
+
+# define SPRITE_SCALE     1.5f
+# define SPRITE_NEAR_CLIP 0.1f
 
 # include <stdio.h>
 # include "../minilibx-linux/mlx.h"
@@ -145,6 +149,13 @@ typedef struct s_config
 	int				map_height;
 }	t_config;
 
+typedef struct s_key
+{
+	int		x;
+	int		y;
+	bool	collected;
+}	t_key;
+
 typedef struct s_game
 {
 	float		oscilation;
@@ -163,6 +174,9 @@ typedef struct s_game
 	t_tex		textures[10];
 	t_config	*conf;
 	t_consts	consts;
+	t_key		*keys;
+	int			key_count;
+	float		*zbuffer;
 }	t_game;
 
 typedef struct s_floorcast
@@ -211,6 +225,7 @@ void			ft_init_game(t_game *game, t_config *conf);
 void			ft_init_player(t_player *player);
 void			ft_set_player_from_map(t_game *game, t_config *conf);
 t_line			ft_init_line(t_player *player, float start_x);
+void			ft_init_keys(t_game *game);
 
 // ------------------------- LOADERS
 void			ft_load_welcome(t_welcome *welcome, t_game *game);
@@ -272,5 +287,8 @@ void			ft_set_doors_from_map(t_game *game);
 // ------------------------- UTILS WALK
 int				ft_check_wall(float x, float y, t_game *game);
 void			ft_get_new_pos(float *x, float *y, float dx, float dy);
+
+// ------------------------- SPRITES
+void			ft_render_sprites(t_game *game);
 
 #endif

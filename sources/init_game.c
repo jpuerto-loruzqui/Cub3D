@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:39:45 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:14:24 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:57:43 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_init_game(t_game *game, t_config *conf)
 	game->map = conf->map;
 	game->conf = conf;
 	ft_init_player(&game->player);
+	ft_init_keys(game);
 	//ft_set_doors_from_map(game);
 	ft_set_player_from_map(game, conf);
 	ft_load_welcome(game->welcome, game);

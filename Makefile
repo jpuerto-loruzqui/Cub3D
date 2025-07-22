@@ -15,7 +15,8 @@ SRCS		= sources/main.c sources/init_player.c sources/draw_utils.c sources/key_ev
 				sources/render_hud.c sources/render_welcome.c sources/free_structs.c\
 				sources/ray_casting_floor.c sources/ray_casting_utils.c\
 				sources/doors.c sources/draw_utils2.c sources/utils_walk.c\
-				sources/parse_utils.c sources/ray_casting_utils2.c
+				sources/parse_utils.c sources/ray_casting_utils2.c\
+				sources/keys.c sources/render_sprites.c
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR	= libft

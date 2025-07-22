@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/07/08 11:12:30 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/10 10:32:46 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_is_player(char c)
 static bool	ft_valid_char(char c)
 {
 	return (c == 'D' || c == 'C' || c == '0' || c == '1' || c == ' '
-		|| ft_is_player(c));
+		|| c == 'K' || ft_is_player(c));
 }
 
 bool	ft_validate_map(t_config *conf)

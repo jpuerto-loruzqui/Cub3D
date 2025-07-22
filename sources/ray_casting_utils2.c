@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 18:19:05 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/07/08 11:08:08 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/07/19 12:56:08 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_draw_line(t_player *player, t_game *game, float start_x, int i)
 	t_draw_data	d;
 
 	ft_init_line_data(&d, player, game, start_x);
+	game->zbuffer[i] = d.l.dist;
 	ft_calc_wall_position(&d, player, game);
 	ft_calc_texture_data(&d, game);
 	ft_draw_wall_column(&d, game, i);
