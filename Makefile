@@ -7,16 +7,14 @@ SRC_DIR		= sources
 OBJ_DIR		= objects
 INC_DIR		= includes
 
-SRCS		= sources/main.c sources/init_player.c sources/draw_utils.c sources/key_events.c\
-				sources/init_game.c sources/render_loop.c sources/ray_casting.c\
-				sources/parse_cub_file.c sources/validate_map.c\
-				gnl/get_next_line.c gnl/get_next_line_utils.c sources/error.c\
-				sources/handlers_walk.c sources/load.c sources/render_minimap.c\
-				sources/render_hud.c sources/render_welcome.c sources/free_structs.c\
-				sources/ray_casting_floor.c sources/ray_casting_utils.c\
-				sources/doors.c sources/draw_utils2.c sources/utils_walk.c\
-				sources/parse_utils.c sources/ray_casting_utils2.c\
-				sources/keys.c sources/render_sprites.c
+SRCS		= gnl/get_next_line.c gnl/get_next_line_utils.c\
+			sources/assets/load.c\
+			sources/config/file_parse.c sources/config/header_parse.c sources/config/map_chars.c sources/config/map_copy.c sources/config/map_scan.c sources/config/map_validate.c\
+			sources/core/init.c sources/core/main.c sources/core/shutdown.c\
+			sources/input/key_events.c\
+			sources/player/init.c sources/player/movement_utils.c sources/player/movement.c\
+			sources/raycast/core_utils.c sources/raycast/core.c sources/raycast/draw.c sources/raycast/floor.c sources/raycast/image.c sources/raycast/shading.c\
+			sources/render/frame.c sources/render/hud.c sources/render/loop.c sources/render/minimap.c sources/render/primitives.c sources/render/welcome.c
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR	= libft
@@ -35,7 +33,8 @@ all: $(NAME)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(LIBFT_A):

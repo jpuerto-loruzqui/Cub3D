@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_utils2.c                                      :+:      :+:    :+:   */
+/*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 15:24:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/07/15 11:40:20 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 11:05:03 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/11 11:05:57 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	ft_draw_screen(t_game *game)
 {
@@ -31,18 +31,6 @@ void	ft_draw_screen(t_game *game)
 	}
 }
 
-void	ft_put_pixel(int x, int y, int color, t_game *game)
-{
-	int	index;
-
-	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-		return ;
-	index = y * game->size_line + x * game->bpp / 8;
-	game->data[index] = color & 0xFF;
-	game->data[index + 1] = (color >> 8) & 0xFF;
-	game->data[index + 2] = (color >> 16) & 0xFF;
-}
-
 void	ft_draw_background(t_game *game, unsigned int color)
 {
 	int	y;
@@ -61,27 +49,10 @@ void	ft_draw_background(t_game *game, unsigned int color)
 	}
 }
 
-//NO SE USA
-
-/*void	ft_clear_image(t_game *game)
+bool	ft_is_light(unsigned int color)
 {
-	int	half_height;
-	int	y;
-	int	x;
-
-	half_height = HEIGHT / 2;
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			if (y < half_height)
-				ft_put_pixel(x, y, game->conf->ceiling_color, game);
-			else
-				ft_put_pixel(x, y, game->conf->floor_color, game);
-			x++;
-		}
-		y++;
-	}
-}*/
+	if (color == LIGHT_COLOR_1 || color == LIGHT_COLOR_2
+		|| color == 0x00FF00)
+		return (true);
+	return (false);
+}

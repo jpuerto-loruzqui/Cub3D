@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_welcome.c                                   :+:      :+:    :+:   */
+/*   welcome.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 23:35:54 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:24:10 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 11:06:55 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/11 11:13:33 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static void	ft_handle_selection(t_game *game, int *current_selection)
 {

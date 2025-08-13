@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/14 16:47:38 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:33:59 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_tex	ft_open_tex(t_game *game, char *path, int x, int y)
 	return (texture);
 }
 
-void	ft_load_game_textures(t_game *game, t_config *conf)
+void	ft_load_game_tex(t_game *game, t_config *conf)
 {
 	game->textures[0] = ft_open_tex(game, conf->we_texture, 0, 0);
 	game->textures[1] = ft_open_tex(game, conf->ea_texture, 0, 0);
@@ -38,7 +38,6 @@ void	ft_load_game_textures(t_game *game, t_config *conf)
 	game->textures[CONSOLE_TEX] = ft_open_tex(game,
 			"textures/CONSOLE_1B.xpm", 0, 0);
 	game->textures[DOOR_TEX] = ft_open_tex(game, "textures/DOOR_4A.xpm", 0, 0);
-	game->textures[KEY_TEX] = ft_open_tex(game, "textures/KEY.xpm", 0, 0);
 	game->player.weapon = ft_open_tex(game, "assets/weapon.xpm", 100, 180);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->zbuffer = malloc(sizeof(float) * WIDTH);
@@ -48,7 +47,7 @@ void	ft_load_game_textures(t_game *game, t_config *conf)
 			game->img, &game->bpp, &game->size_line, &game->endian);
 }
 
-void	ft_load_welcome(t_welcome *welcome, t_game *game)
+void	ft_load_welcome_tex(t_welcome *welcome, t_game *game)
 {
 	int	width;
 	int	height;

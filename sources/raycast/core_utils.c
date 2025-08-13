@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_structs.c                                     :+:      :+:    :+:   */
+/*   core_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 22:46:01 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:13:57 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/12 11:09:32 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/12 11:09:50 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-//NO SE USA
-
-/*void	ft_free_tex(t_game *game, t_tex *tex)
+float	ft_get_delta_dist(float rayDir)
 {
-	mlx_destroy_image(game->mlx, tex->img);
-	ft_free_split(game->map);
-}*/
+	float	delta_dist;
 
-int	ft_close_window(t_game *game)
-{
-	(void)game;
-	exit(0);
-	return (0);
+	if (fabs(rayDir) < 1e-8)
+		delta_dist = 1e30;
+	else
+		delta_dist = fabs(1 / rayDir);
+	return (delta_dist);
 }

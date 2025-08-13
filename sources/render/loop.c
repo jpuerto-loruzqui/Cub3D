@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_loop.c                                      :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 17:38:52 by tu_usuario_       #+#    #+#             */
-/*   Updated: 2025/07/15 12:47:55 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 11:06:13 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/12 11:35:16 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static unsigned long	ft_current_time_ms(void)
 {
@@ -34,9 +34,8 @@ int	ft_render_loop(t_game *game)
 		return (ft_render_welcome(game));
 	if (!game->welcome->selected)
 		return (ft_render_select(game));
-	ft_handle_move_player(game);
+	ft_player_move(game);
 	ft_draw_screen(game);
-	ft_render_sprites(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	ft_render_hud(game);
 	return (0);

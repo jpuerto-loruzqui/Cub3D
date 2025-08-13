@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_casting_utils2.c                               :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 18:19:05 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/07/19 12:56:08 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 18:31:25 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/12 11:05:58 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
+
+void	ft_draw_line(t_player *player, t_game *game, float start_x, int i)
+{
+	t_draw_data	d;
+
+	ft_init_line_data(&d, player, game, start_x);
+	game->zbuffer[i] = d.l.dist;
+	ft_calc_wall_position(&d, player, game);
+	ft_calc_texture_data(&d, game);
+	ft_draw_wall_column(&d, game, i);
+}
 
 void	ft_init_line_data(t_draw_data *d, t_player *player, t_game *game,
 	float start_x)
@@ -69,15 +80,4 @@ void	ft_draw_wall_column(t_draw_data *d, t_game *game, int i)
 		ft_put_pixel_t(i, d->y, d->color, game);
 		d->y++;
 	}
-}
-
-void	ft_draw_line(t_player *player, t_game *game, float start_x, int i)
-{
-	t_draw_data	d;
-
-	ft_init_line_data(&d, player, game, start_x);
-	game->zbuffer[i] = d.l.dist;
-	ft_calc_wall_position(&d, player, game);
-	ft_calc_texture_data(&d, game);
-	ft_draw_wall_column(&d, game, i);
 }

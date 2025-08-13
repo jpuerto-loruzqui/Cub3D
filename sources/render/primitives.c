@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_utils.c                                       :+:      :+:    :+:   */
+/*   primitives.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 17:39:32 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 10:48:24 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 10:57:55 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/12 12:02:58 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
+
+void	ft_put_pixel(int x, int y, int color, t_game *game)
+{
+	int	index;
+
+	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+		return ;
+	index = y * game->size_line + x * game->bpp / 8;
+	game->data[index] = color & 0xFF;
+	game->data[index + 1] = (color >> 8) & 0xFF;
+	game->data[index + 2] = (color >> 16) & 0xFF;
+}
 
 void	ft_draw_outline_box(t_game *game, int x, int y, int size)
 {
@@ -51,7 +63,7 @@ void	ft_draw_circle(int x, int y, int radius, t_game *game)
 	}
 }
 
-void	ft_draw_white_square(int x, int y, int size, t_game *game)
+void	ft_draw_square(t_point point, int size, t_game *game, int color)
 {
 	int	i;
 	int	j;
@@ -62,43 +74,7 @@ void	ft_draw_white_square(int x, int y, int size, t_game *game)
 		j = 0;
 		while (j < size)
 		{
-			ft_put_pixel(x + i, y + j, 0xFFFFFF, game); //
-			j++;
-		}
-		i++;
-	}
-}
-
-void	ft_draw_dark_square(int x, int y, int size, t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			ft_put_pixel(x + i, y + j, 0x122123, game);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	ft_draw_gray_square(int x, int y, int size, t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			ft_put_pixel(x + i, y + j, 0x888888, game);
+			ft_put_pixel(point.x + i, point.y + j, color, game);
 			j++;
 		}
 		i++;

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handlers_walk.c                                    :+:      :+:    :+:   */
+/*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 22:15:39 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:11:50 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 11:14:48 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/12 10:03:18 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	ft_set_player_movement(t_game *game, float new_x, float new_y)
+static void	ft_player_set_movement(t_game *game, float new_x, float new_y)
 {
 	int		collision_x;
 	int		collision_y;
@@ -32,7 +32,8 @@ static void	ft_set_player_movement(t_game *game, float new_x, float new_y)
 	}
 }
 
-static void	ft_handle_walk(t_game *game, float cos_angle, float sin_angle)
+static void	ft_player_handle_walk(t_game *game, float cos_angle,
+	float sin_angle)
 {
 	float	new_x;
 	float	new_y;
@@ -47,10 +48,10 @@ static void	ft_handle_walk(t_game *game, float cos_angle, float sin_angle)
 		ft_get_new_pos(&new_x, &new_y, sin_angle, -cos_angle);
 	if (game->player.key_right)
 		ft_get_new_pos(&new_x, &new_y, -sin_angle, cos_angle);
-	ft_set_player_movement(game, new_x, new_y);
+	ft_player_set_movement(game, new_x, new_y);
 }
 
-void	ft_handle_move_player(t_game *game)
+void	ft_player_move(t_game *game)
 {
 	t_player	*player;
 	float		cos_angle;
@@ -69,5 +70,5 @@ void	ft_handle_move_player(t_game *game)
 		player->angle = 0;
 	if (player->angle < 0)
 		player->angle = 2 * PI;
-	ft_handle_walk(game, cos_angle, sin_angle);
+	ft_player_handle_walk(game, cos_angle, sin_angle);
 }

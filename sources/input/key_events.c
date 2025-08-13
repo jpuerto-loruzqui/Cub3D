@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 10:55:41 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:54:58 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_key_press(int keycode, t_game *game)
 	if (game->player.key_right || game->player.key_up || game->player.key_left)
 		game->player.running = true;
 	if (keycode == 65307)
-		ft_close_window(game);
+		ft_shutdown_and_close(game);
 	return (0);
 }
 

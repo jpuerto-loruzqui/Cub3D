@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cub_file.c                                   :+:      :+:    :+:   */
+/*   file_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 17:05:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/07/08 11:00:04 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 13:15:40 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/13 15:27:14 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
+
+bool	ft_is_cub_file(const char *filename)
+{
+	size_t	len;
+
+	len = ft_strlen(filename);
+	if (len < 5)
+		return (false);
+	return (ft_strncmp(filename + len - 4, ".cub", 5) == 0);
+}
 
 static char	**ft_read_file_lines(const char *filename)
 {
@@ -41,51 +51,6 @@ static char	**ft_read_file_lines(const char *filename)
 	return (free(all), result);
 }
 
-static int	ft_get_max_line_len(int map_height, char **map)
-{
-	int	y;
-	int	max_len;
-	int	curr_len;
-
-	y = 0;
-	while (y < map_height)
-	{
-		curr_len = ft_strlen(map[y]);
-		if (curr_len > max_len)
-			max_len = curr_len;
-		y++;
-	}
-	return (max_len);
-}
-
-static bool	ft_normalize_map(char **map, int map_height)
-{
-	int		max_len;
-	int		curr_len;
-	int		y;
-	char	*new_line;
-
-	max_len = ft_get_max_line_len(map_height, map);
-	y = 0;
-	while (y < map_height)
-	{
-		curr_len = ft_strlen(map[y]);
-		if (curr_len < max_len)
-		{
-			new_line = malloc(max_len + 1);
-			if (!new_line)
-				return (false);
-			ft_memcpy(new_line, map[y], curr_len);
-			ft_memset(new_line + curr_len, ' ', max_len - curr_len);
-			new_line[max_len] = '\0';
-			free(map[y]);
-			map[y] = new_line;
-		}
-		y++;
-	}
-	return (true);
-}
-
 bool	ft_parse_cub_file(const char *filename, t_config *conf)
 {
 	char	**lines;
@@ -109,7 +74,7 @@ bool	ft_parse_cub_file(const char *filename, t_config *conf)
 		i++;
 	if (!ft_copy_map(lines, conf, map_start, i - map_start))
 		return (ft_free_split(lines), false);
-	if (!ft_normalize_map(conf->map, conf->map_height))
+	if (!ft_map_make_rectangular(conf->map, conf->map_height))
 		return (ft_free_split(conf->map), ft_free_split(lines), false);
 	return (ft_free_split(lines), true);
 }

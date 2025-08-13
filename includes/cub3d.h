@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/07/22 17:12:02 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/13 15:29:29 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,25 @@
 # define LIGHT_COLOR_1 0x0BECFC
 # define LIGHT_COLOR_2 0xF8FAF2
 
+# define COLOR_WHITE 0xFFFFFF
+# define COLOR_DARK  0x122123
+# define COLOR_GRAY  0x888888
+
 # define CONSOLE_TEX 6
 # define DOOR_TEX 7
-# define KEY_TEX 8
 
 # define SPRITE_SCALE     1.5f
 # define SPRITE_NEAR_CLIP 0.1f
 
-# include <stdio.h>
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 # include <stdbool.h>
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include "../gnl/get_next_line.h"
 # include <sys/time.h>
+# include <stdio.h>
 
 typedef struct s_consts
 {
@@ -75,6 +78,12 @@ typedef struct s_consts
 	int				char2_x;
 	int				chars_y;
 }	t_consts;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct s_line
 {
@@ -149,13 +158,6 @@ typedef struct s_config
 	int				map_height;
 }	t_config;
 
-typedef struct s_key
-{
-	int		x;
-	int		y;
-	bool	collected;
-}	t_key;
-
 typedef struct s_game
 {
 	float		oscilation;
@@ -174,8 +176,6 @@ typedef struct s_game
 	t_tex		textures[10];
 	t_config	*conf;
 	t_consts	consts;
-	t_key		*keys;
-	int			key_count;
 	float		*zbuffer;
 }	t_game;
 
@@ -220,75 +220,77 @@ typedef struct s_draw_data
 	unsigned int	color;
 }	t_draw_data;
 
-// ------------------------ INIT
+//------------------ASSETS
+void			ft_load_game_tex(t_game *game, t_config *conf);
+void			ft_load_welcome_tex(t_welcome *welcome, t_game *game);
+
+//------------------CONFIG
+bool			ft_is_cub_file(const char *filename);
+bool			ft_parse_cub_file(const char *filename, t_config *conf);
+bool			ft_is_header(char **lines, int i);
+bool			ft_parse_header_line(char *line, t_config *conf);
+int				ft_is_player(char c);
+bool			ft_valid_char(char c);
+char			*ft_skip_ws(char *s);
+int				ft_map_max_line_len(int map_height, char **map);
+bool			ft_map_make_rectangular(char **map, int map_height);
+bool			ft_copy_map(char **lines, t_config *conf, int map_start,
+					int map_height);
+bool			ft_scan_row(const t_config *conf, int y, int *player_count);
+bool			ft_validate_map(t_config *conf);
+
+//------------------CORE
 void			ft_init_game(t_game *game, t_config *conf);
-void			ft_init_player(t_player *player);
-void			ft_set_player_from_map(t_game *game, t_config *conf);
-t_line			ft_init_line(t_player *player, float start_x);
-void			ft_init_keys(t_game *game);
+int				main(int argc, char **argv);
+int				ft_shutdown_and_close(t_game *game);
+void			ft_exit_error(char *error);
+void			ft_free_config(t_config *conf);
 
-// ------------------------- LOADERS
-void			ft_load_welcome(t_welcome *welcome, t_game *game);
-void			ft_load_game_textures(t_game *game, t_config *conf);
-void			ft_handle_move_player(t_game *game);
-
-// ------------------------ LOOP
-int				ft_render_loop(t_game *game);
-
-// ------------------------- RENDERS
-void			ft_render_minimap(t_game *game, t_player *player);
-void			ft_render_hud(t_game *game);
-int				ft_render_select(t_game *game);
-int				ft_render_welcome(t_game *game);
-
-// ------------------------ EVENTS
+//------------------INPUT
 int				ft_key_press(int keycode, t_game *game);
 int				ft_key_release(int keycode, t_game *game);
 
-// ------------------------ DRAW
-void			ft_draw_screen(t_game *game);
-void			ft_put_pixel(int x, int y, int color, t_game *game );
-void			ft_draw_gray_square(int x, int y, int size, t_game *game);
-void			ft_draw_circle(int x, int y, int radius, t_game *game);
-void			ft_draw_outline_box(t_game *game, int x, int y, int size);
-void			ft_draw_white_square(int x, int y, int size, t_game *game);
-void			ft_draw_dark_square(int x, int y, int size, t_game *game);
-void			ft_draw_background(t_game *game, unsigned int color);
-bool			ft_is_light(unsigned int color);
+//------------------PLAYER
+void			ft_init_player(t_player *player);
+void			ft_player_from_map(t_game *game, t_config *conf);
+int				ft_check_wall(float x, float y, t_game *game);
+void			ft_get_new_pos(float *x, float *y, float dx, float dy);
+void			ft_player_move(t_game *game);
 
-// ------------------------ RC
-void			ft_draw_line(t_player *player, t_game *game, float start_x,
-					int i);
-void			ft_draw_floor(t_game *game, int y);
-unsigned int	ft_get_darkness(unsigned int color, float height);
-void			ft_put_pixel_t(int x, int y, unsigned int color, t_game *game);
+//------------------RAYCAST
+float			ft_get_delta_dist(float rayDir);
 void			ft_dda(t_game *game, t_line *l);
 void			ft_calculate_steps(t_line *l, t_player *player);
 float			ft_get_dist(t_player *player, t_line l, float start_x);
 int				ft_get_wall_c(int side, int step_x, int step_y);
+float			ft_get_dist(t_player *player, t_line l, float start_x);
+t_line			ft_init_line(t_player *player, float start_x);
+void			ft_draw_line(t_player *player, t_game *game, float start_x,
+					int i);
+void			ft_init_line_data(t_draw_data *d, t_player *player,
+					t_game *game, float start_x);
+void			ft_calc_wall_position(t_draw_data *d, t_player *player,
+					t_game *game);
+void			ft_calc_texture_data(t_draw_data *d, t_game *game);
+void			ft_draw_wall_column(t_draw_data *d, t_game *game, int i);
+void			ft_draw_floor(t_game *game, int y);
+void			ft_put_pixel_t(int x, int y, unsigned int color, t_game *game);
+unsigned int	ft_get_darkness(unsigned int color, float height);
 
-// ------------------------ PARSER
-bool			ft_parse_cub_file(const char *filename, t_config *conf);
-bool			ft_validate_map(t_config *conf);
-bool			ft_is_header(char **lines, int i);
-bool			ft_parse_header_line(char *line, t_config *conf);
-bool			ft_copy_map(char **lines, t_config *conf, int map_start,
-					int map_height);
-
-// ------------------------ ERROR
-void			ft_exit_error(char *error);
-
-// ------------------------- FREE
-int				ft_close_window(t_game *game);
-
-// ------------------------- DOORS
-void			ft_set_doors_from_map(t_game *game);
-
-// ------------------------- UTILS WALK
-int				ft_check_wall(float x, float y, t_game *game);
-void			ft_get_new_pos(float *x, float *y, float dx, float dy);
-
-// ------------------------- SPRITES
+//------------------RENDER
+void			ft_draw_screen(t_game *game);
+void			ft_draw_background(t_game *game, unsigned int color);
+bool			ft_is_light(unsigned int color);
+void			ft_render_hud(t_game *game);
+int				ft_render_loop(t_game *game);
+void			ft_render_minimap(t_game *game, t_player *player);
+void			ft_put_pixel(int x, int y, int color, t_game *game);
+void			ft_draw_outline_box(t_game *game, int x, int y, int size);
+void			ft_draw_circle(int x, int y, int radius, t_game *game);
+void			ft_draw_square(t_point point, int size, t_game *game,
+					int color);
 void			ft_render_sprites(t_game *game);
+int				ft_render_select(t_game *game);
+int				ft_render_welcome(t_game *game);
 
 #endif

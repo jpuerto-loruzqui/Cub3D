@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doors.c                                            :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 10:17:44 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 11:14:24 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/12 11:06:15 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/12 11:06:30 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-// ft_set_doors_from_map(t_game *game)
-// {
-// 	int y = 0;
+void	ft_put_pixel_t(int x, int y, unsigned int color, t_game *game)
+{
+	char	*dst;
 
-// 	while (game->map[y])
-// 	{
-// 		int x = 0;
-// 		while (game->map[y][x])
-// 		{
-
-// 		}
-// 	}
-// }
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = game->data + (y * game->size_line + x * (game->bpp / 8));
+	*(unsigned int *) dst = color;
+}

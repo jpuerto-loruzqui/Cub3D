@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_player.c                                      :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 17:40:18 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/07/08 10:59:48 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/08/11 11:14:40 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/08/11 15:27:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
+
+static float	ft_player_set_angle(char dir)
+{
+	float	angle;
+
+	if (dir == 'N')
+		angle = 3 * PI / 2;
+	else if (dir == 'S')
+		angle = PI / 2;
+	else if (dir == 'E')
+		angle = 0;
+	else if (dir == 'W')
+		angle = PI;
+	return (angle);
+}
 
 void	ft_init_player(t_player *player)
 {
@@ -29,22 +44,7 @@ void	ft_init_player(t_player *player)
 	player->has_hey = true;
 }
 
-static float	ft_set_angle_player(char dir)
-{
-	float	angle;
-
-	if (dir == 'N')
-		angle = 3 * PI / 2;
-	else if (dir == 'S')
-		angle = PI / 2;
-	else if (dir == 'E')
-		angle = 0;
-	else if (dir == 'W')
-		angle = PI;
-	return (angle);
-}
-
-void	ft_set_player_from_map(t_game *game, t_config *conf)
+void	ft_player_from_map(t_game *game, t_config *conf)
 {
 	int		y;
 	int		x;
@@ -61,7 +61,7 @@ void	ft_set_player_from_map(t_game *game, t_config *conf)
 			{
 				game->player.x = x * BLOCK + BLOCK / 2;
 				game->player.y = y * BLOCK + BLOCK / 2;
-				game->player.angle = ft_set_angle_player(dir);
+				game->player.angle = ft_player_set_angle(dir);
 				conf->map[y][x] = '0';
 				return ;
 			}
