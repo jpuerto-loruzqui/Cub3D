@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:06:15 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:14:10 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:49 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	ft_put_pixel_t(int x, int y, unsigned int color, t_game *game)
 {

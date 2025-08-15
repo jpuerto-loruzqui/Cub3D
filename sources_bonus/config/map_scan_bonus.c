@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 09:51:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:11:03 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:45 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 static bool	ft_is_valid_neighbor(char c)
 {

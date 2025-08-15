@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:16:06 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:54 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 static void	ft_put_hp_bar(t_game *game)
 {

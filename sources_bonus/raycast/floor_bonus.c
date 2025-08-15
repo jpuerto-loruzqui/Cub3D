@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:32:33 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:14:02 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:48 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 //NO SE USA
 

@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 09:50:11 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:10:57 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:43 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 int	ft_is_player(char c)
 {

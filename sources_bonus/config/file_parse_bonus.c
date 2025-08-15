@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:15:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:10:44 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:42 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 bool	ft_is_cub_file(const char *filename)
 {

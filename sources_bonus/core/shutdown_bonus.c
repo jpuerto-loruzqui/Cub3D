@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:56:07 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:12:34 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:46 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 int	ft_shutdown_and_close(t_game *game)
 {

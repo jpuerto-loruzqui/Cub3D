@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:16:18 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:57:00 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 static void	ft_minimap_player_cell(const t_player *player,
 	int *pcx, int *pcy)

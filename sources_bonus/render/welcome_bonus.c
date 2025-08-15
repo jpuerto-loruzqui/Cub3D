@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:16:33 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:57:03 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 static void	ft_handle_selection(t_game *game, int *current_selection)
 {

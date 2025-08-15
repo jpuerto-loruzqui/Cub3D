@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:16:12 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:59 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 static unsigned long	ft_current_time_ms(void)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/15 12:57:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:49:53 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # define HEIGHT 400
 # define BLOCK 64
 # define SCALE_BLOCK 1.3
+
+# define MINIMAP_SCALE 0.2
+# define MINIMAP_SIZE 100
+# define MINIMAP_X 15
+# define MINI_CELLS 10
+# define MAP_PLAYER_RADIUS 3
 
 # define W 119
 # define A 97
@@ -173,6 +179,29 @@ typedef struct s_game
 	float		*zbuffer;
 }	t_game;
 
+typedef struct s_floorcast
+{
+	bool			is_ceiling;
+	int				p;
+	float			ray_dir_x0;
+	float			ray_dir_y0;
+	float			ray_dir_x1;
+	float			ray_dir_y1;
+	float			pos_z;
+	float			row_distance;
+	float			floor_step_x;
+	float			floor_step_y;
+	float			floor_x;
+	float			floor_y;
+	int				texture_index;
+	int				cell_x;
+	int				cell_y;
+	int				tex_x;
+	int				tex_y;
+	unsigned int	color;
+	char			*pixel;
+}	t_floorcast;
+
 typedef struct s_draw_data
 {
 	t_line			l;
@@ -252,7 +281,9 @@ unsigned int	ft_get_darkness(unsigned int color, float height);
 void			ft_draw_screen(t_game *game);
 void			ft_draw_background(t_game *game, unsigned int color);
 bool			ft_is_light(unsigned int color);
+void			ft_render_hud(t_game *game);
 int				ft_render_loop(t_game *game);
+void			ft_render_minimap(t_game *game, t_player *player);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
 void			ft_draw_outline_box(t_game *game, int x, int y, int size);
 void			ft_draw_circle(int x, int y, int radius, t_game *game);

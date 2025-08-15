@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:54:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:12:21 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:45 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 static void	ft_init_constants(t_game *game)
 {

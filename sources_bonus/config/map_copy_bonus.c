@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:19:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:11:19 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:44 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 int	ft_map_max_line_len(int map_height, char **map)
 {

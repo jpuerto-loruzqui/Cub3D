@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:33:16 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:14:18 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:51 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 unsigned int	ft_get_darkness(unsigned int color, float height)
 {

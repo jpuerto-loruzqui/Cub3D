@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:05:03 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:15:59 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:56:51 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	ft_draw_screen(t_game *game)
 {
