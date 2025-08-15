@@ -22,7 +22,7 @@ SRCS_BONUS	= gnl/get_next_line.c gnl/get_next_line_utils.c\
 			sources_bonus/assets/load_bonus.c\
 			sources_bonus/config/file_parse_bonus.c sources_bonus/config/header_parse_bonus.c sources_bonus/config/map_chars_bonus.c sources_bonus/config/map_copy_bonus.c sources_bonus/config/map_scan_bonus.c sources_bonus/config/map_validate_bonus.c\
 			sources_bonus/core/init_bonus.c sources_bonus/core/main_bonus.c sources_bonus/core/shutdown_bonus.c\
-			sources_bonus/input/key_events_bonus.c\
+			sources_bonus/input/key_events_bonus.c sources_bonus/input/mouse_bonus.c\
 			sources_bonus/player/init_bonus.c sources_bonus/player/movement_utils_bonus.c sources_bonus/player/movement_bonus.c\
 			sources_bonus/raycast/core_utils_bonus.c sources_bonus/raycast/core_bonus.c sources_bonus/raycast/draw_bonus.c sources_bonus/raycast/floor_bonus.c sources_bonus/raycast/image_bonus.c sources_bonus/raycast/shading_bonus.c\
 			sources_bonus/render/frame_bonus.c sources_bonus/render/hud_bonus.c sources_bonus/render/loop_bonus.c sources_bonus/render/minimap_bonus.c sources_bonus/render/primitives_bonus.c sources_bonus/render/welcome_bonus.c

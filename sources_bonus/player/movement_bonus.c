@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:14:48 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:13:05 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:22:37 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static void	ft_player_set_movement(t_game *game, float new_x, float new_y)
 {

@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:11:27 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:22:04 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static bool	ft_check_top_bottom_border(const t_config *conf, int y)
 {

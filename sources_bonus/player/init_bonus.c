@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:14:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:56:46 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:35:42 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	ft_init_player(t_player *player)
 	player->key_enter = false;
 	player->running = false;
 	player->has_hey = true;
+	player->dir_x = cosf(player->angle);
+	player->dir_y = sinf(player->angle);
+	player->plane_x = -sinf(player->angle) * tanf(PI / 6.0f);
+	player->plane_y = cosf(player->angle) * tanf(PI / 6.0f);
 }
 
 void	ft_player_from_map(t_game *game, t_config *conf)

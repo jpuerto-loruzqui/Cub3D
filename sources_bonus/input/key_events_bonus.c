@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/08/14 18:12:47 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:22:23 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 int	ft_key_press(int keycode, t_game *game)
 {

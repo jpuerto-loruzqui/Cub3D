@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 19:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/14 18:11:10 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:21:54 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static bool	ft_parse_rgb_component(char *s, int *out_value)
 {

@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/14 18:12:28 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:22:18 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 int	main(int argc, char **argv)
 {

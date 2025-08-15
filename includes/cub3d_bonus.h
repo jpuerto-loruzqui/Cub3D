@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/15 12:49:53 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:32:54 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,10 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	angle;
+	float	dir_x;
+	float	dir_y;
+	float	plane_x;
+	float	plane_y;
 	bool	key_up;
 	bool	key_down;
 	bool	key_left;
@@ -158,6 +162,13 @@ typedef struct s_config
 	int				map_height;
 }	t_config;
 
+typedef struct s_mouse {
+	int		enabled;
+	float	sens;
+	int		prev_x;
+	int		prev_y;
+}	t_mouse;
+
 typedef struct s_game
 {
 	float		oscilation;
@@ -177,6 +188,7 @@ typedef struct s_game
 	t_config	*conf;
 	t_consts	consts;
 	float		*zbuffer;
+	t_mouse		mouse;
 }	t_game;
 
 typedef struct s_floorcast
@@ -249,6 +261,7 @@ void			ft_free_config(t_config *conf);
 //------------------INPUT
 int				ft_key_press(int keycode, t_game *game);
 int				ft_key_release(int keycode, t_game *game);
+void			handle_mouse_look(t_game *g);
 
 //------------------PLAYER
 void			ft_init_player(t_player *player);

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:54:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:56:45 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:45:21 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ void	ft_init_game(t_game *game, t_config *conf)
 	game->welcome->selected = false;
 	game->map = conf->map;
 	game->conf = conf;
+	game->mouse.enabled = 1;
+	game->mouse.sens = 0.0010f;
+	game->mouse.prev_x = WIDTH / 2;
+	game->mouse.prev_y = HEIGHT / 2;
 	ft_init_player(&game->player);
 	//ft_set_doors_from_map(game);
 	ft_player_from_map(game, conf);

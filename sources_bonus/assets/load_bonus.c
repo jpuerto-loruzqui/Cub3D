@@ -6,11 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/08/14 18:10:30 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:21:46 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static t_tex	ft_open_tex(t_game *game, char *path, int x, int y)
 {
