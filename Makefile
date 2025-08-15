@@ -16,7 +16,7 @@ SRCS		= gnl/get_next_line.c gnl/get_next_line_utils.c\
 			sources/input/key_events.c\
 			sources/player/init.c sources/player/movement_utils.c sources/player/movement.c\
 			sources/raycast/core_utils.c sources/raycast/core.c sources/raycast/draw.c sources/raycast/floor.c sources/raycast/image.c sources/raycast/shading.c\
-			sources/render/frame.c sources/render/hud.c sources/render/loop.c sources/render/minimap.c sources/render/primitives.c sources/render/welcome.c
+			sources/render/frame.c sources/render/loop.c sources/render/primitives.c sources/render/welcome.c
 
 SRCS_BONUS	= gnl/get_next_line.c gnl/get_next_line_utils.c\
 			sources_bonus/assets/load_bonus.c\

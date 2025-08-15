@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/08/14 17:52:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:26:35 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	ft_load_game_tex(t_game *game, t_config *conf)
 	game->textures[1] = ft_open_tex(game, conf->ea_texture, 0, 0);
 	game->textures[2] = ft_open_tex(game, conf->no_texture, 0, 0);
 	game->textures[3] = ft_open_tex(game, conf->so_texture, 0, 0);
-	game->textures[4] = ft_open_tex(game, "textures/PIPES_1A.xpm", 0, 0);
-	game->textures[5] = ft_open_tex(game, "textures/STEEL_1A_1.xpm", 0, 0);
 	game->textures[CONSOLE_TEX] = ft_open_tex(game,
 			"textures/CONSOLE_1B.xpm", 0, 0);
 	game->textures[DOOR_TEX] = ft_open_tex(game, "textures/DOOR_4A.xpm", 0, 0);
