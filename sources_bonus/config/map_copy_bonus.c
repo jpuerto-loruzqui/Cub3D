@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_copy_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:19:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:56:44 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:22:36 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	ft_map_max_line_len(int map_height, char **map)
 	int	curr_len;
 
 	y = 0;
+	max_len = 0;
 	while (y < map_height)
 	{
 		curr_len = ft_strlen(map[y]);
