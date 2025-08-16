@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:14:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 13:35:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/16 12:58:05 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static float	ft_player_set_angle(char dir)
 {
 	float	angle;
 
+	angle = 0;
 	if (dir == 'N')
 		angle = 3 * PI / 2;
 	else if (dir == 'S')
