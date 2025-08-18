@@ -6,12 +6,12 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/15 13:32:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:43:08 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # define FPS 60
 
@@ -162,7 +162,8 @@ typedef struct s_config
 	int				map_height;
 }	t_config;
 
-typedef struct s_mouse {
+typedef struct s_mouse
+{
 	int		enabled;
 	float	sens;
 	int		prev_x;
