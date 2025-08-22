@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/16 14:46:59 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/08/22 13:32:36 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_render_loop(t_game *game)
 		return (ft_render_welcome(game));
 	if (!game->welcome->selected)
 		return (ft_render_select(game));
+	mlx_mouse_hide(game->mlx, game->win);
 	handle_mouse_look(game);
 	ft_player_move(game);
 	ft_draw_screen(game);
