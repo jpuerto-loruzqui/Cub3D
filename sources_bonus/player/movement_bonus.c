@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:14:48 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 13:22:37 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 10:03:00 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	ft_player_move(t_game *game)
 
 	factor = (float)WIDTH / 640.0f;
 	player = &game->player;
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
+	cos_angle = cos(player->angle); // coseno te dice cuanto moverte en x para avanzar en esa direccion
+	sin_angle = sin(player->angle); // igual que el coseno pero en y
 	if (player->left_rotate)
 		player->angle -= (ANGLE_SPEED * factor);
 	if (player->right_rotate)

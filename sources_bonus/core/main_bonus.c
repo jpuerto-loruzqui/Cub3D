@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/15 13:22:18 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:32:18 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		ft_free_config(&conf);
 		return (write(2, "Error: invalid map\n", 20), 1);
 	}
-	ft_init_game(&game, &conf);
+	ft_init_game(&game, &conf); // 1 - iniciamos la estructura game
 	mlx_hook(game.win, 2, 1L << 0, ft_key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, ft_key_release, &game);
 	mlx_loop_hook(game.mlx, ft_render_loop, &game);

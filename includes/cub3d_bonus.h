@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/18 15:43:08 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:48:45 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ typedef struct s_player
 	float	angle;
 	float	dir_x;
 	float	dir_y;
-	float	plane_x;
-	float	plane_y;
 	bool	key_up;
 	bool	key_down;
 	bool	key_left;

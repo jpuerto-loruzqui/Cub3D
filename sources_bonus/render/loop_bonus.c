@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui < >                               +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/22 13:32:36 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:58:47 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ int	ft_render_loop(t_game *game)
 	static unsigned long	last_frame = 0;
 	unsigned long			now;
 
-	now = ft_current_time_ms();
+	now = ft_current_time_ms(); 
 	game->delta_time = (now - last_frame) / 1000.0f;
-	if (now - last_frame < game->consts.frame_time_ms)
+	if (now - last_frame < game->consts.frame_time_ms) // si no han pasado los milisegundos requeridos no renderizamos
 		return (0);
 	last_frame = now;
-	if (!game->welcome->start)
+	if (!game->welcome->start) 
 		return (ft_render_welcome(game));
 	if (!game->welcome->selected)
 		return (ft_render_select(game));
-	mlx_mouse_hide(game->mlx, game->win);
-	handle_mouse_look(game);
+	// mlx_mouse_hide(game->mlx, game->win);
+	// handle_mouse_look(game);
 	ft_player_move(game);
 	ft_draw_screen(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);

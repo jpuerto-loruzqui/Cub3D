@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:31:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:56:48 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:46:47 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ void	ft_init_line_data(t_draw_data *d, t_player *player, t_game *game,
 	float start_x)
 {
 	d->l = ft_init_line(player, start_x);
-	ft_calculate_steps(&d->l, player);
-	ft_dda(game, &d->l);
+	ft_calculate_steps(&d->l, player); // voy a calcular el siguiente cruce con una linea de la matriz
+	// por que el player no empieza en un corte justo
+	ft_dda(game, &d->l); // ahora vamos a ir repitiendo hasta que encontremos pared
 	d->l.dist = ft_get_dist(player, d->l, start_x);
-	d->height = (BLOCK * HEIGHT * SCALE_BLOCK) / d->l.dist;
+	d->height = (BLOCK * HEIGHT * SCALE_BLOCK) / d->l.dist; // calculas la altura del muro en funcion de la distancia
 	d->start_y = (HEIGHT - d->height) / 2;
-	d->end = d->start_y + d->height;
+	d->end = d->start_y + d->height; // calculamos en que punto de la linea vertical de píxeles empezamos a pintar el muro
 	if (d->start_y < 0)
 		d->start_y = 0;
 	if (d->end > HEIGHT)
@@ -41,6 +42,7 @@ void	ft_init_line_data(t_draw_data *d, t_player *player, t_game *game,
 
 void	ft_calc_wall_position(t_draw_data *d, t_player *player, t_game *game)
 {
+	// ?????
 	if (d->l.side == 0)
 		d->wall_x = player->y + d->l.dist * d->l.ray_dir_y;
 	else

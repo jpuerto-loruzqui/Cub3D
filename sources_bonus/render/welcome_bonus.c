@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/09/01 09:05:52 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/01 10:01:04 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_render_select(t_game *game)
 		game->welcome->character[1].img, game->consts.char2_x,
 		game->consts.chars_y);
 	ft_handle_selection(game, &current_selection);
-	if (current_selection == 0)
+	if (current_selection == 0) // va a hacer el outline sobre la seleccion actual
 		ft_draw_outline_box(game, game->consts.char1_x, game->consts.chars_y,
 			90);
 	else
@@ -95,7 +95,7 @@ int	ft_render_welcome(t_game *game)
 		game->player.key_enter = false;
 		return (0);
 	}
-	if (frame % 60 < 30)
+	if (frame % 60 < 30) // hace que se alterne entre las imagenes para que parpadee el press start
 		img = game->welcome->img1;
 	else
 		img = game->welcome->img2;

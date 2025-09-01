@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui < >                               +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 13:05:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/22 13:31:50 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:48:18 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	handle_mouse_look(t_game *g)
 		g->player.angle = wrap_angle(g->player.angle + turn);
 		g->player.dir_x = cosf(g->player.angle);
 		g->player.dir_y = sinf(g->player.angle);
-		g->player.plane_x = -sinf(g->player.angle) * tanf(PI / 6.0f);
-		g->player.plane_y = cosf(g->player.angle) * tanf(PI / 6.0f);
 	}
 	if (mx < 8 || mx > WIDTH - 8)
 	{
