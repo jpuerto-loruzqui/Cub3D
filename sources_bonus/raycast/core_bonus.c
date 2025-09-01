@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   core_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:29:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:56:47 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:16:06 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d_bonus.h"
-
-//NO SE USA
-
-/*bool	ft_touch(float px, float py, t_game *game)
-{
-	int	y;
-	int	x;
-
-	y = py / BLOCK;
-	x = px / BLOCK;
-	if (game->map[y][x] == '1')
-		return (true);
-	return (false);
-}*/
 
 void	ft_dda(t_game *game, t_line *l)
 {

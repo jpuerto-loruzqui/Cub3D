@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   welcome_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:57:03 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:05:52 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,25 @@ static void	ft_handle_selection(t_game *game, int *current_selection)
 		else
 			mlx_destroy_image(game->mlx,
 				game->welcome->character[0].img);
+	}
+}
+
+
+void	ft_draw_background(t_game *game, unsigned int color)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			ft_put_pixel(x, y, color, game);
+			x++;
+		}
+		y++;
 	}
 }
 

@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   floor.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:32:33 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:31:12 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:11:17 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-//NO SE USA
-
-/*int	ft_get_texture_color(t_tex texture, int x, int y)
-{
-	if (x >= 0 && x < 64 && y >= 0 && y < 64)
-		return (texture.addr[y * 64 + x]);
-	return (0);
-}*/
 
 void	ft_draw_floor(t_game *g, int y)
 {

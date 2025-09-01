@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   core.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:29:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/13 16:09:18 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:11:57 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-//NO SE USA
-
-/*bool	ft_touch(float px, float py, t_game *game)
-{
-	int	y;
-	int	x;
-
-	y = py / BLOCK;
-	x = px / BLOCK;
-	if (game->map[y][x] == '1')
-		return (true);
-	return (false);
-}*/
 
 void	ft_dda(t_game *game, t_line *l)
 {
@@ -132,8 +118,6 @@ t_line	ft_init_line(t_player *player, float start_x)
 	l.map_x = (int)(player->x / BLOCK);
 	l.map_y = (int)(player->y / BLOCK);
 	l.delta_dist_x = ft_get_delta_dist(l.ray_dir_x);
-	// Distancia que el rayo debe recorrer para moverse de una línea
-	//de cuadrícula a la siguiente.
 	l.delta_dist_y = ft_get_delta_dist(l.ray_dir_y);
 	return (l);
 }
