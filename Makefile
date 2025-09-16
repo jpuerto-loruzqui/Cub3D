@@ -2,7 +2,7 @@ NAME		= cub3D
 NAME_BONUS	= cub3D_bonus
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address
 
 SRC_DIR			= sources
 OBJ_DIR			= objects

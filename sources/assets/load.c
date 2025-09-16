@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/08/15 12:26:35 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/15 10:25:04 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,7 @@ void	ft_load_game_tex(t_game *game, t_config *conf)
 	game->textures[1] = ft_open_tex(game, conf->ea_texture, 0, 0);
 	game->textures[2] = ft_open_tex(game, conf->no_texture, 0, 0);
 	game->textures[3] = ft_open_tex(game, conf->so_texture, 0, 0);
-	game->textures[CONSOLE_TEX] = ft_open_tex(game,
-			"textures/CONSOLE_1B.xpm", 0, 0);
-	game->textures[DOOR_TEX] = ft_open_tex(game, "textures/DOOR_4A.xpm", 0, 0);
-	game->player.weapon = ft_open_tex(game, "assets/weapon.xpm", 100, 180);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->zbuffer = malloc(sizeof(float) * WIDTH);
-	if (!game->zbuffer)
-		ft_exit_error("Failed to allocate zbuffer");
 	game->data = mlx_get_data_addr(
 			game->img, &game->bpp, &game->size_line, &game->endian);
 }

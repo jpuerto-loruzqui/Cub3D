@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:29:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/09/01 09:11:57 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/15 09:54:09 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	ft_dda(t_game *game, t_line *l)
 			l->map_y += l->step_y;
 			l->side = 1;
 		}
-		if (game->map[l->map_y][l->map_x] == '1'
-			|| game->map[l->map_y][l->map_x] == 'C'
-			|| game->map[l->map_y][l->map_x] == 'D')
+		if (ft_is_collider(game->map[l->map_y][l->map_x]))
 			hit = 1;
 	}
 }
@@ -62,33 +60,20 @@ void	ft_calculate_steps(t_line *l, t_player *player)
 	}
 }
 
-float	ft_get_dist(t_player *player, t_line l, float start_x)
+float ft_get_dist(t_player *player, t_line l, float ray_angle)
 {
-	float	hit_x;
-	float	hit_y;
-	float	perp_wall_dist;
-	float	dist;
+    float perp_wall_dist;
+	float corrected_dist;
+	
+    if (l.side == 0)
+        perp_wall_dist = (l.map_x - player->x / BLOCK + (1 - l.step_x) / 2) / l.ray_dir_x;
+    else
+	{
+        perp_wall_dist = (l.map_y - player->y / BLOCK + (1 - l.step_y) / 2) / l.ray_dir_y;
+	}
+	corrected_dist = perp_wall_dist * cos(ray_angle - player->angle);
 
-	if (l.side == 0)
-	{
-		perp_wall_dist = (l.map_x - player->x / BLOCK + (1 - l.step_x) / 2)
-			/ l.ray_dir_x;
-		hit_y = player->y + perp_wall_dist * l.ray_dir_y * BLOCK;
-		hit_x = l.map_x * BLOCK;
-		if (l.step_x < 0)
-			hit_x += BLOCK;
-	}
-	else
-	{
-		perp_wall_dist = (l.map_y - player->y / BLOCK + (1 - l.step_y) / 2)
-			/ l.ray_dir_y;
-		hit_x = player->x + perp_wall_dist * l.ray_dir_x * BLOCK;
-		hit_y = l.map_y * BLOCK;
-		if (l.step_y < 0)
-			hit_y += BLOCK;
-	}
-	dist = sqrt(pow(hit_x - player->x, 2) + pow(hit_y - player->y, 2));
-	return (dist * cos(start_x - player->angle));
+    return corrected_dist * BLOCK;
 }
 
 int	ft_get_wall_c(int side, int step_x, int step_y)

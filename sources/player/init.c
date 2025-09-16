@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui < >                               +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:14:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/16 12:57:29 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/15 10:24:08 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_init_player(t_player *player)
 	player->right_rotate = false;
 	player->key_enter = false;
 	player->running = false;
-	player->has_hey = true;
+	
 }
 
 void	ft_player_from_map(t_game *game, t_config *conf)

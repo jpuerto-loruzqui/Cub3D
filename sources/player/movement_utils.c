@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:15:01 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/11 11:17:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/15 09:53:06 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static char	ft_is_collider(char c)
+char	ft_is_collider(char c)
 {
 	if (c == '1' || c == 'C' || c == 'D')
 		return (c);

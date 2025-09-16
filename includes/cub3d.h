@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/15 12:57:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/16 08:43:14 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ typedef struct s_player
 	bool	right_rotate;
 	bool	key_enter;
 	bool	running;
-	bool	has_hey;
 }	t_player;
 
 typedef struct s_welcome
@@ -240,13 +239,14 @@ void			ft_draw_line(t_player *player, t_game *game, float start_x,
 					int i);
 void			ft_init_line_data(t_draw_data *d, t_player *player,
 					t_game *game, float start_x);
-void			ft_calc_wall_position(t_draw_data *d, t_player *player,
-					t_game *game);
+void			ft_calc_wall_position(t_draw_data *d, t_player *player);
 void			ft_calc_texture_data(t_draw_data *d, t_game *game);
 void			ft_draw_wall_column(t_draw_data *d, t_game *game, int i);
 void			ft_draw_floor(t_game *game, int y);
 void			ft_put_pixel_t(int x, int y, unsigned int color, t_game *game);
 unsigned int	ft_get_darkness(unsigned int color, float height);
+char			ft_is_collider(char c);
+
 
 //------------------RENDER
 void			ft_draw_screen(t_game *game);
