@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/09/16 08:43:14 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:10:14 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 # define PLAYER_SPEED 3
 # define ANGLE_SPEED 0.03
+# define PLAYER_RADIUS 5
 # define PI 3.14159265359
 # define WALL_FRICTION 0.1
 
@@ -226,6 +227,8 @@ void			ft_player_from_map(t_game *game, t_config *conf);
 int				ft_check_wall(float x, float y, t_game *game);
 void			ft_get_new_pos(float *x, float *y, float dx, float dy);
 void			ft_player_move(t_game *game);
+int				ft_check_wall_with_radius(float x, float y, t_game *game);
+
 
 //------------------RAYCAST
 float			ft_get_delta_dist(float rayDir);

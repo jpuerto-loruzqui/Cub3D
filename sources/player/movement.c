@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:14:48 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/12 10:03:18 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:08:45 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	ft_player_set_movement(t_game *game, float new_x, float new_y)
 	float	factor;
 
 	factor = (float)WIDTH / 640.0f;
-	collision_x = ft_check_wall(new_x, game->player.y, game);
-	collision_y = ft_check_wall(game->player.x, new_y, game);
+	collision_x = ft_check_wall_with_radius(new_x, game->player.y, game);
+	collision_y = ft_check_wall_with_radius(game->player.x, new_y, game);
 	if (collision_x && !collision_y)
 		game->player.y += (new_y - game->player.y) * (WALL_FRICTION * factor);
 	else if (!collision_x && collision_y)

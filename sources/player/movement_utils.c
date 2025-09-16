@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:15:01 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/09/15 09:53:06 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:08:31 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@ char	ft_is_collider(char c)
 	if (c == '1' || c == 'C' || c == 'D')
 		return (c);
 	return ('\0');
+}
+
+int	ft_check_wall_with_radius(float x, float y, t_game *game)
+{
+	if (ft_check_wall(x + PLAYER_RADIUS, y, game))
+		return (1);
+	if (ft_check_wall(x - PLAYER_RADIUS, y, game))
+		return (1);
+	if (ft_check_wall(x, y + PLAYER_RADIUS, game))
+		return (1);
+	if (ft_check_wall(x, y - PLAYER_RADIUS, game))
+		return (1);
+	return (0);
 }
 
 int	ft_check_wall(float x, float y, t_game *game)
