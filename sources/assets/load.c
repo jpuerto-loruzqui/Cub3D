@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 22:47:15 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/08/15 12:26:35 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/18 20:07:50 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_tex	ft_open_tex(t_game *game, char *path, int x, int y)
 	texture.img = mlx_xpm_file_to_image(game->mlx, path,
 			&texture.width, &texture.height);
 	if (!texture.img)
-		ft_exit_error("Failed to load texture");
+		return (texture);
 	texture.addr = mlx_get_data_addr(
 			texture.img, &texture.bpp, &texture.size_line, &texture.endian);
 	return (texture);
@@ -29,18 +29,22 @@ static t_tex	ft_open_tex(t_game *game, char *path, int x, int y)
 
 void	ft_load_game_tex(t_game *game, t_config *conf)
 {
+	int	i;
+
+	i = 0;
 	game->textures[0] = ft_open_tex(game, conf->we_texture, 0, 0);
 	game->textures[1] = ft_open_tex(game, conf->ea_texture, 0, 0);
 	game->textures[2] = ft_open_tex(game, conf->no_texture, 0, 0);
 	game->textures[3] = ft_open_tex(game, conf->so_texture, 0, 0);
 	game->textures[CONSOLE_TEX] = ft_open_tex(game,
 			"textures/CONSOLE_1B.xpm", 0, 0);
-	game->textures[DOOR_TEX] = ft_open_tex(game, "textures/DOOR_4A.xpm", 0, 0);
-	game->player.weapon = ft_open_tex(game, "assets/weapon.xpm", 100, 180);
+	while (i <= 4)
+	{
+		if (!game->textures[i].img)
+			ft_exit_error(game, "failed to load texture");
+		i++;
+	}
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->zbuffer = malloc(sizeof(float) * WIDTH);
-	if (!game->zbuffer)
-		ft_exit_error("Failed to allocate zbuffer");
 	game->data = mlx_get_data_addr(
 			game->img, &game->bpp, &game->size_line, &game->endian);
 }
@@ -57,7 +61,7 @@ void	ft_load_welcome_tex(t_welcome *welcome, t_game *game)
 	welcome->select = mlx_xpm_file_to_image(game->mlx, "assets/select.xpm",
 			&width, &height);
 	if (!welcome->img1 || !welcome->img2 || !welcome->select)
-		ft_exit_error("Failed to load welcome image");
+		ft_exit_error(game, "Failed to load welcome image");
 	welcome->character[0] = ft_open_tex(game, "assets/nacho.xpm", 0, 0);
 	welcome->character[1] = ft_open_tex(game, "assets/lore.xpm", 0, 0);
 }

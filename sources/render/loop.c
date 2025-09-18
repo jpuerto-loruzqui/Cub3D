@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:14:43 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/18 16:30:22 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int	ft_render_loop(t_game *game)
 	ft_player_move(game);
 	ft_draw_screen(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	ft_render_hud(game);
 	return (0);
 }

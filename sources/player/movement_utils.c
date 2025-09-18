@@ -3,20 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   movement_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:15:01 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/11 11:17:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:08:31 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static char	ft_is_collider(char c)
+char	ft_is_collider(char c)
 {
 	if (c == '1' || c == 'C' || c == 'D')
 		return (c);
 	return ('\0');
+}
+
+int	ft_check_wall_with_radius(float x, float y, t_game *game)
+{
+	if (ft_check_wall(x + PLAYER_RADIUS, y, game))
+		return (1);
+	if (ft_check_wall(x - PLAYER_RADIUS, y, game))
+		return (1);
+	if (ft_check_wall(x, y + PLAYER_RADIUS, game))
+		return (1);
+	if (ft_check_wall(x, y - PLAYER_RADIUS, game))
+		return (1);
+	return (0);
 }
 
 int	ft_check_wall(float x, float y, t_game *game)

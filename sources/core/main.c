@@ -6,7 +6,7 @@
 /*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:55:40 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/16 13:15:40 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/18 20:06:54 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,19 @@ int	main(int argc, char **argv)
 	t_game		game;
 	t_config	conf;
 
+	game.conf = NULL;
 	if (argc != 2)
 		return (write(2, "Usage: ./cub3D <map.cub>\n", 26), 1);
 	if (!ft_is_cub_file(argv[1]))
+	{
+		ft_free_config(&conf);
 		return (write(2, "Error: file must have .cub extension\n", 38), 1);
+	}
 	if (!ft_parse_cub_file(argv[1], &conf))
+	{
+		ft_free_config(&conf);
 		return (write(2, "Error: could not parse .cub file\n", 34), 1);
+	}
 	if (!ft_validate_map(&conf))
 	{
 		ft_free_config(&conf);

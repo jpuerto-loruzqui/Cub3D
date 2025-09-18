@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/08/15 12:57:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/18 20:06:29 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # define BLOCK 64
 # define SCALE_BLOCK 1.3
 
+# define MINIMAP_SCALE 0.2
+# define MINIMAP_SIZE 100
+# define MINIMAP_X 15
+# define MINI_CELLS 10
+# define MAP_PLAYER_RADIUS 3
+
 # define W 119
 # define A 97
 # define S 115
@@ -30,6 +36,7 @@
 
 # define PLAYER_SPEED 3
 # define ANGLE_SPEED 0.03
+# define PLAYER_RADIUS 5
 # define PI 3.14159265359
 # define WALL_FRICTION 0.1
 
@@ -42,8 +49,7 @@
 # define COLOR_DARK  0x122123
 # define COLOR_GRAY  0x888888
 
-# define CONSOLE_TEX 6
-# define DOOR_TEX 7
+# define CONSOLE_TEX 4
 
 # define SPRITE_SCALE     1.5f
 # define SPRITE_NEAR_CLIP 0.1f
@@ -114,7 +120,6 @@ typedef struct s_tex
 typedef struct s_player
 {
 	t_tex	*tex;
-	t_tex	weapon;
 	int		hp;
 	float	x;
 	float	y;
@@ -127,7 +132,6 @@ typedef struct s_player
 	bool	right_rotate;
 	bool	key_enter;
 	bool	running;
-	bool	has_hey;
 }	t_player;
 
 typedef struct s_welcome
@@ -170,7 +174,6 @@ typedef struct s_game
 	t_tex		textures[10];
 	t_config	*conf;
 	t_consts	consts;
-	float		*zbuffer;
 }	t_game;
 
 typedef struct s_draw_data
@@ -214,12 +217,13 @@ bool			ft_validate_map(t_config *conf);
 void			ft_init_game(t_game *game, t_config *conf);
 int				main(int argc, char **argv);
 int				ft_shutdown_and_close(t_game *game);
-void			ft_exit_error(char *error);
+void			ft_exit_error(t_game *game, char *error);
 void			ft_free_config(t_config *conf);
 
 //------------------INPUT
 int				ft_key_press(int keycode, t_game *game);
 int				ft_key_release(int keycode, t_game *game);
+void			handle_mouse_look(t_game *g);
 
 //------------------PLAYER
 void			ft_init_player(t_player *player);
@@ -227,6 +231,7 @@ void			ft_player_from_map(t_game *game, t_config *conf);
 int				ft_check_wall(float x, float y, t_game *game);
 void			ft_get_new_pos(float *x, float *y, float dx, float dy);
 void			ft_player_move(t_game *game);
+int				ft_check_wall_with_radius(float x, float y, t_game *game);
 
 //------------------RAYCAST
 float			ft_get_delta_dist(float rayDir);
@@ -234,7 +239,6 @@ void			ft_dda(t_game *game, t_line *l);
 void			ft_calculate_steps(t_line *l, t_player *player);
 float			ft_get_dist(t_player *player, t_line l, float start_x);
 int				ft_get_wall_c(int side, int step_x, int step_y);
-float			ft_get_dist(t_player *player, t_line l, float start_x);
 t_line			ft_init_line(t_player *player, float start_x);
 void			ft_draw_line(t_player *player, t_game *game, float start_x,
 					int i);
@@ -247,12 +251,15 @@ void			ft_draw_wall_column(t_draw_data *d, t_game *game, int i);
 void			ft_draw_floor(t_game *game, int y);
 void			ft_put_pixel_t(int x, int y, unsigned int color, t_game *game);
 unsigned int	ft_get_darkness(unsigned int color, float height);
+char			ft_is_collider(char c);
 
 //------------------RENDER
 void			ft_draw_screen(t_game *game);
 void			ft_draw_background(t_game *game, unsigned int color);
 bool			ft_is_light(unsigned int color);
+void			ft_render_hud(t_game *game);
 int				ft_render_loop(t_game *game);
+void			ft_render_minimap(t_game *game, t_player *player);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
 void			ft_draw_outline_box(t_game *game, int x, int y, int size);
 void			ft_draw_circle(int x, int y, int radius, t_game *game);
