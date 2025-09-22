@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 08:56:51 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/09/16 17:10:14 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:54:33 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # define HEIGHT 400
 # define BLOCK 64
 # define SCALE_BLOCK 1.3
+
+# define MINIMAP_SCALE 0.2
+# define MINIMAP_SIZE 100
+# define MINIMAP_X 15
+# define MINI_CELLS 10
+# define MAP_PLAYER_RADIUS 3
 
 # define W 119
 # define A 97
@@ -43,8 +49,7 @@
 # define COLOR_DARK  0x122123
 # define COLOR_GRAY  0x888888
 
-# define CONSOLE_TEX 6
-# define DOOR_TEX 7
+# define CONSOLE_TEX 4
 
 # define SPRITE_SCALE     1.5f
 # define SPRITE_NEAR_CLIP 0.1f
@@ -115,7 +120,6 @@ typedef struct s_tex
 typedef struct s_player
 {
 	t_tex	*tex;
-	t_tex	weapon;
 	int		hp;
 	float	x;
 	float	y;
@@ -150,6 +154,8 @@ typedef struct s_config
 	unsigned long	ceiling_color;
 	char			**map;
 	int				map_height;
+	bool			has_floor;
+	bool			has_ceiling;
 }	t_config;
 
 typedef struct s_game
@@ -170,7 +176,6 @@ typedef struct s_game
 	t_tex		textures[10];
 	t_config	*conf;
 	t_consts	consts;
-	float		*zbuffer;
 }	t_game;
 
 typedef struct s_draw_data
@@ -193,9 +198,11 @@ typedef struct s_draw_data
 
 //------------------ASSETS
 void			ft_load_game_tex(t_game *game, t_config *conf);
-void			ft_load_welcome_tex(t_welcome *welcome, t_game *game);
+void			ft_load_welcome_tex(t_welcome *welcome, t_game *game,
+					t_config *conf);
 
 //------------------CONFIG
+void			ft_init_constants(t_game *game);
 bool			ft_is_cub_file(const char *filename);
 bool			ft_parse_cub_file(const char *filename, t_config *conf);
 bool			ft_is_header(char **lines, int i);
@@ -209,17 +216,21 @@ bool			ft_copy_map(char **lines, t_config *conf, int map_start,
 					int map_height);
 bool			ft_scan_row(const t_config *conf, int y, int *player_count);
 bool			ft_validate_map(t_config *conf);
+bool			ft_parse_rgb_component(char *s, int *out_value);
+unsigned long	ft_pack_rgb(int r, int g, int b);
+int				ft_open_file(const char *filename);
+char			*ft_first_line(int fd);
 
 //------------------CORE
 void			ft_init_game(t_game *game, t_config *conf);
 int				main(int argc, char **argv);
-int				ft_shutdown_and_close(t_game *game);
-void			ft_exit_error(char *error);
+int				ft_shutdown_and_close(t_game *game, int exit_code);
 void			ft_free_config(t_config *conf);
 
 //------------------INPUT
 int				ft_key_press(int keycode, t_game *game);
 int				ft_key_release(int keycode, t_game *game);
+void			handle_mouse_look(t_game *g);
 
 //------------------PLAYER
 void			ft_init_player(t_player *player);
@@ -229,20 +240,19 @@ void			ft_get_new_pos(float *x, float *y, float dx, float dy);
 void			ft_player_move(t_game *game);
 int				ft_check_wall_with_radius(float x, float y, t_game *game);
 
-
 //------------------RAYCAST
 float			ft_get_delta_dist(float rayDir);
 void			ft_dda(t_game *game, t_line *l);
 void			ft_calculate_steps(t_line *l, t_player *player);
 float			ft_get_dist(t_player *player, t_line l, float start_x);
 int				ft_get_wall_c(int side, int step_x, int step_y);
-float			ft_get_dist(t_player *player, t_line l, float start_x);
 t_line			ft_init_line(t_player *player, float start_x);
 void			ft_draw_line(t_player *player, t_game *game, float start_x,
 					int i);
 void			ft_init_line_data(t_draw_data *d, t_player *player,
 					t_game *game, float start_x);
-void			ft_calc_wall_position(t_draw_data *d, t_player *player);
+void			ft_calc_wall_position(t_draw_data *d, t_player *player,
+					t_game *game);
 void			ft_calc_texture_data(t_draw_data *d, t_game *game);
 void			ft_draw_wall_column(t_draw_data *d, t_game *game, int i);
 void			ft_draw_floor(t_game *game, int y);
@@ -250,12 +260,13 @@ void			ft_put_pixel_t(int x, int y, unsigned int color, t_game *game);
 unsigned int	ft_get_darkness(unsigned int color, float height);
 char			ft_is_collider(char c);
 
-
 //------------------RENDER
 void			ft_draw_screen(t_game *game);
 void			ft_draw_background(t_game *game, unsigned int color);
 bool			ft_is_light(unsigned int color);
+void			ft_render_hud(t_game *game);
 int				ft_render_loop(t_game *game);
+void			ft_render_minimap(t_game *game, t_player *player);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
 void			ft_draw_outline_box(t_game *game, int x, int y, int size);
 void			ft_draw_circle(int x, int y, int radius, t_game *game);

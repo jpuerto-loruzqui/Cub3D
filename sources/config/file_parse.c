@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:15:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/13 15:27:14 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:53:27 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ static char	**ft_read_file_lines(const char *filename)
 	char	*line;
 	char	**result;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
+	fd = ft_open_file(filename);
 	all = NULL;
-	line = get_next_line(fd);
+	line = ft_first_line(fd);
 	while (line)
 	{
 		tmp = all;
@@ -51,6 +49,19 @@ static char	**ft_read_file_lines(const char *filename)
 	return (free(all), result);
 }
 
+static bool	ft_headers_complete(const t_config *c)
+{
+	return (c->no_texture && c->so_texture && c->we_texture && c->ea_texture
+		&& c->has_floor && c->has_ceiling);
+}
+
+static int	ft_skip_empty(char **lines, int i)
+{
+	while (lines[i] && ft_strlen(lines[i]) == 0)
+		i++;
+	return (i);
+}
+
 bool	ft_parse_cub_file(const char *filename, t_config *conf)
 {
 	char	**lines;
@@ -61,14 +72,15 @@ bool	ft_parse_cub_file(const char *filename, t_config *conf)
 	if (!lines)
 		return (false);
 	ft_bzero(conf, sizeof(t_config));
-	i = 0;
-	while (lines[i] && ft_strlen(lines[i]) == 0)
-		i++;
+	i = ft_skip_empty(lines, 0);
 	while (lines[i] && ft_is_header(lines, i))
+	{
 		if (!ft_parse_header_line(lines[i++], conf))
 			return (ft_free_split(lines), false);
-	while (lines[i] && ft_strlen(lines[i]) == 0)
-		i++;
+	}
+	if (!ft_headers_complete(conf))
+		return (ft_free_split(lines), false);
+	i = ft_skip_empty(lines, i);
 	map_start = i;
 	while (lines[i])
 		i++;

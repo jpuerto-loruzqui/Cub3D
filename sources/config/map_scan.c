@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_scan.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 09:51:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/12 10:05:51 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:51:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,11 @@ static bool	ft_process_cell(const t_config *conf, int y, int x,
 	len = ft_strlen(conf->map[y]);
 	c = conf->map[y][x];
 	if (!ft_valid_char(c))
-	{
-		printf("Error\nInvalid character in map: %c\n", c);
 		return (false);
-	}
 	if (ft_is_player(c))
 		(*player_count)++;
 	if (c == ' ' && !ft_check_space_neighbors(conf, y, x, len))
-	{
-		printf("Error\nSpace adjacent to invalid character at %d,%d\n", y, x);
 		return (false);
-	}
 	return (true);
 }
 

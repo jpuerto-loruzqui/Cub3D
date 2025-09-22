@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_bonus.c                                    :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 11:06:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:57:00 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/09/18 15:20:44 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/09/18 15:22:16 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d_bonus.h"
+#include "../../includes/cub3d.h"
 
 static void	ft_minimap_player_cell(const t_player *player,
 	int *pcx, int *pcy)

@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:06:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/09/01 09:05:33 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/20 10:49:17 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ static void	ft_handle_selection(t_game *game, int *current_selection)
 		game->welcome->selected = true;
 		game->character = *current_selection;
 		game->player.tex = &game->welcome->character[*current_selection];
-		mlx_destroy_image(game->mlx, game->welcome->select);
-		if (*current_selection == 0)
-			mlx_destroy_image(game->mlx,
-				game->welcome->character[1].img);
-		else
-			mlx_destroy_image(game->mlx,
-				game->welcome->character[0].img);
 	}
 }
 
@@ -89,8 +82,6 @@ int	ft_render_welcome(t_game *game)
 	if (game->player.key_enter)
 	{
 		game->welcome->start = true;
-		mlx_destroy_image(game->mlx, game->welcome->img1);
-		mlx_destroy_image(game->mlx, game->welcome->img2);
 		game->player.key_enter = false;
 		return (0);
 	}

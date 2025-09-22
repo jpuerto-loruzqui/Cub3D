@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:31:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/09/16 09:37:18 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/18 19:08:34 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_draw_line(t_player *player, t_game *game, float start_x, int i)
 	t_draw_data	d;
 
 	ft_init_line_data(&d, player, game, start_x);
-	ft_calc_wall_position(&d, player);
+	ft_calc_wall_position(&d, player, game);
 	ft_calc_texture_data(&d, game);
 	ft_draw_wall_column(&d, game, i);
 }
@@ -38,7 +38,7 @@ void	ft_init_line_data(t_draw_data *d, t_player *player, t_game *game,
 		d->end = HEIGHT;
 }
 
-void	ft_calc_wall_position(t_draw_data *d, t_player *player)
+void	ft_calc_wall_position(t_draw_data *d, t_player *player, t_game *game)
 {
 	if (d->l.side == 0)
 		d->wall_x = player->y + d->l.dist * d->l.ray_dir_y;
@@ -47,6 +47,8 @@ void	ft_calc_wall_position(t_draw_data *d, t_player *player)
 	d->wall_x = d->wall_x - floor(d->wall_x / BLOCK) * BLOCK;
 	d->tex_x_normalized = d->wall_x / BLOCK;
 	d->tex_index = ft_get_wall_c(d->l.side, d->l.step_x, d->l.step_y);
+	if (game->map[d->l.map_y][d->l.map_x] == 'C')
+		d->tex_index = CONSOLE_TEX;
 }
 
 void	ft_calc_texture_data(t_draw_data *d, t_game *game)

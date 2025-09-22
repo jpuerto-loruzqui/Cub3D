@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hud_bonus.c                                        :+:      :+:    :+:   */
+/*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 11:06:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/15 12:56:54 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/09/18 15:19:39 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/09/18 15:52:51 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d_bonus.h"
+#include "../../includes/cub3d.h"
 
 static void	ft_put_hp_bar(t_game *game)
 {
@@ -45,5 +45,4 @@ void	ft_render_hud(t_game *game)
 	ft_put_hp_bar(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->player.tex->img,
 		WIDTH -90 - 10, HEIGHT - 90 - 10);
-	// NECESITO PONER LA IMAGEN SOBRE EL BUFFER, CREAR UNA FUNCION
 }

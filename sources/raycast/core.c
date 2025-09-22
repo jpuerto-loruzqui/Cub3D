@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:29:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/09/15 09:54:09 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/09/18 15:52:09 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,19 @@ void	ft_calculate_steps(t_line *l, t_player *player)
 	}
 }
 
-float ft_get_dist(t_player *player, t_line l, float ray_angle)
+float	ft_get_dist(t_player *player, t_line l, float ray_angle)
 {
-    float perp_wall_dist;
-	float corrected_dist;
-	
-    if (l.side == 0)
-        perp_wall_dist = (l.map_x - player->x / BLOCK + (1 - l.step_x) / 2) / l.ray_dir_x;
-    else
-	{
-        perp_wall_dist = (l.map_y - player->y / BLOCK + (1 - l.step_y) / 2) / l.ray_dir_y;
-	}
-	corrected_dist = perp_wall_dist * cos(ray_angle - player->angle);
+	float	perp_wall_dist;
+	float	corrected_dist;
 
-    return corrected_dist * BLOCK;
+	if (l.side == 0)
+		perp_wall_dist = (l.map_x - player->x / BLOCK + (1 - l.step_x) / 2)
+			/ l.ray_dir_x;
+	else
+		perp_wall_dist = (l.map_y - player->y / BLOCK + (1 - l.step_y) / 2)
+			/ l.ray_dir_y;
+	corrected_dist = perp_wall_dist * cos(ray_angle - player->angle);
+	return (corrected_dist * BLOCK);
 }
 
 int	ft_get_wall_c(int side, int step_x, int step_y)

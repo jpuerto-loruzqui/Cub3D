@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student-42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:41:35 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/08/11 11:54:58 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/20 11:25:14 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_key_press(int keycode, t_game *game)
 	if (game->player.key_right || game->player.key_up || game->player.key_left)
 		game->player.running = true;
 	if (keycode == 65307)
-		ft_shutdown_and_close(game);
+		ft_shutdown_and_close(game, 0);
 	return (0);
 }
 

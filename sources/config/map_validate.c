@@ -6,7 +6,7 @@
 /*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:11:57 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/08/16 13:15:30 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:51:41 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static bool	ft_check_top_bottom_border(const t_config *conf, int y)
 	{
 		c = conf->map[y][x++];
 		if (c != '1' && c != ' ')
-		{
-			printf("Error\nMap border not enclosed at y=%d\n", y);
 			return (false);
-		}
 	}
 	return (true);
 }
@@ -44,10 +41,7 @@ static bool	ft_check_row_side_walls(const t_config *conf, int y)
 	while (last > first && conf->map[y][last] == ' ')
 		last--;
 	if (conf->map[y][first] != '1' || conf->map[y][last] != '1')
-	{
-		printf("Error\nMap side not enclosed at line %d\n", y);
 		return (false);
-	}
 	return (true);
 }
 
@@ -76,9 +70,6 @@ bool	ft_validate_map(t_config *conf)
 		y++;
 	}
 	if (player_count != 1)
-	{
-		printf("Error\nInvalid player count: %d\n", player_count);
 		return (false);
-	}
 	return (true);
 }

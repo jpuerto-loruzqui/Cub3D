@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frame.c                                            :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 11:05:03 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/09/20 15:38:25 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/09/20 16:53:46 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/09/20 16:54:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	ft_draw_screen(t_game *game)
+int	ft_open_file(const char *filename)
 {
-	float	start_x;
-	int		i;
-	int		y;
+	int	fd;
 
-	start_x = game->player.angle - PI / 8;
-	i = 0;
-	y = 0;
-	while (y < HEIGHT)
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
 	{
-		ft_draw_floor(game, y);
-		++y;
+		ft_putendl_fd("failed to open fd", 2);
+		exit(1);
 	}
-	while (i < WIDTH)
+	return (fd);
+}
+
+char	*ft_first_line(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	if (!line)
 	{
-		ft_draw_line(&game->player, game, start_x, i);
-		start_x += game->consts.fraction;
-		i++;
+		ft_putendl_fd("Invalid map", 2);
+		exit(1);
 	}
+	return (line);
 }
